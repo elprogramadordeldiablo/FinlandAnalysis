@@ -140,7 +140,7 @@ for(i in unique(Alpha_controls[,"Trail_Sampling.Area"])){
 }
 dev.off()
 
-#CALC_COMPLETENESS
+#CALC_COMPLETENESS ----
 
 # Quero usar o fichero dos contrlos para calcular os estimadores, e daí obter completeness.
 sitescontr <- Alpha_controls[,1]
@@ -152,7 +152,7 @@ alpha.estimate(Alpha_controls)
 
 
 
-###   Calculating functional elements ####
+###   Calculating functional elements ----
 
 ## All species tree and FD Alpha
 dissimAll <- cluster::daisy(Traits, "gower", weights = weights)  # Calculating distances between species
@@ -167,7 +167,7 @@ dev.off()
 #plot(as.dendrogram(tree))
 
 
-## All natives tree and FD Alpha
+# All natives tree and FD Alpha----
 dissimNat <- cluster::daisy(TraitsNat, "gower", weights = weights)  # Calculating distances between species
 treeNat <- hclust(dissimNat, "average")          # building the dendrogrma
 
@@ -180,7 +180,7 @@ dev.off()
 #  plot(as.dendrogram(treeNat))
 str(TraitsNInd)
 
-## All Non-Ind tree and FD Alpha
+# All Non-Ind tree and FD Alpha ----
 dissimNInd <- cluster::daisy(TraitsNInd, "gower", weights = weights)  # Calculating distances between species
 treeNInd <- hclust(dissimNInd, "average")          # building the 
 par(mfrow=c(1,1))
@@ -188,7 +188,7 @@ dev.copy(device = jpeg, filename = 'TreeNInd.jpeg', width = 1000, height = 500)
 plot(treeNInd, hang = -1)  ## PQ O HANG= - 1?
 dev.off()
 
-#######       ALPHAs for All species, Natives and Non-Indigenous ######
+# ALPHAs for All species, Natives and Non-Indigenous ----
 
 #Taxonomical Alpha
 Alpha_All <- alpha(SAAll)
@@ -204,7 +204,7 @@ Alphas <- as.data.frame(cbind(Alpha_All, Alpha_Nat, Alpha_NInd, FDalphaAll, FDal
 colnames(Alphas) <- cbind("TAlphaAll", "TAlphaNat", "TAlphaNInd","FAlphaAll", "FAlphaNat", "FAlphaNInd" )
 Alphas # Will be printed along with BETAS in the RESULTS file
 
-#######      Calculating Betas for All species, Natives and Non-Indigenous
+# Calculating Betas for All species, Natives and Non-Indigenous ----
 # Beta results come as a list (class(BetaAll) = list), so we transform them into data frame to export them into csv
 
 # Taxonomical Beta
@@ -240,7 +240,7 @@ BetaFuncNIndTotal <- as.data.frame(as.matrix(BetaFuncNat[["Btotal"]]), sep= "tab
 BetaFuncNIndRich <- as.data.frame(as.matrix(BetaFuncNat[["Brich"]]), sep= "tab")
 BetaFuncNIndRepl <- as.data.frame(as.matrix(BetaFuncNat[["Brepl"]]), sep= "tab")
 
-## Separating the TAXONOMICAL beta values between the Control 250/Max and the other sampling areas from each trail
+# Separating the TAXONOMICAL beta values between the Control 250/Max and the other sampling areas from each trail ----
 
 A01 <- BetaAllTotal[1,1]
 AA1 <- BetaAllTotal[6,c(2:6)]

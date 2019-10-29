@@ -166,7 +166,7 @@ plot(tree, hang = -1)  ## PQ O HANG= - 1?
 dev.off()
 #plot(as.dendrogram(tree))
 
-
+# sdfjskdfjhskdjf ----
 # All natives tree and FD Alpha----
 dissimNat <- cluster::daisy(TraitsNat, "gower", weights = weights)  # Calculating distances between species
 treeNat <- hclust(dissimNat, "average")          # building the dendrogrma

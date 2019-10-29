@@ -1,6 +1,13 @@
-# RETOAR NA 364
+# Header ----
 
-# INDICE REMESSIVO (USAR CÓDIGO NA FUNÇÃO SEARCH)
+# Name: Rui Miguel Carvalho
+# Date of creation: 10/13/2012
+# Date of last update: 
+# 
+# 
+
+# Index ----
+
 # CALC COMPLETENESS - Faz as curvas de acumulação para os controlos 250
 #  SETTTING FILES
 #  CALC_COMPLETENESS
@@ -15,7 +22,7 @@
 # GLMM - 478
 
 
-
+# Libraries ----
 library(BAT)
 library(FD) 
 library(alphahull)
@@ -29,6 +36,9 @@ library(lme4)
 
 
 setwd("C:/ArthropodsArticle/2.0 _Finland_Analysis")
+here
+
+# Files upload ----
 
 #Ficheiro com as variável de distâncias com edge, trilhos e etc - para o GLMM
 Variables <- read.csv2("GLMM_Variables.csv", header = TRUE)
@@ -103,8 +113,7 @@ Weightsfile <- read.csv2("Weight_Ratios_Traits.csv", header = TRUE)
 weights <- Weightsfile[,-c(1:4)]
 weights <- as.vector(weights)
 
-
-## CALCULATING COMPLETENESS FOR THE CONTROLS FOR BETA ANALYSYS  
+# CALCULATING COMPLETENESS FOR THE CONTROLS FOR BETA ANALYSYS ----
 
 Alpha_controls <- read.csv2("Control250_Fin.csv", header = TRUE)
 

@@ -6,7 +6,7 @@
 # 
 # 
 
-# Index ----
+# Index --------------------
 
 # CALC COMPLETENESS - Faz as curvas de acumulação para os controlos 250
 #  SETTTING FILES
@@ -22,8 +22,9 @@
 # GLMM - 478
 
 
-# Libraries ----
+# Libraries -----------------------------------------------
 library(BAT)
+library(readr)
 library(FD) 
 library(alphahull)
 library(hypervolume)
@@ -32,29 +33,56 @@ library(MASS)
 library(lme4)
 #source(file = "HighstatLibV10.R") #cool tools to support
 #library(factoextra) # Useful for PCA analysis
+library(here)
 
 
 
 setwd("C:/ArthropodsArticle/2.0 _Finland_Analysis")
 here
 
-# Files upload ----
+# Load files --------------------
 
 #Ficheiro com as variável de distâncias com edge, trilhos e etc - para o GLMM
-Variables <- read.csv2("GLMM_Variables.csv", header = TRUE)
-Variables <- Variables
+#Variables <- read.csv2("GLMM_Variables.csv", header = TRUE, stringsAsFactors = F, na.strings = "-")
+#Variables <- Variables
+#str(Variables)
+
+# Nova versão, copiada do menu Import Dataset. opção readr:
+Variables <- read_delim("GLMM_Variables.csv", ";", escape_double = FALSE, 
+                             col_types = cols(Dist_edge = col_number(), 
+                            Dist_trail = col_number(), Dist_trail_beginning = col_number()), 
+                             trim_ws = TRUE)
+View(Variables)
 
 # Ficheiro com as abundâncias por amostra para os controlos 250/Max.
 Alpha_controls <- read.csv2("Control250_Fin.csv", header = TRUE)
+str(Alpha_controls)
+
 
 # Matrix with species (rows)x traits (cols) for all species in all plots
-Traits <- read.csv2("Traits_All_Fin.csv", header = TRUE)
+#Traits <- read.csv2("Traits_All_Fin.csv", header = TRUE)
+
+
+#This was copied from the export menu: 
+Traits <- read_delim("Traits_All_Fin.csv", 
+                             ";", escape_double = FALSE, col_types = cols(`Female Avg` = col_number(), 
+                                                                          `Female max` = col_number(), `Female min` = col_number(), 
+                                                                           MF = col_character(), `Male Avg` = col_number(), 
+                                                                          `Male max` = col_number(), `Male min` = col_number(), 
+                                                                          Nocturnality = col_number(), Verticality = col_number()), 
+                             locale = locale(), trim_ws = TRUE)
+str(Traits)
+# But I am going to have trouble to apply rownames further ahead because this is a Tibble. I will then convert
+# it to a data frame
+
+Traits <- data.frame(Traits)
 species <- Traits[,1]
-Traits <- Traits[,-c(1:4)] 
 rownames(Traits) <- species
+Traits <- Traits[,-c(1:4)] 
 
 # Matrix with species (rows)x traits (cols) for all natives species in all plots
-TraitsNat <- read.csv2("Traits_Nat_Fin.csv", header = TRUE)
+TraitsNat <- read.csv2("Traits_Nat_Fin.csv", header = TRUE, stringsAsFactors = F)
+str(TraitsNat)
 species_nat <- TraitsNat[,1]
 TraitsNat <- TraitsNat[,-c(1:4)] 
 rownames(TraitsNat) <- species_nat

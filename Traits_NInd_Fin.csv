@@ -1,20 +1,20 @@
-MF;SPECIES;FAMILY;FAMILY;N/E/I;IND/NON-IND;HABITAT-Leaves, branches, flowers, seeds, fruits (surface);HABITAT-inside stems, roots, fruits, pods, fungi;HABITAT-Ground;HABITAT-Under stones, bark, twigs;HABITAT-Decaying matter;HABITAT-Subterranean;Female min;Female max;Female Avg;Male min;Male max;Male Avg;Dispersal;Verticality;Nocturnality;Capture web;Sensing web;No web;Tube web;Sheet web;Space web;Orb web ;Ambush hunter;Active hunter;Stenophagous / Not Euryphagous
-21;Tenuiphantes_tenuis;(Blackwall)    ;Linyphiidae;I;NON-IND;1;0;0;0;1;0;2;4.3;3.15;1.8;3.2;2.5;F;0.12;0.63;1;0;0;0;1;1;0;0;0;0
-24;Mermessus_fradeorum;(Berland)    ;Linyphiidae;I;NON-IND;1;0;0;0;1;0;2.9;3;2.95;2.6;3.1;2.85;F;-;-;0;0;1;0;0;0;0;0;1;0
-28;Dysdera_crocata;C. L. Koch  ;Dysderidae;I;NON-IND;0;0;1;1;1;0;8.5;15;11.75;8.5;11.1;9.8;R;0;-;0;0;1;0;0;0;0;0;1;1
-133;Metellina_merianae;(Scopoli)    ;Tetragnathidae;I;NON-IND;1;0;0;0;0;0;5.6;12;8.8;4.9;8;6.45;O;0.66;0.93;1;0;0;0;0;0;1;0;0;0
-140;Ero_furcata;(Villers)    ;Mimetidae;I;NON-IND;1;0;0;0;0;0;2;4.8;3.4;2.5;3.2;2.85;R;0.32;0.8;0;0;1;0;0;0;0;0;1;1
-228;Mangora_acalypha;(Walckenaer)    ;Araneidae;I;NON-IND;1;0;0;0;0;0;2.4;6;4.2;2;3.5;2.75;F;0.48;0.61;1;0;0;0;0;0;1;0;0;0
-233;Oedothorax_fuscus;(Blackwall)    ;Linyphiidae;I;NON-IND;1;0;0;0;0;0;2.1;3;2.55;1.5;2.3;1.9;F;0.33;0.6;0;0;1;0;0;0;0;0;1;0
-234;Erigone_autumnalis;Emerton    ;Linyphiidae;I;NON-IND;1;0;0;0;1;0;1.3;1.7;1.5;1.1;1.5;1.3;F;0.5;1;0;0;1;0;0;0;0;0;1;0
-249;Mermessus_bryantae;(Ivie & Barrows)  ;Linyphiidae;I;NON-IND;1;0;0;0;1;0;1.3;2;1.65;1.4;2;1.7;F;0.67;1;0;0;1;0;0;0;0;0;1;0
-250;Xysticus_nubilus;Simon    ;Thomisidae;I;NON-IND;1;0;0;0;0;0;5.2;7;6.1;3;4;3.5;O;-;-;0;0;1;0;0;0;0;1;0;0
-260;Prinerigone_vagans;(Audouin)    ;Linyphiidae;I;NON-IND;1;0;0;0;0;0;1.8;3;2.4;1.2;2.8;2;F;0.29;0;0;0;1;0;0;0;0;0;1;0
-330;Meioneta_fuscipalpa;(C.L. Koch)   ;Linyphiidae;I;NON-IND;1;0;0;0;1;0;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-
-488;Cryptachaea_blattea;(Urquhart)    ;Theridiidae;I;NON-IND;1;0;0;0;0;0;2.2;3.6;2.9;1.7;2.4;2.05;O;0.11;0.69;1;0;0;0;0;1;0;0;0;0
-559;Rhomphaea_nasica;(Simon)    ;Theridiidae;I;NON-IND;1;0;0;0;0;0;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-
-618;Nigma_puella;(Simon)    ;Dictynidae;I;NON-IND;1;0;0;0;0;0;2;3.4;2.7;1.6;2.8;2.2;R;0.88;0.43;1;0;0;0;0;1;0;0;0;0
-735;Neriene_clathrata;(Sundevall)    ;Linyphiidae;I;NON-IND;1;0;0;0;0;0;3;5.5;4.25;3.6;4.8;4.2;F;0.44;1;1;0;0;0;1;1;0;0;0;0
-869;Steatoda_nobilis;(Thorell)    ;Theridiidae;I;NON-IND;1;0;0;0;0;0;7.6;14;10.8;5.6;11.4;8.5;O;0.67;0.98;1;0;0;0;0;1;0;0;0;0
-927;Cheiracanthium_erraticum;(Walckenaer)    ;Eutichuridae;I;NON-IND;1;0;0;0;0;0;7.9;9.3;8.6;5;8.3;6.65;R;0.81;0.53;0;0;1;0;0;0;0;0;1;0
-1309;Neoscona_crucifera;(Lucas)    ;Araneidae;I;NON-IND;0;0;0;0;0;0;4.7;10.7;7.7;6.2;7.7;6.95;F;0.6;0.91;1;0;0;0;0;0;1;0;0;0
+MF;SPECIES;FAMILY;FAMILY;N/E/I;IND/NONNAIND;HABITATNALeaves, branches, flowers, seeds, fruits (surface);HABITATNAinside stems, roots, fruits, pods, fungi;HABITATNAGround;HABITATNAUnder stones, bark, twigs;HABITATNADecaying matter;HABITATNASubterranean;Female min;Female max;Female Avg;Male min;Male max;Male Avg;Dispersal;Verticality;Nocturnality;Capture web;Sensing web;No web;Tube web;Sheet web;Space web;Orb web ;Ambush hunter;Active hunter;Stenophagous / Not Euryphagous
+21;Tenuiphantes_tenuis;(Blackwall)    ;Linyphiidae;I;NONNAIND;1;0;0;0;1;0;2;4.3;3.15;1.8;3.2;2.5;F;0.12;0.63;1;0;0;0;1;1;0;0;0;0
+24;Mermessus_fradeorum;(Berland)    ;Linyphiidae;I;NONNAIND;1;0;0;0;1;0;2.9;3;2.95;2.6;3.1;2.85;F;NA;NA;0;0;1;0;0;0;0;0;1;0
+28;Dysdera_crocata;C. L. Koch  ;Dysderidae;I;NONNAIND;0;0;1;1;1;0;8.5;15;11.75;8.5;11.1;9.8;R;0;NA;0;0;1;0;0;0;0;0;1;1
+133;Metellina_merianae;(Scopoli)    ;Tetragnathidae;I;NONNAIND;1;0;0;0;0;0;5.6;12;8.8;4.9;8;6.45;O;0.66;0.93;1;0;0;0;0;0;1;0;0;0
+140;Ero_furcata;(Villers)    ;Mimetidae;I;NONNAIND;1;0;0;0;0;0;2;4.8;3.4;2.5;3.2;2.85;R;0.32;0.8;0;0;1;0;0;0;0;0;1;1
+228;Mangora_acalypha;(Walckenaer)    ;Araneidae;I;NONNAIND;1;0;0;0;0;0;2.4;6;4.2;2;3.5;2.75;F;0.48;0.61;1;0;0;0;0;0;1;0;0;0
+233;Oedothorax_fuscus;(Blackwall)    ;Linyphiidae;I;NONNAIND;1;0;0;0;0;0;2.1;3;2.55;1.5;2.3;1.9;F;0.33;0.6;0;0;1;0;0;0;0;0;1;0
+234;Erigone_autumnalis;Emerton    ;Linyphiidae;I;NONNAIND;1;0;0;0;1;0;1.3;1.7;1.5;1.1;1.5;1.3;F;0.5;1;0;0;1;0;0;0;0;0;1;0
+249;Mermessus_bryantae;(Ivie & Barrows)  ;Linyphiidae;I;NONNAIND;1;0;0;0;1;0;1.3;2;1.65;1.4;2;1.7;F;0.67;1;0;0;1;0;0;0;0;0;1;0
+250;Xysticus_nubilus;Simon    ;Thomisidae;I;NONNAIND;1;0;0;0;0;0;5.2;7;6.1;3;4;3.5;O;NA;NA;0;0;1;0;0;0;0;1;0;0
+260;Prinerigone_vagans;(Audouin)    ;Linyphiidae;I;NONNAIND;1;0;0;0;0;0;1.8;3;2.4;1.2;2.8;2;F;0.29;0;0;0;1;0;0;0;0;0;1;0
+330;Meioneta_fuscipalpa;(C.L. Koch)   ;Linyphiidae;I;NONNAIND;1;0;0;0;1;0;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA
+488;Cryptachaea_blattea;(Urquhart)    ;Theridiidae;I;NONNAIND;1;0;0;0;0;0;2.2;3.6;2.9;1.7;2.4;2.05;O;0.11;0.69;1;0;0;0;0;1;0;0;0;0
+559;Rhomphaea_nasica;(Simon)    ;Theridiidae;I;NONNAIND;1;0;0;0;0;0;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA;NA
+618;Nigma_puella;(Simon)    ;Dictynidae;I;NONNAIND;1;0;0;0;0;0;2;3.4;2.7;1.6;2.8;2.2;R;0.88;0.43;1;0;0;0;0;1;0;0;0;0
+735;Neriene_clathrata;(Sundevall)    ;Linyphiidae;I;NONNAIND;1;0;0;0;0;0;3;5.5;4.25;3.6;4.8;4.2;F;0.44;1;1;0;0;0;1;1;0;0;0;0
+869;Steatoda_nobilis;(Thorell)    ;Theridiidae;I;NONNAIND;1;0;0;0;0;0;7.6;14;10.8;5.6;11.4;8.5;O;0.67;0.98;1;0;0;0;0;1;0;0;0;0
+927;Cheiracanthium_erraticum;(Walckenaer)    ;Eutichuridae;I;NONNAIND;1;0;0;0;0;0;7.9;9.3;8.6;5;8.3;6.65;R;0.81;0.53;0;0;1;0;0;0;0;0;1;0
+1309;Neoscona_crucifera;(Lucas)    ;Araneidae;I;NONNAIND;0;0;0;0;0;0;4.7;10.7;7.7;6.2;7.7;6.95;F;0.6;0.91;1;0;0;0;0;0;1;0;0;0

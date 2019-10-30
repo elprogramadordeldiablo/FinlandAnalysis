@@ -37,7 +37,6 @@ library(here)
 
 
 
-setwd("C:/ArthropodsArticle/2.0 _Finland_Analysis")
 here
 
 # Load files --------------------
@@ -60,64 +59,24 @@ str(Alpha_controls)
 
 
 # Matrix with species (rows)x traits (cols) for all species in all plots
-Traits <-read.csv2("Traits_All_Fin.csv", stringsAsFactors = FALSE)
-factor(Traits[,1])
+
+
+Traits  <- read.csv2(here("Traits_All_Fin.csv"), row.names=1, header=TRUE,  stringsAsFactors = T, dec = ".")
+Traits <- Traits[,-c(1:3)] 
 str(Traits)
 
-#This was copied from the export menu: 
-Traits <- read_delim("Traits_All_Fin.csv",
-                             ";", escape_double = FALSE, col_types = cols(`Female Avg` = col_number(),
-                                                                          `Female max` = col_number(), `Female min` = col_number(),
-                                                                           MF = col_character(), `Male Avg` = col_number(),
-                                                                          `Male max` = col_number(), `Male min` = col_number(),
-                                                                          Nocturnality = col_number(), Verticality = col_number()),
-                             locale = locale(), trim_ws = TRUE)
-factor(Traits[,1])
-str()
+
+# Matrix with species (rows)x traits (cols) for all natives species in all plots
+
+Traits  <- read.csv2(here("Traits_Nat_Fin.csv"), row.names=1, header=TRUE,  stringsAsFactors = T, dec = ".")
+Traits <- Traits[,-c(1:3)] 
 str(Traits)
-# But I am going to have trouble to apply rownames further ahead because this is a Tibble. I will then convert
-# it to a data frame
 
-Traits <- data.frame(Traits)
-species <- Traits[,1]
-rownames(Traits) <- species
-Traits <- Traits[,-c(1:4)] 
+# Matrix with species (rows)x traits (cols) for all Non-Indigenous species in all plots
 
-#João Malato version
-data.traitsAll  <- read.csv2(here("Traits_All_Fin.csv"), na.strings = "-", stringsAsFactors = T, dec = ".")
-str(data.traitsAll)
-
-# Matrix with species (rows)x traits (cols) for all natives species in all plots ----
-#TraitsNat <- read.csv2("Traits_Nat_Fin.csv", header = TRUE, stringsAsFactors = F)
-
-TraitsNat <- read_delim("Traits_Nat_Fin.csv", 
-                             ";", escape_double = FALSE, col_types = cols(`Female Avg` = col_number(), 
-                                                                          `Female max` = col_number(), `Female min` = col_number(), 
-                                                                          MF = col_character(), `Male Avg` = col_number(), 
-                                                                          `Male max` = col_number(), `Male min` = col_number(), 
-                                                                          Nocturnality = col_number(), Verticality = col_number()), 
-                             trim_ws = TRUE)
-TraitsNat <- data.frame(TraitsNat)
-str(TraitsNat)
-species_nat <- TraitsNat[,1]
-rownames(TraitsNat) <- species_nat
-TraitsNat <- TraitsNat[,-c(1:4)] 
-
-# Matrix with species (rows)x traits (cols) for all Non-Indigenous species in all plots----
-#TraitsNInd <- read.csv2("Traits_NInd_Fin.csv", header = TRUE)
-
-TraitsNInd <- read_delim("Traits_NInd_Fin.csv", 
-                              ";", escape_double = FALSE, col_types = cols(`Female Avg` = col_number(), 
-                                                                           `Female max` = col_number(), `Female min` = col_number(), 
-                                                                           MF = col_character(), `Male Avg` = col_number(), 
-                                                                           `Male max` = col_number(), `Male min` = col_number(), 
-                                                                           Nocturnality = col_number(), Verticality = col_number()), 
-                              trim_ws = TRUE)
-View(TraitsNInd)
-TraitsNInd <- data.frame(TraitsNInd)
-species_nind <- TraitsNInd[,1]
-rownames(TraitsNInd) <- species_nind
-TraitsNInd <- TraitsNInd[,-c(1:4)] 
+Traits  <- read.csv2(here("Traits_NInd_Fin.csv"), row.names=1, header=TRUE,  stringsAsFactors = T, dec = ".")
+Traits <- Traits[,-c(1:3)] 
+str(Traits)
 
 
 # Ficheiro com as abundâncias por Área de amostragem, para todas as amostras

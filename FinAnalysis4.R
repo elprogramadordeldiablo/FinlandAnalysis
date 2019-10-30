@@ -60,17 +60,17 @@ str(Alpha_controls)
 
 
 # Matrix with species (rows)x traits (cols) for all species in all plots
-#Traits <- read.csv2("Traits_All_Fin.csv", header = TRUE)
+Traits <- read.csv2("Traits_All_Fin.csv", na.strings = FALSE)
 
 
 #This was copied from the export menu: 
-Traits <- read_delim("Traits_All_Fin.csv", 
-                             ";", escape_double = FALSE, col_types = cols(`Female Avg` = col_number(), 
-                                                                          `Female max` = col_number(), `Female min` = col_number(), 
-                                                                           MF = col_character(), `Male Avg` = col_number(), 
-                                                                          `Male max` = col_number(), `Male min` = col_number(), 
-                                                                          Nocturnality = col_number(), Verticality = col_number()), 
-                             locale = locale(), trim_ws = TRUE)
+# #Traits <- read_delim("Traits_All_Fin.csv", 
+#                              ";", escape_double = FALSE, col_types = cols(`Female Avg` = col_number(), 
+#                                                                           `Female max` = col_number(), `Female min` = col_number(), 
+#                                                                            MF = col_character(), `Male Avg` = col_number(), 
+#                                                                           `Male max` = col_number(), `Male min` = col_number(), 
+#                                                                           Nocturnality = col_number(), Verticality = col_number()), 
+#                              locale = locale(), trim_ws = TRUE)
 str(Traits)
 # But I am going to have trouble to apply rownames further ahead because this is a Tibble. I will then convert
 # it to a data frame
@@ -80,21 +80,45 @@ species <- Traits[,1]
 rownames(Traits) <- species
 Traits <- Traits[,-c(1:4)] 
 
-# Matrix with species (rows)x traits (cols) for all natives species in all plots
-TraitsNat <- read.csv2("Traits_Nat_Fin.csv", header = TRUE, stringsAsFactors = F)
+#João Malato version
+#data.traitsAll  <- read.csv2(here("Traits_All_Fin.csv"), na.strings = "-", stringsAsFactors = T, dec = ".")
+#str(data.traitsAll)
+
+# Matrix with species (rows)x traits (cols) for all natives species in all plots ----
+#TraitsNat <- read.csv2("Traits_Nat_Fin.csv", header = TRUE, stringsAsFactors = F)
+
+TraitsNat <- read_delim("Traits_Nat_Fin.csv", 
+                             ";", escape_double = FALSE, col_types = cols(`Female Avg` = col_number(), 
+                                                                          `Female max` = col_number(), `Female min` = col_number(), 
+                                                                          MF = col_character(), `Male Avg` = col_number(), 
+                                                                          `Male max` = col_number(), `Male min` = col_number(), 
+                                                                          Nocturnality = col_number(), Verticality = col_number()), 
+                             trim_ws = TRUE)
+TraitsNat <- data.frame(TraitsNat)
 str(TraitsNat)
 species_nat <- TraitsNat[,1]
-TraitsNat <- TraitsNat[,-c(1:4)] 
 rownames(TraitsNat) <- species_nat
+TraitsNat <- TraitsNat[,-c(1:4)] 
 
-# Matrix with species (rows)x traits (cols) for all Non-Indigenous species in all plots
-TraitsNInd <- read.csv2("Traits_NInd_Fin.csv", header = TRUE)
+# Matrix with species (rows)x traits (cols) for all Non-Indigenous species in all plots----
+#TraitsNInd <- read.csv2("Traits_NInd_Fin.csv", header = TRUE)
+
+TraitsNInd <- read_delim("Traits_NInd_Fin.csv", 
+                              ";", escape_double = FALSE, col_types = cols(`Female Avg` = col_number(), 
+                                                                           `Female max` = col_number(), `Female min` = col_number(), 
+                                                                           MF = col_character(), `Male Avg` = col_number(), 
+                                                                           `Male max` = col_number(), `Male min` = col_number(), 
+                                                                           Nocturnality = col_number(), Verticality = col_number()), 
+                              trim_ws = TRUE)
+View(TraitsNInd)
+TraitsNInd <- data.frame(TraitsNInd)
 species_nind <- TraitsNInd[,1]
-TraitsNInd <- TraitsNInd[,-c(1:4)] 
 rownames(TraitsNInd) <- species_nind
+TraitsNInd <- TraitsNInd[,-c(1:4)] 
+
 
 # Ficheiro com as abundâncias por Área de amostragem, para todas as amostras
-SAAll <- read.csv2("All_Fin.csv", header = TRUE)
+SAAll <- read.csv2(here("All_Fin.csv"))
 sites <- SAAll[,1]
 SAAll <- SAAll[,-1] 
 rownames(SAAll) <- sites
@@ -105,7 +129,7 @@ SAAll
 
 # Ficheiro com as abundâncias por área de amostragem, para as espécies indígenas
 
-SANat <- read.csv2("Nat_Fin.csv", header = TRUE)
+SANat <- read.csv2(here("Nat_Fin.csv"))
 sites <- SANat[,1]
 SANat <- SANat[,-1] 
 rownames(SANat) <- sites
@@ -115,7 +139,7 @@ SANat <- decostand(SANat, "hellinger")
 SANat
 
 # Ficheiro com as abundâncias por área de amostragem, para as espécies não-indígenas
-SANInd <- read.csv2("NInd_Fin.csv", header = TRUE)
+SANInd <- read.csv2(here("NInd_Fin.csv"))
 sites <- SANInd[,1]
 SANInd <- SANInd[,-1] 
 rownames(SANInd) <- sites
@@ -126,7 +150,7 @@ SANInd <- decostand(SANInd, "hellinger")
 SANInd
 
 # Vector with weight trail and treatment names for MDS
-MDSfile <- read.csv2("MDS_vectors.csv", header = TRUE)
+MDSfile <- read.csv2("MDS_vectors.csv")
 trail <- MDSfile[,1]
 trail
 trail <- as.vector(trail)
@@ -137,10 +161,23 @@ str(treatment)
 
 # Vector with weight ratios for trails - used in cluster::daisy to compensate decomposition of one variable by
 # multiple columns
-Weightsfile <- read.csv2("Weight_Ratios_Traits.csv", header = TRUE)
+Weightsfile <- read.csv2("Weight_Ratios_Traits.csv", header = TRUE, dec=".")
 weights <- Weightsfile[,-c(1:4)]
 weights <- as.vector(weights)
 
+# Looking into the datasets -------------------------------
+
+# Ver as estruturas dos dados (garantir os factors e os valores numericos)
+str(Variables)
+str(data.controls)
+str(Traits)
+str(TraitsNat)
+str(TraitsNInd)
+str(SAAll)
+str(SANat)
+str(SANInd)
+str(weights)
+str(treatment)
 # CALCULATING COMPLETENESS FOR THE CONTROLS FOR BETA ANALYSYS ----
 
 Alpha_controls <- read.csv2("Control250_Fin.csv", header = TRUE)
@@ -173,9 +210,9 @@ dev.off()
 # Quero usar o fichero dos contrlos para calcular os estimadores, e daí obter completeness.
 sitescontr <- Alpha_controls[,1]
 species_contr <- Alpha_controls[,1]
-Alpha_controls <- Alpha_controls[,-1]
 rownames(Alpha_controls) <-sitescontr
 colnames(Alpha_controls) <- species_contr
+Alpha_controls <- Alpha_controls[,-1]
 alpha.estimate(Alpha_controls)
 
 

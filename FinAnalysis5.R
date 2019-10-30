@@ -36,25 +36,18 @@ library(lme4)
 library(here)
 
 
-
-here
-
 # Load files --------------------
 
 #Ficheiro com as variável de distâncias com edge, trilhos e etc - para o GLMM
-#Variables <- read.csv2("GLMM_Variables.csv", header = TRUE, stringsAsFactors = F, na.strings = "-")
-#Variables <- Variables
-#str(Variables)
 
-# Nova versão, copiada do menu Import Dataset. opção readr:
-Variables <- read_delim("GLMM_Variables.csv", ";", escape_double = FALSE, 
-                             col_types = cols(Dist_edge = col_number(), 
-                            Dist_trail = col_number(), Dist_trail_beginning = col_number()), 
-                             trim_ws = TRUE)
-View(Variables)
+Variables <- read.csv2(here("GLMM_Variables.csv"), row.names=1, header=TRUE,  stringsAsFactors = T, dec = ".")
+Variables$Dist_trail <- as.numeric(Variables$Dist_trail)
+Variables$Dist_edge <- as.numeric(Variables$Dist_edge)
+Variables$Dist_trail_beginning <- as.numeric(Variables$Dist_trail_beginning)
+str(Variables)
 
 # Ficheiro com as abundâncias por amostra para os controlos 250/Max.
-Alpha_controls <- read.csv2("Control250_Fin.csv", header = TRUE)
+Alpha_controls <- read.csv2(here("Control250_Fin.csv"), header=TRUE,  stringsAsFactors = T, dec = ".")
 str(Alpha_controls)
 
 
@@ -112,7 +105,7 @@ SANInd <- decostand(SANInd, "hellinger")
 SANInd
 
 # Vector with weight trail and treatment names for MDS
-MDSfile <- read.csv2("MDS_vectors.csv")
+MDSfile <- read.csv2(here("MDS_vectors.csv"))
 trail <- MDSfile[,1]
 trail
 trail <- as.vector(trail)
@@ -131,7 +124,7 @@ weights <- as.vector(weights)
 
 # Ver as estruturas dos dados (garantir os factors e os valores numericos)
 str(Variables)
-str(data.controls)
+str(Alpha_controls)
 str(Traits)
 str(TraitsNat)
 str(TraitsNInd)
@@ -408,13 +401,14 @@ Betas <- as.data.frame( t(rbind(
   BetaFuncNatTotalVector, BetaFuncNatRichVector, BetaFuncNatReplVector,
   BetaNIndTotalVector, BetaNIndRichVector, BetaNIndReplVector,
   BetaFuncNIndTotalVector, BetaFuncNIndRichVector, BetaFuncNIndReplVector)))
+
+str(Betas)
+
+
 ## Exporting TAXONOMICAL beta results to .csv (for the record - it won't be usedin analysis, as the RESULTS 
 ##      file compiles all the  useable results )
 
-XXXYYY <- Betas
-XXXYYY
-sdfsdf<- Alphas
-sdfsdf
+
 
 write.csv(BetaAllTotal,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaResults/BetaAllTotal.csv")
 write.csv(BetaAllRich,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaResults/BetaAllRich.csv")
@@ -439,60 +433,6 @@ write.csv(BetaFuncNIndTotal,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/B
 write.csv(BetaFuncNIndRich,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaFuncResults/BetaFuncNIndRich.csv")
 write.csv(BetaFuncNIndRepl,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaFuncResults/BetaFuncNIndRepl.csv")
 
-
-##  abundance per site
-raref.td <- alpha(SAAll, raref=1) #An integer specifying the number of individuals for rarefaction 
-#(individual based). If raref < 1 no rarefaction is made. If raref = 1 rarefaction is made by the minimum 
-#abundance among all sites. If raref > 1 rarefaction is made by the abundance indicated. If not specified, 
-#default is 0.
-raref.td <- alpha (SAAll, raref=1, runs=1000)
-raref.fd <- alpha (SAAll, tree, raref=1, runs=1000)
-
-par (mfrow=c(1,2), cex = 1,5, mar=c(11,6,2,2))
-
-dev.copy(device = jpeg, filename = ' TD and FD Rarefaction Boxplots.jpeg', width = 1000, height = 500)
-boxplot(t(raref.td), names=sites, main="TD rarefaction", ylab=expression(alpha), las = 2)
-boxplot(t(raref.fd), names=sites, main="FD rarefaction", ylab=expression(alpha), las = 2)
-dev.off()
-
-
-
-rarefNat.td <- alpha (SANat, raref=1, runs=1000)
-rarefNat.fd <- alpha (SANat, treeNat, raref=1, runs=1000)
-
-par (mfrow=c(1,2), cex = 1,5, mar=c(11,6,2,2))
-
-dev.copy(device = jpeg, filename = ' TD and FD Nat Rarefaction Boxplots.jpeg', width = 1000, height = 500)
-boxplot(t(rarefNat.td), names=sites, main="TD rarefaction", ylab=expression(alpha), las = 2)
-boxplot(t(rarefNat.fd), names=sites, main="FD rarefaction", ylab=expression(alpha), las = 2)
-dev.off()
-
-rarefNInd.td <- alpha (SANInd, raref=1, runs=1000)
-rarefNInd.fd <- alpha (SANInd, treeNInd, raref=1, runs=1000)
-
-par (mfrow=c(1,2), cex = 1,5, mar=c(11,6,2,2))
-
-dev.copy(device = jpeg , filename = ' TD and FD NInd Rarefaction Boxplots.jpeg', width = 1000, height = 500)
-boxplot(t(rarefNInd.td), names=sites, main="TD rarefaction", ylab=expression(alpha), las = 2)
-boxplot(t(rarefNInd.fd), names=sites, main="FD rarefaction", ylab=expression(alpha), las = 2)
-dev.off()
-
-## To assess functional diversity of each site
-# matrix with all sites's abundances for each species
-#make ahh collumn headers be the same
-
-
-BAT::dispersion(SAAll, tree)
-
-
-beta.multi(SAAll, tree)
-# Average   Variance
-# Btotal 0.4554385 0.05825376
-# Brepl  0.2412576 0.03085853
-# Brich  0.2141809 0.02739523
-
-
-
 ###########################################################################
 #####                            RESULTS                              #####
 ###########################################################################
@@ -501,24 +441,14 @@ beta.multi(SAAll, tree)
 Results <- cbind.data.frame(Variables, Alphas, Betas)
 str(Results)
 
-Results4 <- as.data.frame(matrix(Results))
-str(Results4)
-
-Results2 <- as.list(cbind.data.frame(Variables, Alphas, Betas))
-str(Results)
-Results8 <- read.csv("RESULTS2.csv", header = TRUE)
-
-
-
-
 #MAKING THE RESULTS EXPORTABLE INTO CSV
-Results <- apply(Results, 2 , as.character)
+#Results <- apply(Results, 2 , as.character)
 
 #NAMING THE TRAIL SEGMENTS
 rownames(Results) <- rownames(Alphas)
 
 #PASSING RESULTS TO FILE
-write.csv(Results, file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/RESULTS.csv")
+write.csv(Results, file = ("C:/ArthropodsArticle/FinlandAnalysis/RESULTS.csv"))
 
 
 Results3 <- read.csv("RESULTS.csv", header = TRUE)
@@ -647,7 +577,7 @@ Results8 <- read.csv("RESULTS2.csv", header = TRUE)
 
 #TAlphaAll
 
-glmm_TAlphaAll_AB<-glmer(TAlphaAll ~ Dist_edge + Dist_trail_beginning + (1 | ForestID), data = Results8 , family = poisson)
+glmm_TAlphaAll_AB<-glmer(TAlphaAll ~ Dist_edge + Dist_trail_beginning + (1 | ForestID), data = Results , family = poisson)
 summary(glmm_TAlphaAll_AB)
 
 glmmT_AlphaAll_A<-glmer(TAlphaAll ~ Dist_edge + (1 | ForestID), data = Results8, family = poisson)

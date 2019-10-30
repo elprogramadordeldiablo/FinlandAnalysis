@@ -239,25 +239,25 @@ BetaFuncNInd <- beta(SANInd, treeNInd, abund= T)
 
 
 ## Separating Total, Richness and Replacement  TAXONOMICAL betas into different data frames
-BetaAllTotal <- as.data.frame(as.matrix(BetaAll[["Btotal"]]), sep= "tab")
-BetaAllRich <- as.data.frame(as.matrix(BetaAll[["Brich"]]), sep= "tab")
-BetaAllRepl <- as.data.frame(as.matrix(BetaAll[["Brepl"]]), sep= "tab")
-BetaNatTotal <- as.data.frame(as.matrix(BetaNat[["Btotal"]]), sep= "tab")
-BetaNatRich <- as.data.frame(as.matrix(BetaNat[["Brich"]]), sep= "tab")
-BetaNatRepl <- as.data.frame(as.matrix(BetaNat[["Brepl"]]), sep= "tab")
-BetaNIndTotal <- as.data.frame(as.matrix(BetaNat[["Btotal"]]), sep= "tab")
-BetaNIndRich <- as.data.frame(as.matrix(BetaNat[["Brich"]]), sep= "tab")
-BetaNIndRepl <- as.data.frame(as.matrix(BetaNat[["Brepl"]]), sep= "tab")
+BetaAllTotal <- data.frame(as.matrix(BetaAll[["Btotal"]]), sep= "tab")
+BetaAllRich <- data.frame(as.matrix(BetaAll[["Brich"]]), sep= "tab")
+BetaAllRepl <- data.frame(as.matrix(BetaAll[["Brepl"]]), sep= "tab")
+BetaNatTotal <- data.frame(as.matrix(BetaNat[["Btotal"]]), sep= "tab")
+BetaNatRich <- data.frame(as.matrix(BetaNat[["Brich"]]), sep= "tab")
+BetaNatRepl <- data.frame(as.matrix(BetaNat[["Brepl"]]), sep= "tab")
+BetaNIndTotal <- data.frame(as.matrix(BetaNat[["Btotal"]]), sep= "tab")
+BetaNIndRich <- data.frame(as.matrix(BetaNat[["Brich"]]), sep= "tab")
+BetaNIndRepl <- data.frame(as.matrix(BetaNat[["Brepl"]]), sep= "tab")
 
 ## Separating Total, Richness and Replacement  FUNCTIONAL betas into different data frames
-BetaFuncAllTotal <- as.data.frame(as.matrix(BetaFuncAll[["Btotal"]]), sep= "tab")
-BetaFuncAllRich <- as.data.frame(as.matrix(BetaFuncAll[["Brich"]]), sep= "tab")
-BetaFuncAllRepl <- as.data.frame(as.matrix(BetaFuncAll[["Brepl"]]), sep= "tab")
-BetaFuncNatTotal <- as.data.frame(as.matrix(BetaFuncNat[["Btotal"]]), sep= "tab")
-BetaFuncNatRich <- as.data.frame(as.matrix(BetaFuncNat[["Brich"]]), sep= "tab")
-BetaFuncNatRepl <- as.data.frame(as.matrix(BetaFuncNat[["Brepl"]]), sep= "tab")
-BetaFuncNIndTotal <- as.data.frame(as.matrix(BetaFuncNat[["Btotal"]]), sep= "tab")
-BetaFuncNIndRich <- as.data.frame(as.matrix(BetaFuncNat[["Brich"]]), sep= "tab")
+BetaFuncAllTotal <- data.frame(as.matrix(BetaFuncAll[["Btotal"]]), sep= "tab")
+BetaFuncAllRich <- data.frame(as.matrix(BetaFuncAll[["Brich"]]), sep= "tab")
+BetaFuncAllRepl <- data.frame(as.matrix(BetaFuncAll[["Brepl"]]), sep= "tab")
+BetaFuncNatTotal <- data.frame(as.matrix(BetaFuncNat[["Btotal"]]), sep= "tab")
+BetaFuncNatRich <- data.frame(as.matrix(BetaFuncNat[["Brich"]]), sep= "tab")
+BetaFuncNatRepl <- data.frame(as.matrix(BetaFuncNat[["Brepl"]]), sep= "tab")
+BetaFuncNIndTotal <- data.frame(as.matrix(BetaFuncNat[["Btotal"]]), sep= "tab")
+BetaFuncNIndRich <- data.frame(as.matrix(BetaFuncNat[["Brich"]]), sep= "tab")
 BetaFuncNIndRepl <- as.data.frame(as.matrix(BetaFuncNat[["Brepl"]]), sep= "tab")
 
 # Separating the TAXONOMICAL beta values between the Control 250/Max and the other sampling areas from each trail ----
@@ -442,16 +442,18 @@ Results <- cbind.data.frame(Variables, Alphas, Betas)
 str(Results)
 
 #MAKING THE RESULTS EXPORTABLE INTO CSV
-#Results <- apply(Results, 2 , as.character)
+Results <- apply(Results, 2 , as.character)
 
 #NAMING THE TRAIL SEGMENTS
 rownames(Results) <- rownames(Alphas)
 
 #PASSING RESULTS TO FILE
-write.csv(Results, file = ("C:/ArthropodsArticle/FinlandAnalysis/RESULTS.csv"))
+write.csv(Results, file = ("C:/ArthropodsArticle/FinlandAnalysis/RESULTS.csv"), row.names = TRUE)
 
+Results2 <- read.csv2(here("RESULTS.CSV"), header=TRUE, row.names = 1,  stringsAsFactors = T,sep = ",", dec = ".")
+Results2
 
-Results3 <- read.csv("RESULTS.csv", header = TRUE)
+Results3 <- read.csv("RESULTS.csv", header = TRUE, row.names = 1, sep = ",", dec = ".")
 ResultsWithoutControls <- Results3[-c(5,6,11,12,17,18),-c(1:2)]
 
 ###########################################################################

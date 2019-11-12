@@ -1,6 +1,8 @@
 # FinlandAnalysis
 
-This repository is a project from Rui Carvalho, [rui.m.carvalho@gmail.com](mailto:rui.m.carvalho@gmail.com).
+## Disclaimer
+
+This repository is a project from Rui Carvalho, feel free to contact me directly through my personal [e-mail](mailto:rui.m.carvalho@gmail.com).
 
 ## The working files are
 
@@ -8,8 +10,8 @@ This repository is a project from Rui Carvalho, [rui.m.carvalho@gmail.com](mailt
 
 * `ExploratoryAnalyses.R` - File with... guess what. 
 
-* `AlphasGLMM.R` -  You guessed it. I will be making glmm tests, this time with different Alphas: taxonomical, functional, All species, Natives and Introduced.
+* `AlphaGLM.R` -  The name is misleading, and needs correction for the typo! :confused: I will be making glmm tests, this time with different Alphas: taxonomical, functional, All species, Natives and Introduced.
 
 * `BetasGLMM.R` - I will be making glmm tests, this time with different Alphas: taxonomical, functional, All species, Natives and Introduced.
 
-* `ResultsGLM.R` - Taking a step back, and doing GLM on the data. 
+* `Results_GLM.R` - Taking a step back, and doing GLM on the data. 

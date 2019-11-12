@@ -1,6 +1,6 @@
 # FinlandAnalysis
 
-This repository is a project from Rui Carvalho, [rui.m.carvalho@gmail.com](rui.m.carvalho@gmail.com).
+This repository is a project from Rui Carvalho, [rui.m.carvalho@gmail.com](mailto:rui.m.carvalho@gmail.com).
 
 ## The working files are
 

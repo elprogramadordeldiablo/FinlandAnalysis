@@ -76,8 +76,13 @@ str(Traits)
 SAAll <- read.csv2(here("All_Fin.csv"))
 sites <- SAAll[,1]
 SAAll <- SAAll[,-1] 
-rownames(SAAll) <- sites
-colnames(SAAll) <- species
+#rownames(SAAll) <- sites    ##Estava assim originalmente, mas parece-me trocado
+#colnames(SAAll) <- species   ##Estava assim originalmente, mas parece-me trocado
+sites <- rownames(SAAll)    
+species <- colnames(SAAll) 
+
+
+
 # HEllinger transformation
 SAAll <- decostand(SAAll, "hellinger") 
 SAAll
@@ -88,7 +93,7 @@ SANat <- read.csv2(here("Nat_Fin.csv"))
 sites <- SANat[,1]
 SANat <- SANat[,-1] 
 rownames(SANat) <- sites
-colnames(SANat) <- species_nat
+species_nat <- colnames(SANat)
 # HEllinger transformation
 SANat <- decostand(SANat, "hellinger") 
 SANat

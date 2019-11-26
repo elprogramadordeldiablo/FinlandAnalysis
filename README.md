@@ -10,7 +10,7 @@ This repository is a project from Rui Carvalho, feel free to contact me directly
 
 * `ExploratoryAnalyses.R` - File with... guess what. 
 
-* `AlphaGLM.R` -  The name is misleading, and needs correction for the typo! :confused: I will be making glmm tests, this time with different Alphas: taxonomical, functional, All species, Natives and Introduced.
+* `AlphaGLMM.R` -  I will be making glmm tests, this time with different Alphas: taxonomical, functional, All species, Natives and Introduced.
 
 * `BetasGLMM.R` - I will be making glmm tests, this time with different Alphas: taxonomical, functional, All species, Natives and Introduced.
 

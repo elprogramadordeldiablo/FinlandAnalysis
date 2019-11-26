@@ -31,6 +31,7 @@ library(hypervolume)
 library(car)
 library(MASS)
 library(lme4)
+library(vegan)
 #source(file = "HighstatLibV10.R") #cool tools to support
 #library(factoextra) # Useful for PCA analysis
 library(here)
@@ -76,10 +77,11 @@ str(Traits)
 SAAll <- read.csv2(here("All_Fin.csv"))
 sites <- SAAll[,1]
 SAAll <- SAAll[,-1] 
-#rownames(SAAll) <- sites ## Changed the order in the next line 
-sites <- rownames(SAAll)
-#colnames(SAAll) <- species ## Changed the order in the next line
-species <- colnames(SAAll)
+species <- SAAll[1,]
+rownames(SAAll) <- sites  
+species <- colnames(SAAll) 
+species
+
 # HEllinger transformation
 SAAll <- decostand(SAAll, "hellinger") 
 SAAll
@@ -90,7 +92,7 @@ SANat <- read.csv2(here("Nat_Fin.csv"))
 sites <- SANat[,1]
 SANat <- SANat[,-1] 
 rownames(SANat) <- sites
-colnames(SANat) <- species_nat
+species_nat <- colnames(SANat)  
 # HEllinger transformation
 SANat <- decostand(SANat, "hellinger") 
 SANat
@@ -100,7 +102,7 @@ SANInd <- read.csv2(here("NInd_Fin.csv"))
 sites <- SANInd[,1]
 SANInd <- SANInd[,-1] 
 rownames(SANInd) <- sites
-colnames(SANInd) <- species_nind
+species_nind <- colnames(SANInd) 
 
 # HEllinger transformation
 SANInd <- decostand(SANInd, "hellinger") 

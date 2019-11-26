@@ -76,8 +76,10 @@ str(Traits)
 SAAll <- read.csv2(here("All_Fin.csv"))
 sites <- SAAll[,1]
 SAAll <- SAAll[,-1] 
-rownames(SAAll) <- sites
-colnames(SAAll) <- species
+#rownames(SAAll) <- sites ## Changed the order in the next line 
+sites <- rownames(SAAll)
+#colnames(SAAll) <- species ## Changed the order in the next line
+species <- colnames(SAAll)
 # HEllinger transformation
 SAAll <- decostand(SAAll, "hellinger") 
 SAAll

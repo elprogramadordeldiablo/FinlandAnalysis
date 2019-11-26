@@ -62,14 +62,14 @@ str(Traits)
 
 # Matrix with species (rows)x traits (cols) for all natives species in all plots
 
-Traits  <- read.csv2(here("Traits_Nat_Fin.csv"), row.names=1, header=TRUE,  stringsAsFactors = T, dec = ".")
-Traits <- Traits[,-c(1:3)] 
+TraitsNat  <- read.csv2(here("Traits_Nat_Fin.csv"), row.names=1, header=TRUE,  stringsAsFactors = T, dec = ".")
+TraitsNat <- Traits[,-c(1:3)] 
 str(Traits)
 
 # Matrix with species (rows)x traits (cols) for all Non-Indigenous species in all plots
 
-Traits  <- read.csv2(here("Traits_NInd_Fin.csv"), row.names=1, header=TRUE,  stringsAsFactors = T, dec = ".")
-Traits <- Traits[,-c(1:3)] 
+TraitsNInd  <- read.csv2(here("Traits_NInd_Fin.csv"), row.names=1, header=TRUE,  stringsAsFactors = T, dec = ".")
+TraitsNInd <- Traits[,-c(1:3)] 
 str(Traits)
 
 
@@ -168,9 +168,8 @@ dev.off()
 
 # Quero usar o fichero dos contrlos para calcular os estimadores, e daí obter completeness.
 sitescontr <- Alpha_controls[,1]
-species_contr <- Alpha_controls[,1]
 rownames(Alpha_controls) <-sitescontr
-colnames(Alpha_controls) <- species_contr
+species_contr <- colnames(Alpha_controls) 
 Alpha_controls <- Alpha_controls[,-1]
 alpha.estimate(Alpha_controls)
 
@@ -190,7 +189,6 @@ plot(tree, hang = -1)  ## PQ O HANG= - 1?
 dev.off()
 #plot(as.dendrogram(tree))
 
-# sdfjskdfjhskdjf ----
 # All natives tree and FD Alpha----
 dissimNat <- cluster::daisy(TraitsNat, "gower", weights = weights)  # Calculating distances between species
 treeNat <- hclust(dissimNat, "average")          # building the dendrogrma

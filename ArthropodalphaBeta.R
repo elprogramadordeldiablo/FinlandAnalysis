@@ -64,13 +64,13 @@ str(Traits)
 
 TraitsNat  <- read.csv2(here("Traits_Nat_Fin.csv"), row.names=1, header=TRUE,  stringsAsFactors = T, dec = ".")
 TraitsNat <- Traits[,-c(1:3)] 
-str(Traits)
+str(TraitsNat)
 
 # Matrix with species (rows)x traits (cols) for all Non-Indigenous species in all plots
 
 TraitsNInd  <- read.csv2(here("Traits_NInd_Fin.csv"), row.names=1, header=TRUE,  stringsAsFactors = T, dec = ".")
 TraitsNInd <- Traits[,-c(1:3)] 
-str(Traits)
+str(TraitsNInd)
 
 
 # Ficheiro com as abundâncias por Área de amostragem, para todas as amostras
@@ -191,8 +191,7 @@ dev.off()
 
 # All natives tree and FD Alpha----
 dissimNat <- cluster::daisy(TraitsNat, "gower", weights = weights)  # Calculating distances between species
-treeNat <- hclust(dissimNat, "average")          # building the dendrogrma
-
+treeNat <- hclust(dissimNat, "average")  # building the dendrogram
 cor(dissimNat, cophenetic(treeNat))
 
 par(mfrow=c(1,1))

@@ -1,0 +1,251 @@
+# Name: Rui Miguel Carvalho
+# Date of creation: 10/13/2012
+# Date of last update: 
+
+
+# Index ---------------------------------------------------
+
+# Datasets utilizados:
+#   1.  GLMM_Variables.csv       - data.variables
+#   2.  Control250_Fin.csv       - data.alpha.controls
+#   3.  Traits_All_Fin.csv       - data.traits.all.fin
+#   4.  Traits_Nat_Fin.csv       - data.traits.nat.fin
+#   5.  Traits_NInd_Fin.csv      - data.traits.nind.fin
+#   6.  All_Fin.csv              - data.all.fin
+#   7.  Nat_Fin.csv              - data.nat.fin
+#   8.  NInd_Fin.csv             - data.nind.fin
+#   9.  MDS_vectors.csv          - data.mds
+#   10. Weight_Ratios_Traits.csv - data.wr
+
+# CALC COMPLETENESS - Faz as curvas de acumulação para os controlos 250
+# SETTTING FILES
+# CALC_COMPLETENESS
+# CALC_TD_ALPHA
+# CALC_TD_BETA
+# CALC_FD_ALPHA
+# CALC_FD_BETA
+# Summing up Alpha values - 162
+# Summing up Beta values - 336
+# RESULTS - 427
+# Data Exploration - 451
+# GLMM - 478
+
+
+# Libraries -----------------------------------------------
+library(BAT)
+library(readr)
+library(FD) 
+library(alphahull)
+library(hypervolume)
+library(car)
+library(MASS)
+library(lme4)
+# source(file = "HighstatLibV10.R") #cool tools to support
+# library(factoextra) # Useful for PCA analysis
+
+# jtm added these packages
+library(here)       # to locate files
+library(data.table) # to work with data
+library(dplyr)      # to manage data
+library(magrittr)   # to use the pipe operator %>% 
+
+
+# Load files ----------------------------------------------
+
+# 1. data.variables ----------------------
+# Ficheiro com as variável de distâncias com edge, trilhos e etc - para o GLMM
+
+data.variables <- fread(here("data", "GLMM_Variables.csv"), stringsAsFactors = T)
+colnames(data.variables)
+str(data.variables)
+summary(data.variables)
+# first look at the data.variables dataset
+barplot(table(data.variables$ForestID), las=2, main="Forest ID", ylab="Frequency")
+barplot(table(data.variables$Treatment), las=2, main="Treatment", ylab="Frequency")
+
+# 2. data.alpha.controls -----------------
+# Ficheiro com as abundâncias por amostra para os controlos 250/Max
+data.alpha.controls <- fread(here("data", "Control250_Fin.csv"), header = T)
+# change column name and transform in in a factor
+setnames(data.alpha.controls, old="Trail_Sampling Area", new="TSA")
+data.alpha.controls[, TSA:=factor(TSA)]
+summary(data.alpha.controls)
+
+
+# 3. data.traits.all.fin -----------------
+# Matrix with species (rows)x traits (cols) for all species in all plots
+data.traits.all.fin  <- read.csv2(here("data", "Traits_All_Fin.csv"), header=TRUE, dec=".")
+setDT(data.traits.all.fin)
+# edit data.traits.all.fin colnames
+setnames(data.traits.all.fin,
+         old = c("MF","SPECIES","FAMILY","FAMILY.1","N.E.I","IND.NONNAIND","HABITATNALeaves..branches..flowers..seeds..fruits..surface.","HABITATNAinside.stems..roots..fruits..pods..fungi","HABITATNAGround","HABITATNAUnder.stones..bark..twigs","HABITATNADecaying.matter","HABITATNASubterranean","Stenophagous...Not.Euryphagous"),
+         new = c("Mf","Sp","Family.name","Family","Nei","Ind.nonind","Hab.leaves","Hab.inside","Hab.ground","Hab.under","Hab.matter","Hab.sub","Stenophagous"))
+data.traits.all.fin
+# data.traits.all.fin <- data.traits.all.fin[,c(1:3)]
+str(data.traits.all.fin) # as colunas Hab. poderao ser factores 0/1
+pairs(data.traits.all.fin[,c(13:18)]) # all same data, might justify the positive pattern
+pairs(data.traits.all.fin[,c(19:21)], pch=16)
+
+
+# 4. data.traits.nat.fin -----------------
+# Matrix with species (rows)x traits (cols) for all natives species in all plots
+data.traits.nat.fin <- read.csv2(here("data", "Traits_Nat_Fin.csv"), header=TRUE, dec=".")
+setDT(data.traits.nat.fin)
+colnames(data.traits.nat.fin)
+setnames(data.traits.nat.fin,
+         old = c("MF","SPECIES","FAMILY","FAMILY.1","N.E.I","IND.NONNAIND","HABITATNALeaves..branches..flowers..seeds..fruits..surface.","HABITATNAinside.stems..roots..fruits..pods..fungi","HABITATNAGround","HABITATNAUnder.stones..bark..twigs","HABITATNADecaying.matter","HABITATNASubterranean","Stenophagous...Not.Euryphagous"),
+         new = c("Mf","Sp","Family.name","Family","Nei","Ind.nonind","Hab.leaves","Hab.inside","Hab.ground","Hab.under","Hab.matter","Hab.sub","Stenophagous"))
+# mudar os valores de "E " para "E" (sem espaco)
+levels(data.traits.nat.fin$Nei) <- c("E", "N")
+# ver a estrutura da coluna
+as.character(data.traits.nat.fin$Nei)
+# estrutura dos dados
+str(data.traits.nat.fin)
+
+
+# 5. data.traits.nind.fin ----------------
+# Matrix with species (rows)x traits (cols) for all Non-Indigenous species in all plots
+data.traits.nind.fin  <- read.csv2(here("data", "Traits_NInd_Fin.csv"), header=TRUE, dec = ".")
+setDT(data.traits.nind.fin)
+colnames(data.traits.nind.fin)
+setnames(data.traits.nind.fin,
+         old = c("MF","SPECIES","FAMILY","FAMILY.1","N.E.I","IND.NONNAIND","HABITATNALeaves..branches..flowers..seeds..fruits..surface.","HABITATNAinside.stems..roots..fruits..pods..fungi","HABITATNAGround","HABITATNAUnder.stones..bark..twigs","HABITATNADecaying.matter","HABITATNASubterranean","Stenophagous...Not.Euryphagous"),
+         new = c("Mf","Sp","Family.name","Family","Nei","Ind.nonind","Hab.leaves","Hab.inside","Hab.ground","Hab.under","Hab.matter","Hab.sub","Stenophagous"))
+str(data.traits.nind.fin)
+summary(data.traits.nind.fin) # há duas linhas NA
+
+
+# 6. data.all.fin ------------------------
+# Ficheiro com as abundâncias por Área de amostragem, para todas as amostras
+SAAll <- fread(here("data", "All_Fin.csv"), header = T) %>% 
+  setnames(old="Trail_Sampling Area", new="TSA")
+sites <- as.vector(SAAll$TSA)
+# SAAll <- SAAll[,-1]
+# rownames(SAAll) <- sites
+# colnames(SAAll) <- species
+
+# HEllinger transformation
+SAAll.standard <- decostand(SAAll[,-1], "hellinger")
+SAAll.standard
+
+
+# 7. data.nat.fin ------------------------
+# Ficheiro com as abundâncias por área de amostragem, para as espécies indígenas
+SANat <- fread(here("data", "Nat_Fin.csv"), header = T) %>% 
+  setnames(old="Trail_Sampling Area", new="TSA")
+# sites are the same as the previous object
+# SANat <- SANat[,-1] 
+# rownames(SANat) <- sites
+# colnames(SANat) <- species_nat
+# HEllinger transformation
+SANat.standard <- decostand(SANat[,-1], "hellinger") 
+SANat.standard
+
+
+# 8. data.nind.fin -----------------------
+# Ficheiro com as abundâncias por área de amostragem, para as espécies não-indígenas
+SANInd <- fread(here("data", "NInd_Fin.csv"), header = T) %>% 
+  setnames(old="Trail_Sampling Area", new="TSA")
+# SANInd <- SANInd[,-1] 
+# rownames(SANInd) <- sites
+# colnames(SANInd) <- species_nind
+# HEllinger transformation
+SANInd.standard <- decostand(SANInd[,-1], "hellinger") 
+SANInd.standard
+
+
+# 9. data.mds ----------------------------
+# Vector with weight trail and treatment names for MDS
+data.mds <- fread(here("data", "MDS_vectors.csv"))
+trail <- unique(as.vector(data.mds$Trail_name))
+str(data.mds)
+
+
+# 10. data.wr -----------------------------
+# Vector with weight ratios for trails - used in cluster::daisy to compensate decomposition of one variable by
+# multiple columns
+data.wr <- read.csv2(here("data", "Weight_Ratios_Traits.csv"), header = TRUE, dec = ".")
+setDT(data.wr)
+colnames(data.wr)
+setnames(data.wr,
+         old=c("MF","SPECIES","FAMILY","FAMILY.1","N.E.I","IND.NON.IND","HABITAT.Leaves..branches..flowers..seeds..fruits..surface.","HABITAT.inside.stems..roots..fruits..pods..fungi","HABITAT.Ground","HABITAT.Under.stones..bark..twigs","HABITAT.Decaying.matter","HABITAT.Subterranean","Stenophagous...Not.Euryphagous"),
+         new=c("Mf","Sp","Family.name","Family","Nei","Ind.nonind","Hab.leaves","Hab.inside","Hab.ground","Hab.under","Hab.matter","Hab.sub","Stenophagous"))
+# colnames(data.wr)
+# weights <- data.wr[,-c(1:4)]
+# weights <- as.vector(data.wr)
+
+
+# Looking into the datasets -------------------------------
+
+# CALCULATING COMPLETENESS FOR THE CONTROLS FOR BETA ANALYSYS -------
+alphaaccumlist <- list()
+
+tsa <- levels(data.alpha.controls$TSA)
+# pdf(here("results", "accumCurvesControls.pdf"), width = 10, height = 8)
+par(mfrow = c(2, 2))
+for(i in seq_along(tsa)) {
+  
+  # definir a matriz a analisar
+  data.alpha.controls.matrix <- data.alpha.controls[which(data.alpha.controls$TSA == tsa[i]), -1]
+  alphaaccumlist[[i]] <- alpha.accum(data.alpha.controls.matrix, prog = F)
+
+  # plot(alphaaccumlist[[i]][,1], alphaaccumlist[[i]][,2], xlab="Samples", ylab="Individuals", )
+  plot(alphaaccumlist[[i]][, 1], alphaaccumlist[[i]][, 3], xlab = "Samples", ylab = "Individuals",
+       ylim = c(0,40), xlim = c(0,25), main = tsa[i], las =1, type="n")
+  lines(alphaaccumlist[[i]][, 1], alphaaccumlist[[i]][, 4], col="gray30", lwd=2)
+  lines(alphaaccumlist[[i]][, 1], alphaaccumlist[[i]][, 5], col = "#C8631B", lwd=2)
+  lines(alphaaccumlist[[i]][, 1], alphaaccumlist[[i]][, 8], col = "#BF020A", lwd=2)
+  lines(alphaaccumlist[[i]][, 1], alphaaccumlist[[i]][, 17], col = "#0ABF02", lwd=2)
+  points(alphaaccumlist[[i]][, 1], alphaaccumlist[[i]][, 3], pch=21, bg = "#1B80C8", cex=1.2)
+  points(alphaaccumlist[[i]][, 1], alphaaccumlist[[i]][, 13], pch=21, bg = "#BF020A", cex=1.2)
+  points(alphaaccumlist[[i]][, 1], alphaaccumlist[[i]][, 19], pch=21, bg = "#0ABF02", cex=1.2)
+}
+# dev.off()
+
+
+# CALC_COMPLETENESS -----
+
+# Quero usar o fichero dos contrlos para calcular os estimadores, e daí obter completeness.
+# rownames(data.alpha.controls) <-tsa
+# colnames(data.alpha.controls) <- tsa
+# data.alpha.controls <- data.alpha.controls[,-1]
+alpha.estimate(data.alpha.controls[,-1])
+
+
+# Calculating functional elements -----
+
+# All species tree and FD Alpha
+# Calculating distances between species
+dissimAll <- cluster::daisy(data.traits.all.fin, metric = "gower", weights = data.wr)
+# https://www.rdocumentation.org/packages/cluster/versions/2.0.7-1/topics/daisy
+
+treeAll <- hclust(dissimAll, "average")
+# pdf(here("results", "dissimAll.dendrogram.pdf"), width = 10, height = 8)
+par(mfrow=c(1,1), mar=c(1, 4, 3, 1))
+plot(treeAll, hang = -1, las=1, xlab="", main="Dendrogram of \nAll_Fin Species")
+# dev.off()
+# plot(as.dendrogram(tree))
+
+
+# All natives tree and FD Alpha ----
+# Calculating distances between species
+dissimNat <- cluster::daisy(data.traits.nat.fin, "gower", weights = data.wr)
+treeNat <- hclust(dissimNat, "average") # building the dendrogrma
+cor(dissimNat, cophenetic(treeNat))
+
+# pdf(here("results", "dissimNat.dendrogram.pdf"), width = 10, height = 8)
+par(mfrow=c(1,1), mar=c(1, 4, 5, 1))
+plot(treeNat, hang = -1, las=1, xlab="", main="Dendrogram of \nNat_Fin Species")
+# dev.off()
+# plot(as.dendrogram(treeNat))
+
+
+# All Non-Ind tree and FD Alpha ----
+# Calculating distances between species
+dissimNInd <- cluster::daisy(data.traits.nind.fin, "gower", weights = data.wr)
+treeNInd <- hclust(dissimNInd, "average")
+# pdf(here("results", "dissimNInd.dendrogram.pdf"), width = 10, height = 8)
+par(mfrow=c(1,1), mar=c(1, 4, 5, 1))
+plot(treeNInd, hang = -1, las=1, xlab="", main="Dendrogram of \nNInd_Fin Species")
+# dev.off()
+# plot(as.dendrogram(treeNInd))

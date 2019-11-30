@@ -480,11 +480,12 @@ Results <- apply(Results, 2 , as.character)
 rownames(Results) <- rownames(Alphas)
 
 #PASSING RESULTS TO FILE
-write.csv(Results, file = here("RESULTS.csv"), row.names = TRUE)
+write.csv(Results, file = here("results","RESULTS.csv"), row.names = TRUE)
 
-Results2 <- read.csv2(here("RESULTS.CSV"), header=TRUE, row.names = 1,  stringsAsFactors = T,sep = ",", dec = ".")
+Results2 <- read.csv2(here("results","RESULTS.CSV"), header=TRUE, row.names = 1,  stringsAsFactors = T,sep = ",", dec = ".")
 str(Results2)
 
 Results3 <- read.csv("RESULTS.csv", header = TRUE, row.names = 1, sep = ",", dec = ".")
+str(Results3)
 ResultsWithoutControls <- Results3[-c(5,6,11,12,17,18),-c(1:2)]
 

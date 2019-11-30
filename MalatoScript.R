@@ -72,7 +72,7 @@ data.alpha.controls[, TSA:=factor(TSA)]
 summary(data.alpha.controls)
 
 
-# 3. data.traits.alll -----------------
+# 3. data.traits.all -----------------
 # Matrix with species (rows)x traits (cols) for all species in all plots
 data.traits.all  <- read.csv2(here("data", "Traits_All_Fin.csv"), header=TRUE, dec=".")
 setDT(data.traits.all)
@@ -194,7 +194,7 @@ for(i in seq_along(tsa)) {
        ylim = c(0,40), xlim = c(0,25), main = tsa[i], las =1, type="n")
   lines(alphaaccumlist[[i]][, 1], alphaaccumlist[[i]][, 4], col="gray30", lwd=2)
   lines(alphaaccumlist[[i]][, 1], alphaaccumlist[[i]][, 5], col = "#C8631B", lwd=2)
-  lines(alphaaccumlist[[i]][, 1], alphaaccumlist[[i]][, 8], col = "#BF020A", lwd=2)
+  lines(alphaaccumlist[[i]][, 1], alphaaccumlist[[i]][, 9], col = "#BF020A", lwd=2)
   lines(alphaaccumlist[[i]][, 1], alphaaccumlist[[i]][, 17], col = "#0ABF02", lwd=2)
   points(alphaaccumlist[[i]][, 1], alphaaccumlist[[i]][, 3], pch=21, bg = "#1B80C8", cex=1.2)
   points(alphaaccumlist[[i]][, 1], alphaaccumlist[[i]][, 13], pch=21, bg = "#BF020A", cex=1.2)

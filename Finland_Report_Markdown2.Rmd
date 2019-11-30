@@ -197,6 +197,36 @@ setnames(data.alpha.controls, old="Trail_Sampling Area", new="TSA")
 data.alpha.controls[, TSA:=factor(TSA)]
 summary(data.alpha.controls)
 ```
+```{r}
+# Vector with weight trail and treatment names for MDS
+data.mds <- fread(here("data", "MDS_vectors.csv"))
+trail <- unique(as.vector(data.mds$Trail_name))
+str(data.mds)
+```
+
+## Vector with weight trail and treatment names for MDS
+```{r}
+data.mds <- fread(here("data", "MDS_vectors.csv"))
+trail <- unique(as.vector(data.mds$Trail_name))
+str(data.mds)
+```
+
+## Loading weight ratios
+```{r}
+# Vector with weight ratios for trails - used in cluster::daisy to compensate decomposition of one variable by
+# multiple columns
+data.wr <- read.csv2(here("data", "Weight_Ratios_Traits.csv"), header = TRUE, dec = ".")
+setDT(data.wr)
+colnames(data.wr)
+setnames(data.wr,
+         old=c("MF","SPECIES","FAMILY","FAMILY.1","N.E.I","IND.NON.IND","HABITAT.Leaves..branches..flowers..seeds..fruits..surface.","HABITAT.inside.stems..roots..fruits..pods..fungi","HABITAT.Ground","HABITAT.Under.stones..bark..twigs","HABITAT.Decaying.matter","HABITAT.Subterranean","Stenophagous...Not.Euryphagous"),
+         new=c("Mf","Sp","Family.name","Family","Nei","Ind.nonind","Hab.leaves","Hab.inside","Hab.ground","Hab.under","Hab.matter","Hab.sub","Stenophagous"))
+# colnames(data.wr)
+# weights <- data.wr[,-c(1:4)]
+# weights <- as.vector(data.wr)
+```
+
+
 
 
 ##  Calculating SAC
@@ -531,7 +561,8 @@ ResultsWithoutControls <- Results3[-c(5,6,11,12,17,18),-c(1:2)]
 
 ```{r}
 
-MDSfile <- read.csv2(here("MDS_vectors.csv"))
+MDSfile <- fread(here("data","MDS_vectors.csv"))
+str(MDSfile)
 trail <- MDSfile[,1]
 trail
 trail <- as.vector(trail)
@@ -540,13 +571,6 @@ str(treatment)
 treatment <- as.vector(treatment)
 str(treatment)
 
-# Vector with weight ratios for trails - used in cluster::daisy to compensate decomposition of one variable by
-# multiple columns
-Weightsfile <- read.csv2("Weight_Ratios_Traits.csv", header = TRUE, dec=".")
-weights <- Weightsfile[,-c(1:4)]
-weights <- as.vector(weights)
-
-par(mfrow=c(1,1))
 
 #£metaMDS(Results3, distance = "bray", k = 2, try = 20, trymax = 20)
 

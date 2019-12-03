@@ -1,0 +1,205 @@
+---
+title: "GLMM and GLM Analysis"
+author: "Rui Carvalho"
+output:
+  html_document:
+    theme: united
+    highlight: tango
+    toc: yes
+    toc_depth: 2
+    toc_float:
+      collapsed: no
+      smooth_scroll: no
+---
+
+```{r setup, warning=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+options(knitr.table.format = "html")
+
+```
+
+
+# Preparing files
+
+## Libraries 
+
+``` {r, results ='hide'}  
+library(BAT)
+library(readr)
+library(FD) 
+library(car)
+library(MASS)
+library(lme4)
+library(here)       # to locate files
+library(data.table) # to work with data
+library(dplyr)      # to manage data
+library(magrittr)   # to use the pipe operator %>% 
+```
+
+
+## Calling results dataset
+
+```{r}
+Results2 <- read.csv2(here("results","RESULTS.CSV"), header=TRUE, row.names = 1,  stringsAsFactors = T,sep = ",", dec = ".")
+str(Results2)
+```
+
+
+# GLMM Alphas
+
+## Taxonomical - All Species
+
+### A distància ao edge e a distància do site ao início do trilho explicam a abundància de todas as espécies?
+```{r, warning=TRUE, echo=FALSE}
+glmm_TAlphaAll_AB<-glmer(TAlphaAll ~ Dist_edge + Dist_trail_beginning + (1 | ForestID), data = Results2 , family = poisson)
+summary(glmm_TAlphaAll_AB)
+```
+
+### A distància ao edge explica a abundància de todas as espécies?
+```{r, warning=FALSE, echo=TRUE}
+glmmT_AlphaAll_A<-glmer(TAlphaAll ~ Dist_edge + (1 | ForestID), data = Results2, family = poisson)
+summary(glmmT_AlphaAll_A)
+```
+
+### A distància do site ao início do trilho explica a abundància de todas as espécies?
+```{r, warning=FALSE, echo=TRUE}
+glmm_TAlphaAll_B<-glmer(TAlphaAll ~  Dist_trail_beginning + (1 | ForestID), data = Results2 , family = poisson)
+summary(glmm_TAlphaAll_B)
+```
+
+### Os tratamentos explicam a abundància de todas as espécies?
+```{r, warning=FALSE, echo=TRUE}
+glmm_TAlphaAll_C<-glmer(TAlphaAll ~  Treatment + Dist_edge + (1 | ForestID), data = Results2 , family = poisson)
+summary(glmm_TAlphaAll_C)
+```
+
+## Functional - All species
+
+### A distància ao edge e a distància do site ao início do trilho explicam a abundància de todas as espécies?
+```{r, warning=FALSE, echo=TRUE}
+glmm_FAlphaAll_AB<-glmer(FAlphaAll ~ Dist_edge + Dist_trail_beginning + (1 | ForestID), data = Results2 , family = poisson)
+summary(glmm_TAlphaAll_AB)
+```
+
+### A distància ao edge explica a abundància de todas as espécies?
+```{r, warning=FALSE, echo=TRUE}
+glmmF_AlphaAll_A<-glmer(FAlphaAll ~ Dist_edge + (1 | ForestID), data = Results2, family = poisson)
+summary(glmmT_AlphaAll_A)
+```
+
+### A distància do site ao início do trilho explica a abundància de todas as espécies?
+```{r, warning=FALSE, echo=TRUE}
+glmm_FAlphaAll_B<-glmer(FAlphaAll ~  Dist_trail_beginning + (1 | ForestID), data = Results2 , family = poisson)
+summary(glmm_TAlphaAll_B)
+```
+
+### Os tratamentos explicam a abundància de todas as espécies?
+```{r, warning=FALSE, echo=TRUE}
+glmm_FAlphaAll_C<-glmer(FAlphaAll ~  Treatment + Dist_edge + (1 | ForestID), data = Results2 , family = poisson)
+summary(glmm_TAlphaAll_C)
+```
+
+## Taxonomical - Natives
+
+### A distància ao edge e a distància do site ao início do trilho explicam a abundància das espécies nativas?
+```{r, warning=FALSE, echo=TRUE}
+glmm_TAlphaNat_AB<-glmer(TAlphaNat ~ Dist_edge + Dist_trail_beginning + (1 | ForestID), data = Results2 , family = poisson)
+summary(glmm_TAlphaNat_AB)
+```
+
+### A distància ao edge explica a abundància das espécies nativas?
+```{r, warning=FALSE, echo=TRUE}
+glmmT_AlphaNat_A<-glmer(TAlphaNat ~ Dist_edge + (1 | ForestID), data = Results2, family = poisson)
+summary(glmmT_AlphaNat_A)
+```
+
+### A distància do site ao início do trilho explica a abundància das espécies nativas?
+```{r, warning=FALSE, echo=TRUE}
+glmm_TAlphaNat_B<-glmer(TAlphaNat ~  Dist_trail_beginning + (1 | ForestID), data = Results2 , family = poisson)
+summary(glmm_TAlphaNat_B)
+```
+
+### Os tratamentos explicam a abundància das espécies nativas?
+```{r, warning=FALSE, echo=TRUE}
+glmm_TAlphaNat_C<-glmer(TAlphaNat ~  Treatment + Dist_edge + (1 | ForestID), data = Results2 , family = poisson)
+summary(glmm_TAlphaNat_C)
+```
+
+## Functional - Natives
+
+### A distància ao edge e a distància do site ao início do trilho explicam a abundància das espécies nativas?
+```{r, warning=FALSE, echo=TRUE}
+glmm_FAlphaNat_AB<-glmer(FAlphaNat ~ Dist_edge + Dist_trail_beginning + (1 | ForestID), data = Results2 , family = poisson)
+summary(glmm_TAlphaNat_AB)
+```
+
+### A distància ao edge explica a abundància das espécies nativas?
+```{r, warning=FALSE, echo=TRUE}
+glmmF_AlphaNat_A<-glmer(FAlphaNat ~ Dist_edge + (1 | ForestID), data = Results2, family = poisson)
+summary(glmmT_AlphaNat_A)
+```
+
+### A distància do site ao início do trilho explica a abundància das espécies nativas?
+```{r, warning=FALSE, echo=TRUE}
+glmm_FAlphaNat_B<-glmer(FAlphaNat ~  Dist_trail_beginning + (1 | ForestID), data = Results2 , family = poisson)
+summary(glmm_TAlphaNat_B)
+```
+
+### Os tratamentos explicam a abundància das espécies nativas?
+```{r, warning=FALSE, echo=TRUE}
+glmm_FAlphaNat_C<-glmer(FAlphaNat ~  Treatment + Dist_edge + (1 | ForestID), data = Results2 , family = poisson)
+summary(glmm_TAlphaNat_C)
+```
+##### Non-Natives ################
+
+## Taxonomical - Non Indigenous
+
+### A distància ao edge e a distància do site ao início do trilho explicam a abundància das espécies não indígenas?
+```{r, warning=FALSE, echo=TRUE}
+glmm_TAlphaNInd_AB<-glmer(TAlphaNInd ~ Dist_edge + Dist_trail_beginning + (1 | ForestID), data = Results2 , family = poisson)
+summary(glmm_TAlphaNInd_AB)
+```
+
+### A distància ao edge explica a abundància das espécies não indígenas?
+```{r, warning=FALSE, echo=TRUE}
+glmmT_AlphaNInd_A<-glmer(TAlphaNInd ~ Dist_edge + (1 | ForestID), data = Results2, family = poisson)
+summary(glmmT_AlphaNInd_A)
+```
+
+### A distància do site ao início do trilho explica a abundància das espécies não indígenas?
+```{r, warning=FALSE, echo=TRUE}
+glmm_TAlphaNInd_B<-glmer(TAlphaNInd ~  Dist_trail_beginning + (1 | ForestID), data = Results2 , family = poisson)
+summary(glmm_TAlphaNInd_B)
+```
+
+### Os tratamentos explicam a abundància das espécies não indígenas?
+```{r, warning=FALSE, echo=TRUE}
+glmm_TAlphaNInd_C<-glmer(TAlphaNInd ~  Treatment + Dist_edge + (1 | ForestID), data = Results2 , family = poisson)
+summary(glmm_TAlphaNInd_C)
+```
+
+# Functional - Non Indigenous
+
+### A distància ao edge e a distància do site ao início do trilho explicam a abundància das espécies não indígenas?
+```{r, warning=FALSE, echo=TRUE}
+glmm_FAlphaNInd_AB<-glmer(FAlphaNInd ~ Dist_edge + Dist_trail_beginning + (1 | ForestID), data = Results2 , family = poisson)
+summary(glmm_TAlphaNInd_AB)
+```
+
+### A distància ao edge explica a abundància das espécies não indígenas?
+```{r, warning=FALSE, echo=TRUE}
+glmmF_AlphaNInd_A<-glmer(FAlphaNInd ~ Dist_edge + (1 | ForestID), data = Results2, family = poisson)
+summary(glmmT_AlphaNInd_A)
+```
+
+### A distància do site ao início do trilho explica a abundància das espécies não indígenas?
+```{r, warning=FALSE, echo=TRUE}
+glmm_FAlphaNInd_B<-glmer(FAlphaNInd ~  Dist_trail_beginning + (1 | ForestID), data = Results2 , family = poisson)
+summary(glmm_TAlphaNInd_B)
+```
+
+### Os tratamentos explicam a abundància das espécies não indígenas?
+```{r, warning=FALSE, echo=TRUE}
+glmm_FAlphaNInd_C<-glmer(FAlphaNInd ~  Treatment + Dist_edge + (1 | ForestID), data = Results2 , family = poisson)
+summary(glmm_TAlphaNInd_C)
+```

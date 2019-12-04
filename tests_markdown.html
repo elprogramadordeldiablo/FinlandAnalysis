@@ -1631,13 +1631,77 @@ div.tocify {
 ##  $ BetaFuncNIndRichVector : num  0 0.10315 0.00603 0.09387 0.04368 ...
 ##  $ BetaFuncNIndReplVector : num  0 0.313 0.322 0.246 0.285 ...</code></pre>
 </div>
+<div id="checking-for-colinearity" class="section level2">
+<h2>Checking for colinearity</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">results.variables &lt;-<span class="st"> </span>Results2[,<span class="dv">3</span><span class="op">:</span><span class="dv">5</span>]</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw">cor</span>(results.variables, <span class="dt">use =</span> <span class="st">&quot;pairwise.complete.obs&quot;</span>)</a></code></pre></div>
+<pre><code>## Warning in cor(results.variables, use = &quot;pairwise.complete.obs&quot;): the
+## standard deviation is zero</code></pre>
+<pre><code>##                      Dist_trail   Dist_edge Dist_trail_beginning
+## Dist_trail            1.0000000  0.50983431                   NA
+## Dist_edge             0.5098343  1.00000000          -0.06788658
+## Dist_trail_beginning         NA -0.06788658           1.00000000</code></pre>
+</div>
 </div>
 <div id="glmm-alphas" class="section level1">
 <h1>GLMM Alphas</h1>
 <div id="taxonomical---all-species" class="section level2">
 <h2>Taxonomical - All Species</h2>
+<div id="a-distancia-ao-edge-tratamento-e-a-distancia-do-site-ao-inicio-do-trilho-explicam-a-abundancia-de-todas-as-especies" class="section level3">
+<h3>A distancia ao edge, tratamento e a distancia do site ao inicio do trilho explicam a abundancia de todas as especies?</h3>
+<pre><code>## Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl =
+## control$checkConv, : Model failed to converge with max|grad| = 0.0102779
+## (tol = 0.001, component 1)</code></pre>
+<pre><code>## Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl = control$checkConv, : Model is nearly unidentifiable: very large eigenvalue
+##  - Rescale variables?;Model is nearly unidentifiable: large eigenvalue ratio
+##  - Rescale variables?</code></pre>
+<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
+##   Approximation) [glmerMod]
+##  Family: poisson  ( log )
+## Formula: TAlphaAll ~ Dist_edge + Treatment + Dist_trail_beginning + (1 |  
+##     ForestID)
+##    Data: Results2
+## 
+##      AIC      BIC   logLik deviance df.resid 
+##     96.8    102.2    -41.4     82.8        9 
+## 
+## Scaled residuals: 
+##      Min       1Q   Median       3Q      Max 
+## -1.30078 -0.41706 -0.05836  0.46631  1.29550 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev.
+##  ForestID (Intercept) 0.03044  0.1745  
+## Number of obs: 16, groups:  ForestID, 5
+## 
+## Fixed effects:
+##                                  Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)                     2.4242315  0.1999878  12.122   &lt;2e-16 ***
+## Dist_edge                      -0.0003130  0.0005662  -0.553    0.580    
+## TreatmentTrail_Max              0.4733334  0.3879404   1.220    0.222    
+## TreatmentTrail_twohundredfifty  0.0997237  0.2438749   0.409    0.683    
+## TreatmentTrail_zero             0.2766238  0.2119191   1.305    0.192    
+## Dist_trail_beginning           -0.0006389  0.0006193  -1.032    0.302    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Correlation of Fixed Effects:
+##             (Intr) Dst_dg TrtT_M TrtmntTrl_t TrtmntTrl_z
+## Dist_edge   -0.323                                      
+## TrtmntTrl_M -0.071 -0.106                               
+## TrtmntTrl_t -0.386 -0.035  0.584                        
+## TrtmntTrl_z -0.729  0.052  0.111  0.378                 
+## Dst_trl_bgn -0.312  0.107 -0.800 -0.402       0.252     
+## convergence code: 0
+## Model failed to converge with max|grad| = 0.0102779 (tol = 0.001, component 1)
+## Model is nearly unidentifiable: very large eigenvalue
+##  - Rescale variables?
+## Model is nearly unidentifiable: large eigenvalue ratio
+##  - Rescale variables?</code></pre>
+</div>
 <div id="a-distancia-ao-edge-e-a-distancia-do-site-ao-inicio-do-trilho-explicam-a-abundancia-de-todas-as-especies" class="section level3">
-<h3>A distància ao edge e a distància do site ao início do trilho explicam a abundància de todas as espécies?</h3>
+<h3>A distancia ao edge e a distancia do site ao inicio do trilho explicam a abundancia de todas as especies?</h3>
 <pre><code>## Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl =
 ## control$checkConv, : Model failed to converge with max|grad| = 0.00430367
 ## (tol = 0.001, component 1)</code></pre>
@@ -1679,9 +1743,9 @@ div.tocify {
 ##  - Rescale variables?</code></pre>
 </div>
 <div id="a-distancia-ao-edge-explica-a-abundancia-de-todas-as-especies" class="section level3">
-<h3>A distància ao edge explica a abundància de todas as espécies?</h3>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">glmmT_AlphaAll_A&lt;-<span class="kw">glmer</span>(TAlphaAll <span class="op">~</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2, <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw">summary</span>(glmmT_AlphaAll_A)</a></code></pre></div>
+<h3>A distancia ao edge explica a abundancia de todas as especies?</h3>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">glmmT_AlphaAll_A&lt;-<span class="kw">glmer</span>(TAlphaAll <span class="op">~</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2, <span class="dt">family =</span> poisson)</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="kw">summary</span>(glmmT_AlphaAll_A)</a></code></pre></div>
 <pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
 ##   Approximation) [glmerMod]
 ##  Family: poisson  ( log )
@@ -1716,9 +1780,9 @@ div.tocify {
 ##  - Rescale variables?</code></pre>
 </div>
 <div id="a-distancia-do-site-ao-inicio-do-trilho-explica-a-abundancia-de-todas-as-especies" class="section level3">
-<h3>A distància do site ao início do trilho explica a abundància de todas as espécies?</h3>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">glmm_TAlphaAll_B&lt;-<span class="kw">glmer</span>(TAlphaAll <span class="op">~</span><span class="st">  </span>Dist_trail_beginning <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaAll_B)</a></code></pre></div>
+<h3>A distancia do site ao inicio do trilho explica a abundancia de todas as especies?</h3>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">glmm_TAlphaAll_B&lt;-<span class="kw">glmer</span>(TAlphaAll <span class="op">~</span><span class="st">  </span>Dist_trail_beginning <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
+<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaAll_B)</a></code></pre></div>
 <pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
 ##   Approximation) [glmerMod]
 ##  Family: poisson  ( log )
@@ -1753,9 +1817,9 @@ div.tocify {
 ##  - Rescale variables?</code></pre>
 </div>
 <div id="os-tratamentos-explicam-a-abundancia-de-todas-as-especies" class="section level3">
-<h3>Os tratamentos explicam a abundància de todas as espécies?</h3>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">glmm_TAlphaAll_C&lt;-<span class="kw">glmer</span>(TAlphaAll <span class="op">~</span><span class="st">  </span>Treatment <span class="op">+</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaAll_C)</a></code></pre></div>
+<h3>Os tratamentos explicam a abundancia de todas as especies?</h3>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">glmm_TAlphaAll_C&lt;-<span class="kw">glmer</span>(TAlphaAll <span class="op">~</span><span class="st">  </span>Treatment <span class="op">+</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
+<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaAll_C)</a></code></pre></div>
 <pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
 ##   Approximation) [glmerMod]
 ##  Family: poisson  ( log )
@@ -1804,10 +1868,10 @@ div.tocify {
 </div>
 <div id="functional---all-species" class="section level2">
 <h2>Functional - All species</h2>
-<div id="a-distancia-ao-edge-e-a-distancia-do-site-ao-inicio-do-trilho-explicam-a-abundancia-de-todas-as-especies-1" class="section level3">
-<h3>A distància ao edge e a distància do site ao início do trilho explicam a abundància de todas as espécies?</h3>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">glmm_FAlphaAll_AB&lt;-<span class="kw">glmer</span>(FAlphaAll <span class="op">~</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>Dist_trail_beginning <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaAll_AB)</a></code></pre></div>
+<div id="a-distancia-ao-edge-e-a-distancia-do-site-ao-inicio-do-trilho-explicam-a-abundancia-de-todas-as-espe4cies" class="section level3">
+<h3>A distancia ao edge e a distancia do site ao inicio do trilho explicam a abundancia de todas as espe4cies?</h3>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">glmm_FAlphaAll_AB&lt;-<span class="kw">glmer</span>(FAlphaAll <span class="op">~</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>Dist_trail_beginning <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
+<a class="sourceLine" id="cb20-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaAll_AB)</a></code></pre></div>
 <pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
 ##   Approximation) [glmerMod]
 ##  Family: poisson  ( log )
@@ -1844,9 +1908,9 @@ div.tocify {
 ##  - Rescale variables?</code></pre>
 </div>
 <div id="a-distancia-ao-edge-explica-a-abundancia-de-todas-as-especies-1" class="section level3">
-<h3>A distància ao edge explica a abundància de todas as espécies?</h3>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">glmmF_AlphaAll_A&lt;-<span class="kw">glmer</span>(FAlphaAll <span class="op">~</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2, <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="kw">summary</span>(glmmT_AlphaAll_A)</a></code></pre></div>
+<h3>A distancia ao edge explica a abundancia de todas as especies?</h3>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">glmmF_AlphaAll_A&lt;-<span class="kw">glmer</span>(FAlphaAll <span class="op">~</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2, <span class="dt">family =</span> poisson)</a>
+<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="kw">summary</span>(glmmT_AlphaAll_A)</a></code></pre></div>
 <pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
 ##   Approximation) [glmerMod]
 ##  Family: poisson  ( log )
@@ -1880,10 +1944,10 @@ div.tocify {
 ## Model is nearly unidentifiable: very large eigenvalue
 ##  - Rescale variables?</code></pre>
 </div>
-<div id="a-distancia-do-site-ao-inicio-do-trilho-explica-a-abundancia-de-todas-as-especies-1" class="section level3">
-<h3>A distància do site ao início do trilho explica a abundància de todas as espécies?</h3>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">glmm_FAlphaAll_B&lt;-<span class="kw">glmer</span>(FAlphaAll <span class="op">~</span><span class="st">  </span>Dist_trail_beginning <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaAll_B)</a></code></pre></div>
+<div id="a-distancia-do-site-ao-inicio-do-trilho-explica-a-abundancia-de-todas-as-espacies" class="section level3">
+<h3>A distancia do site ao inicio do trilho explica a abundancia de todas as espa©cies?</h3>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">glmm_FAlphaAll_B&lt;-<span class="kw">glmer</span>(FAlphaAll <span class="op">~</span><span class="st">  </span>Dist_trail_beginning <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
+<a class="sourceLine" id="cb24-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaAll_B)</a></code></pre></div>
 <pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
 ##   Approximation) [glmerMod]
 ##  Family: poisson  ( log )
@@ -1917,10 +1981,10 @@ div.tocify {
 ## Model is nearly unidentifiable: very large eigenvalue
 ##  - Rescale variables?</code></pre>
 </div>
-<div id="os-tratamentos-explicam-a-abundancia-de-todas-as-especies-1" class="section level3">
-<h3>Os tratamentos explicam a abundància de todas as espécies?</h3>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">glmm_FAlphaAll_C&lt;-<span class="kw">glmer</span>(FAlphaAll <span class="op">~</span><span class="st">  </span>Treatment <span class="op">+</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb20-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaAll_C)</a></code></pre></div>
+<div id="os-tratamentos-explicam-a-abundancia-de-todas-as-espacies" class="section level3">
+<h3>Os tratamentos explicam a abundancia de todas as espa©cies?</h3>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1">glmm_FAlphaAll_C&lt;-<span class="kw">glmer</span>(FAlphaAll <span class="op">~</span><span class="st">  </span>Treatment <span class="op">+</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
+<a class="sourceLine" id="cb26-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaAll_C)</a></code></pre></div>
 <pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
 ##   Approximation) [glmerMod]
 ##  Family: poisson  ( log )
@@ -1969,10 +2033,10 @@ div.tocify {
 </div>
 <div id="taxonomical---natives" class="section level2">
 <h2>Taxonomical - Natives</h2>
-<div id="a-distancia-ao-edge-e-a-distancia-do-site-ao-inicio-do-trilho-explicam-a-abundancia-das-especies-nativas" class="section level3">
-<h3>A distància ao edge e a distància do site ao início do trilho explicam a abundància das espécies nativas?</h3>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">glmm_TAlphaNat_AB&lt;-<span class="kw">glmer</span>(TAlphaNat <span class="op">~</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>Dist_trail_beginning <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaNat_AB)</a></code></pre></div>
+<div id="a-distancia-ao-edge-e-a-distancia-do-site-ao-inicio-do-trilho-explicam-a-abundancia-das-espacies-nativas" class="section level3">
+<h3>A distancia ao edge e a distancia do site ao inicio do trilho explicam a abundancia das espa©cies nativas?</h3>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">glmm_TAlphaNat_AB&lt;-<span class="kw">glmer</span>(TAlphaNat <span class="op">~</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>Dist_trail_beginning <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
+<a class="sourceLine" id="cb28-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaNat_AB)</a></code></pre></div>
 <pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
 ##   Approximation) [glmerMod]
 ##  Family: poisson  ( log )
@@ -2006,10 +2070,10 @@ div.tocify {
 ## convergence code: 0
 ## boundary (singular) fit: see ?isSingular</code></pre>
 </div>
-<div id="a-distancia-ao-edge-explica-a-abundancia-das-especies-nativas" class="section level3">
-<h3>A distància ao edge explica a abundància das espécies nativas?</h3>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">glmmT_AlphaNat_A&lt;-<span class="kw">glmer</span>(TAlphaNat <span class="op">~</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2, <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb24-2" data-line-number="2"><span class="kw">summary</span>(glmmT_AlphaNat_A)</a></code></pre></div>
+<div id="a-distancia-ao-edge-explica-a-abundancia-das-espacies-nativas" class="section level3">
+<h3>A distancia ao edge explica a abundancia das espa©cies nativas?</h3>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1">glmmT_AlphaNat_A&lt;-<span class="kw">glmer</span>(TAlphaNat <span class="op">~</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2, <span class="dt">family =</span> poisson)</a>
+<a class="sourceLine" id="cb30-2" data-line-number="2"><span class="kw">summary</span>(glmmT_AlphaNat_A)</a></code></pre></div>
 <pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
 ##   Approximation) [glmerMod]
 ##  Family: poisson  ( log )
@@ -2041,10 +2105,10 @@ div.tocify {
 ## convergence code: 0
 ## boundary (singular) fit: see ?isSingular</code></pre>
 </div>
-<div id="a-distancia-do-site-ao-inicio-do-trilho-explica-a-abundancia-das-especies-nativas" class="section level3">
-<h3>A distància do site ao início do trilho explica a abundància das espécies nativas?</h3>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1">glmm_TAlphaNat_B&lt;-<span class="kw">glmer</span>(TAlphaNat <span class="op">~</span><span class="st">  </span>Dist_trail_beginning <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb26-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaNat_B)</a></code></pre></div>
+<div id="a-distancia-do-site-ao-inicio-do-trilho-explica-a-abundancia-das-espacies-nativas" class="section level3">
+<h3>A distancia do site ao inicio do trilho explica a abundÃncia das espÃ©cies nativas?</h3>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1">glmm_TAlphaNat_B&lt;-<span class="kw">glmer</span>(TAlphaNat <span class="op">~</span><span class="st">  </span>Dist_trail_beginning <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
+<a class="sourceLine" id="cb32-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaNat_B)</a></code></pre></div>
 <pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
 ##   Approximation) [glmerMod]
 ##  Family: poisson  ( log )
@@ -2076,10 +2140,10 @@ div.tocify {
 ## convergence code: 0
 ## boundary (singular) fit: see ?isSingular</code></pre>
 </div>
-<div id="os-tratamentos-explicam-a-abundancia-das-especies-nativas" class="section level3">
-<h3>Os tratamentos explicam a abundància das espécies nativas?</h3>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">glmm_TAlphaNat_C&lt;-<span class="kw">glmer</span>(TAlphaNat <span class="op">~</span><span class="st">  </span>Treatment <span class="op">+</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb28-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaNat_C)</a></code></pre></div>
+<div id="os-tratamentos-explicam-a-abundancia-das-espacies-nativas" class="section level3">
+<h3>Os tratamentos explicam a abundÃncia das espÃ©cies nativas?</h3>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">glmm_TAlphaNat_C&lt;-<span class="kw">glmer</span>(TAlphaNat <span class="op">~</span><span class="st">  </span>Treatment <span class="op">+</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
+<a class="sourceLine" id="cb34-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaNat_C)</a></code></pre></div>
 <pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
 ##   Approximation) [glmerMod]
 ##  Family: poisson  ( log )
@@ -2124,10 +2188,10 @@ div.tocify {
 </div>
 <div id="functional---natives" class="section level2">
 <h2>Functional - Natives</h2>
-<div id="a-distancia-ao-edge-e-a-distancia-do-site-ao-inicio-do-trilho-explicam-a-abundancia-das-especies-nativas-1" class="section level3">
-<h3>A distància ao edge e a distància do site ao início do trilho explicam a abundància das espécies nativas?</h3>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1">glmm_FAlphaNat_AB&lt;-<span class="kw">glmer</span>(FAlphaNat <span class="op">~</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>Dist_trail_beginning <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb30-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaNat_AB)</a></code></pre></div>
+<div id="a-distancia-ao-edge-e-a-distancia-do-site-ao-inicio-do-trilho-explicam-a-abundancia-das-espacies-nativas-1" class="section level3">
+<h3>A distancia ao edge e a distancia do site ao inicio do trilho explicam a abundancia das espa©cies nativas?</h3>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1">glmm_FAlphaNat_AB&lt;-<span class="kw">glmer</span>(FAlphaNat <span class="op">~</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>Dist_trail_beginning <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
+<a class="sourceLine" id="cb36-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaNat_AB)</a></code></pre></div>
 <pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
 ##   Approximation) [glmerMod]
 ##  Family: poisson  ( log )
@@ -2161,10 +2225,10 @@ div.tocify {
 ## convergence code: 0
 ## boundary (singular) fit: see ?isSingular</code></pre>
 </div>
-<div id="a-distancia-ao-edge-explica-a-abundancia-das-especies-nativas-1" class="section level3">
-<h3>A distància ao edge explica a abundància das espécies nativas?</h3>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1">glmmF_AlphaNat_A&lt;-<span class="kw">glmer</span>(FAlphaNat <span class="op">~</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2, <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb32-2" data-line-number="2"><span class="kw">summary</span>(glmmT_AlphaNat_A)</a></code></pre></div>
+<div id="a-distancia-ao-edge-explica-a-abundancia-das-espacies-nativas-1" class="section level3">
+<h3>A distancia ao edge explica a abundancia das espa©cies nativas?</h3>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1">glmmF_AlphaNat_A&lt;-<span class="kw">glmer</span>(FAlphaNat <span class="op">~</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2, <span class="dt">family =</span> poisson)</a>
+<a class="sourceLine" id="cb38-2" data-line-number="2"><span class="kw">summary</span>(glmmT_AlphaNat_A)</a></code></pre></div>
 <pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
 ##   Approximation) [glmerMod]
 ##  Family: poisson  ( log )
@@ -2196,10 +2260,10 @@ div.tocify {
 ## convergence code: 0
 ## boundary (singular) fit: see ?isSingular</code></pre>
 </div>
-<div id="a-distancia-do-site-ao-inicio-do-trilho-explica-a-abundancia-das-especies-nativas-1" class="section level3">
-<h3>A distància do site ao início do trilho explica a abundància das espécies nativas?</h3>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">glmm_FAlphaNat_B&lt;-<span class="kw">glmer</span>(FAlphaNat <span class="op">~</span><span class="st">  </span>Dist_trail_beginning <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb34-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaNat_B)</a></code></pre></div>
+<div id="a-distancia-do-site-ao-inicio-do-trilho-explica-a-abundancia-das-espacies-nativas-1" class="section level3">
+<h3>A distancia do site ao inicio do trilho explica a abundancia das espa©cies nativas?</h3>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1">glmm_FAlphaNat_B&lt;-<span class="kw">glmer</span>(FAlphaNat <span class="op">~</span><span class="st">  </span>Dist_trail_beginning <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
+<a class="sourceLine" id="cb40-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaNat_B)</a></code></pre></div>
 <pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
 ##   Approximation) [glmerMod]
 ##  Family: poisson  ( log )
@@ -2231,10 +2295,10 @@ div.tocify {
 ## convergence code: 0
 ## boundary (singular) fit: see ?isSingular</code></pre>
 </div>
-<div id="os-tratamentos-explicam-a-abundancia-das-especies-nativas-1" class="section level3">
-<h3>Os tratamentos explicam a abundància das espécies nativas?</h3>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1">glmm_FAlphaNat_C&lt;-<span class="kw">glmer</span>(FAlphaNat <span class="op">~</span><span class="st">  </span>Treatment <span class="op">+</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb36-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaNat_C)</a></code></pre></div>
+<div id="os-tratamentos-explicam-a-abundancia-das-espacies-nativas-1" class="section level3">
+<h3>Os tratamentos explicam a abundancia das espa©cies nativas?</h3>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1">glmm_FAlphaNat_C&lt;-<span class="kw">glmer</span>(FAlphaNat <span class="op">~</span><span class="st">  </span>Treatment <span class="op">+</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
+<a class="sourceLine" id="cb42-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaNat_C)</a></code></pre></div>
 <pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
 ##   Approximation) [glmerMod]
 ##  Family: poisson  ( log )
@@ -2282,10 +2346,10 @@ div.tocify {
 </div>
 <div id="taxonomical---non-indigenous" class="section level2">
 <h2>Taxonomical - Non Indigenous</h2>
-<div id="a-distancia-ao-edge-e-a-distancia-do-site-ao-inicio-do-trilho-explicam-a-abundancia-das-especies-nao-indigenas" class="section level3">
-<h3>A distància ao edge e a distància do site ao início do trilho explicam a abundància das espécies não indígenas?</h3>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1">glmm_TAlphaNInd_AB&lt;-<span class="kw">glmer</span>(TAlphaNInd <span class="op">~</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>Dist_trail_beginning <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb38-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaNInd_AB)</a></code></pre></div>
+<div id="a-distancia-ao-edge-e-a-distancia-do-site-ao-inicio-do-trilho-explicam-a-abundancia-das-espacies-nao-indagenas" class="section level3">
+<h3>A distancia ao edge e a distancia do site ao inicio do trilho explicam a abunda ncia das espa©cies na£o inda?genas?</h3>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1">glmm_TAlphaNInd_AB&lt;-<span class="kw">glmer</span>(TAlphaNInd <span class="op">~</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>Dist_trail_beginning <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
+<a class="sourceLine" id="cb44-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaNInd_AB)</a></code></pre></div>
 <pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
 ##   Approximation) [glmerMod]
 ##  Family: poisson  ( log )
@@ -2321,10 +2385,10 @@ div.tocify {
 ## Model is nearly unidentifiable: very large eigenvalue
 ##  - Rescale variables?</code></pre>
 </div>
-<div id="a-distancia-ao-edge-explica-a-abundancia-das-especies-nao-indigenas" class="section level3">
-<h3>A distància ao edge explica a abundància das espécies não indígenas?</h3>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1">glmmT_AlphaNInd_A&lt;-<span class="kw">glmer</span>(TAlphaNInd <span class="op">~</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2, <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb40-2" data-line-number="2"><span class="kw">summary</span>(glmmT_AlphaNInd_A)</a></code></pre></div>
+<div id="a-distancia-ao-edge-explica-a-abundancia-das-especies-nao-indagenas" class="section level3">
+<h3>A distancia ao edge explica a abundancia das especies na£o indagenas?</h3>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1">glmmT_AlphaNInd_A&lt;-<span class="kw">glmer</span>(TAlphaNInd <span class="op">~</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2, <span class="dt">family =</span> poisson)</a>
+<a class="sourceLine" id="cb46-2" data-line-number="2"><span class="kw">summary</span>(glmmT_AlphaNInd_A)</a></code></pre></div>
 <pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
 ##   Approximation) [glmerMod]
 ##  Family: poisson  ( log )
@@ -2357,10 +2421,10 @@ div.tocify {
 ## Model is nearly unidentifiable: very large eigenvalue
 ##  - Rescale variables?</code></pre>
 </div>
-<div id="a-distancia-do-site-ao-inicio-do-trilho-explica-a-abundancia-das-especies-nao-indigenas" class="section level3">
-<h3>A distància do site ao início do trilho explica a abundància das espécies não indígenas?</h3>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1">glmm_TAlphaNInd_B&lt;-<span class="kw">glmer</span>(TAlphaNInd <span class="op">~</span><span class="st">  </span>Dist_trail_beginning <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb42-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaNInd_B)</a></code></pre></div>
+<div id="a-distancia-do-site-ao-inicio-do-trilho-explica-a-abundancia-das-especies-nao-indagenas" class="section level3">
+<h3>A distancia do site ao inicio do trilho explica a abundancia das especies na£o indagenas?</h3>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1">glmm_TAlphaNInd_B&lt;-<span class="kw">glmer</span>(TAlphaNInd <span class="op">~</span><span class="st">  </span>Dist_trail_beginning <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
+<a class="sourceLine" id="cb48-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaNInd_B)</a></code></pre></div>
 <pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
 ##   Approximation) [glmerMod]
 ##  Family: poisson  ( log )
@@ -2394,10 +2458,10 @@ div.tocify {
 ## Model is nearly unidentifiable: very large eigenvalue
 ##  - Rescale variables?</code></pre>
 </div>
-<div id="os-tratamentos-explicam-a-abundancia-das-especies-nao-indigenas" class="section level3">
-<h3>Os tratamentos explicam a abundància das espécies não indígenas?</h3>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1">glmm_TAlphaNInd_C&lt;-<span class="kw">glmer</span>(TAlphaNInd <span class="op">~</span><span class="st">  </span>Treatment <span class="op">+</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb44-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaNInd_C)</a></code></pre></div>
+<div id="os-tratamentos-explicam-a-abundancia-das-espacies-nao-indagenas" class="section level3">
+<h3>Os tratamentos explicam a abundancia das espa©cies na£o indagenas?</h3>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1">glmm_TAlphaNInd_C&lt;-<span class="kw">glmer</span>(TAlphaNInd <span class="op">~</span><span class="st">  </span>Treatment <span class="op">+</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
+<a class="sourceLine" id="cb50-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaNInd_C)</a></code></pre></div>
 <pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
 ##   Approximation) [glmerMod]
 ##  Family: poisson  ( log )
@@ -2447,10 +2511,10 @@ div.tocify {
 </div>
 <div id="functional---non-indigenous" class="section level1">
 <h1>Functional - Non Indigenous</h1>
-<div id="a-distancia-ao-edge-e-a-distancia-do-site-ao-inicio-do-trilho-explicam-a-abundancia-das-especies-nao-indigenas-1" class="section level3">
-<h3>A distància ao edge e a distància do site ao início do trilho explicam a abundància das espécies não indígenas?</h3>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1">glmm_FAlphaNInd_AB&lt;-<span class="kw">glmer</span>(FAlphaNInd <span class="op">~</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>Dist_trail_beginning <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb46-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaNInd_AB)</a></code></pre></div>
+<div id="a-distancia-ao-edge-e-a-distancia-do-site-ao-inicio-do-trilho-explicam-a-abundancia-das-especies-nao-indagenas" class="section level3">
+<h3>A distancia ao edge e a distancia do site ao inicio do trilho explicam a abundancia das especies na£o indagenas?</h3>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1">glmm_FAlphaNInd_AB&lt;-<span class="kw">glmer</span>(FAlphaNInd <span class="op">~</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>Dist_trail_beginning <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
+<a class="sourceLine" id="cb52-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaNInd_AB)</a></code></pre></div>
 <pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
 ##   Approximation) [glmerMod]
 ##  Family: poisson  ( log )
@@ -2486,10 +2550,10 @@ div.tocify {
 ## Model is nearly unidentifiable: very large eigenvalue
 ##  - Rescale variables?</code></pre>
 </div>
-<div id="a-distancia-ao-edge-explica-a-abundancia-das-especies-nao-indigenas-1" class="section level3">
-<h3>A distància ao edge explica a abundància das espécies não indígenas?</h3>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1">glmmF_AlphaNInd_A&lt;-<span class="kw">glmer</span>(FAlphaNInd <span class="op">~</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2, <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb48-2" data-line-number="2"><span class="kw">summary</span>(glmmT_AlphaNInd_A)</a></code></pre></div>
+<div id="a-distancia-ao-edge-explica-a-abundancia-das-especies-nao-indagenas-1" class="section level3">
+<h3>A distancia ao edge explica a abundancia das especies na£o indagenas?</h3>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1">glmmF_AlphaNInd_A&lt;-<span class="kw">glmer</span>(FAlphaNInd <span class="op">~</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2, <span class="dt">family =</span> poisson)</a>
+<a class="sourceLine" id="cb54-2" data-line-number="2"><span class="kw">summary</span>(glmmT_AlphaNInd_A)</a></code></pre></div>
 <pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
 ##   Approximation) [glmerMod]
 ##  Family: poisson  ( log )
@@ -2522,10 +2586,10 @@ div.tocify {
 ## Model is nearly unidentifiable: very large eigenvalue
 ##  - Rescale variables?</code></pre>
 </div>
-<div id="a-distancia-do-site-ao-inicio-do-trilho-explica-a-abundancia-das-especies-nao-indigenas-1" class="section level3">
-<h3>A distància do site ao início do trilho explica a abundància das espécies não indígenas?</h3>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1">glmm_FAlphaNInd_B&lt;-<span class="kw">glmer</span>(FAlphaNInd <span class="op">~</span><span class="st">  </span>Dist_trail_beginning <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb50-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaNInd_B)</a></code></pre></div>
+<div id="a-distancia-do-site-ao-inicio-do-trilho-explica-a-abundancia-das-especies-nao-indagenas-1" class="section level3">
+<h3>A distancia do site ao inicio do trilho explica a abundancia das especies na£o indagenas?</h3>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1">glmm_FAlphaNInd_B&lt;-<span class="kw">glmer</span>(FAlphaNInd <span class="op">~</span><span class="st">  </span>Dist_trail_beginning <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
+<a class="sourceLine" id="cb56-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaNInd_B)</a></code></pre></div>
 <pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
 ##   Approximation) [glmerMod]
 ##  Family: poisson  ( log )
@@ -2559,10 +2623,10 @@ div.tocify {
 ## Model is nearly unidentifiable: very large eigenvalue
 ##  - Rescale variables?</code></pre>
 </div>
-<div id="os-tratamentos-explicam-a-abundancia-das-especies-nao-indigenas-1" class="section level3">
-<h3>Os tratamentos explicam a abundància das espécies não indígenas?</h3>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1">glmm_FAlphaNInd_C&lt;-<span class="kw">glmer</span>(FAlphaNInd <span class="op">~</span><span class="st">  </span>Treatment <span class="op">+</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb52-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaNInd_C)</a></code></pre></div>
+<div id="os-tratamentos-explicam-a-abundancia-das-especies-nao-indagenas" class="section level3">
+<h3>Os tratamentos explicam a abundancia das especies nao indagenas?</h3>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1">glmm_FAlphaNInd_C&lt;-<span class="kw">glmer</span>(FAlphaNInd <span class="op">~</span><span class="st">  </span>Treatment <span class="op">+</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
+<a class="sourceLine" id="cb58-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaNInd_C)</a></code></pre></div>
 <pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
 ##   Approximation) [glmerMod]
 ##  Family: poisson  ( log )

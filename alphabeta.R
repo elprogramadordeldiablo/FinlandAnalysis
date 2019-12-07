@@ -56,6 +56,7 @@ str(Alpha_controls)
 
 Traits  <- read.csv2(here("data","Traits_All_Fin.csv"), row.names=1, header=TRUE,  stringsAsFactors = T, dec = ".")
 Traits <- Traits[,-c(1:3)] 
+species <- rownames(Traits)
 str(Traits)
 
 
@@ -63,23 +64,20 @@ str(Traits)
 
 TraitsNat  <- read.csv2(here("data","Traits_Nat_Fin.csv"), row.names=1, header=TRUE,  stringsAsFactors = T, dec = ".")
 TraitsNat <- TraitsNat[,-c(1:3)] 
+speciesNat <- rownames(TraitsNat)
 str(Traits)
 
 # Matrix with species (rows)x traits (cols) for all Non-Indigenous species in all plots
 
 TraitsNInd  <- read.csv2(here("data","Traits_NInd_Fin.csv"), row.names=1, header=TRUE,  stringsAsFactors = T, dec = ".")
 TraitsNInd <- TraitsNInd[,-c(1:3)] 
+SpeciesNInd <- rownames(TraitsNInd)
 str(TraitsNInd)
 
 
 # Ficheiro com as abundâncias por Área de amostragem, para todas as amostras
-SAAll <- read.csv2(here("data","All_Fin.csv"))
-sites <- SAAll[,1]
-rownames(SAAll) <- SAAll[,1]
-SAAll <- SAAll[,-1] 
-#rownames(SAAll) <- sites    ##Estava assim originalmente, mas parece-me trocado
-#colnames(SAAll) <- species   ##Estava assim originalmente, mas parece-me trocado
-species <- colnames(SAAll) 
+SAAll <- read.csv2(here("data","All_Fin.csv"),row.names=1, header = TRUE)
+colnames(SAAll) <- species   ##Estava assim originalmente, mas parece-me trocado
 
 
 
@@ -89,21 +87,16 @@ species <- colnames(SAAll)
 
 # Ficheiro com as abundâncias por área de amostragem, para as espécies indígenas
 
-SANat <- read.csv2(here("data","Nat_Fin.csv"))
-sites <- SANat[,1]
-SANat <- SANat[,-1] 
-rownames(SANat) <- sites
-species_nat <- colnames(SANat)
+SANat <- read.csv2(here("data","Nat_Fin.csv"),row.names=1, header = TRUE)
+
+colnames(SANat) <- speciesNat 
 # HEllinger transformation
 #SANat <- decostand(SANat, "hellinger") 
 #SANat
 
 # Ficheiro com as abundâncias por área de amostragem, para as espécies não-indígenas
-SANInd <- read.csv2(here("data","NInd_Fin.csv"))
-sites <- SANInd[,1]
-SANInd <- SANInd[,-1] 
-rownames(SANInd) <- sites
-colnames(SANInd) <- species_nind
+SANInd <- read.csv2(here("data","NInd_Fin.csv"),row.names=1, header = TRUE)
+colnames(SANInd) <- SpeciesNInd
 
 # HEllinger transformation
 #SANInd <- decostand(SANInd, "hellinger") 
@@ -415,28 +408,28 @@ str(Betas)
 
 
 
-write.csv(BetaAllTotal,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaResults/BetaAllTotal.csv")
-write.csv(BetaAllRich,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaResults/BetaAllRich.csv")
-write.csv(BetaAllRepl,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaResults/BetaAllRepl.csv")
-write.csv(BetaNatTotal,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaResults/BetaNatTotal.csv")
-write.csv(BetaNatRich,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaResults/BetaNatRich.csv")
-write.csv(BetaNatRepl,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaResults/BetaNatRepl.csv")
-write.csv(BetaNIndTotal,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaResults/BetaNIndTotal.csv")
-write.csv(BetaNIndRich,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaResults/BetaNIndRich.csv")
-write.csv(BetaNIndRepl,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaResults/BetaNIndRepl.csv")
+write.csv(BetaAllTotal,file = here("results", "Control250_Fin.csv"))
+write.csv(BetaAllRich,file = here("results", "BetaAllRich.csv"))
+write.csv(BetaAllRepl,file = here("results", "BetaAllRepl.csv"))
+write.csv(BetaNatTotal,file = here("results", "BetaNatTotal.csv"))
+write.csv(BetaNatRich,file = here("results", "BetaNatRich.csv"))
+write.csv(BetaNatRepl,file = here("results", "BetaNatRepl.csv"))
+write.csv(BetaNIndTotal,file = here("results", "BetaNIndTotal.csv"))
+write.csv(BetaNIndRich,file = here("results", "BetaNIndRich.csv"))
+write.csv(BetaNIndRepl,file = here("results", "BetaNIndRepl.csv"))
 
 ## Exporting FUNCTIONAL beta results to .csv (for the record - it won't be usedin analysis, as the RESULTS 
 #       file compiles all the  useable results )
 
-write.csv(BetaFuncAllTotal,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaFuncResults/BetaFuncAllTotal.csv")
-write.csv(BetaFuncAllRich,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaFuncResults/BetaFuncAllRich.csv")
-write.csv(BetaFuncAllRepl,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaFuncResults/BetaFuncAllRepl.csv")
-write.csv(BetaFuncNatTotal,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaFuncResults/BetaFuncNatTotal.csv")
-write.csv(BetaFuncNatRich,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaFuncResults/BetaFuncNatRich.csv")
-write.csv(BetaFuncNatRepl,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaFuncResults/BetaFuncNatRepl.csv")
-write.csv(BetaFuncNIndTotal,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaFuncResults/BetaFuncNIndTotal.csv")
-write.csv(BetaFuncNIndRich,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaFuncResults/BetaFuncNIndRich.csv")
-write.csv(BetaFuncNIndRepl,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaFuncResults/BetaFuncNIndRepl.csv")
+write.csv(BetaFuncAllTotal,file = here("results", "BetaFuncAllTotal.csv"))
+write.csv(BetaFuncAllRich,file = here("results", "BetaFuncAllRich.csv"))
+write.csv(BetaFuncAllRepl,file = here("results", "BetaFuncAllRepl.csv"))
+write.csv(BetaFuncNatTotal,file = here("results", "BetaFuncNatTotal.csv"))
+write.csv(BetaFuncNatRich,file = here("results", "BetaFuncNatRich.csv"))
+write.csv(BetaFuncNatRepl,file = here("results", "BetaFuncNatRepl.csv"))
+write.csv(BetaFuncNIndTotal,file = here("results", "BetaFuncNIndTotal.csv"))
+write.csv(BetaFuncNIndRich,file = here("results", "BetaFuncNIndRich.csv"))
+write.csv(BetaFuncNIndRepl,file = here("results", "BetaFuncNIndRepl.csv"))
 
 ###########################################################################
 #####                            RESULTS                              #####
@@ -453,10 +446,11 @@ Results <- apply(Results, 2 , as.character)
 rownames(Results) <- rownames(Alphas)
 
 #PASSING RESULTS TO FILE
-write.csv(Results, file = ("C:/ArthropodsArticle/FinlandAnalysis/RESULTS.csv"), row.names = TRUE)
+write.csv(Results, file = here("results","RESULTS.csv"), row.names = TRUE)
 
 Results2 <- read.csv2(here("RESULTS.CSV"), header=TRUE, row.names = 1,  stringsAsFactors = T,sep = ",", dec = ".")
 Results2
 
 Results3 <- read.csv("RESULTS.csv", header = TRUE, row.names = 1, sep = ",", dec = ".")
 ResultsWithoutControls <- Results3[-c(5,6,11,12,17,18),-c(1:2)]
+

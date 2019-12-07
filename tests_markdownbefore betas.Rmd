@@ -68,11 +68,6 @@ dredge(gm1,evaluate=FALSE)
 ```{r}
 dredge(gm1, extra = c("R^2", F = function(x)
     summary(x)$fstatistic[[1]]))
-
-# Returns Values unranked: "(Int) / ESTIMATE(Dst_edg /Dst_trl /Dst_trl_bgn/ Trt) / R^2 /df / logLik  /AICc/ delta/ weight"
-
-#options(na.action = "na.omit")
-
 ```
 
 
@@ -90,11 +85,6 @@ dredge(gm2,evaluate=FALSE)
 ```{r}
 dredge(gm2, extra = c("R^2", F = function(x)
     summary(x)$fstatistic[[1]]))
-
-# Returns Values unranked: "(Int) / ESTIMATE(Dst_edg /Dst_trl /Dst_trl_bgn/ Trt) / R^2 /df / logLik  /AICc/ delta/ weight"
-
-#options(na.action = "na.omit")
-
 ```
 
 # Alpha Taxonomic - Nind species
@@ -111,11 +101,6 @@ dredge(gm3,evaluate=FALSE)
 ```{r, warning=FALSE}
 dredge(gm3, extra = c("R^2", F = function(x)
     summary(x)$fstatistic[[1]]))
-
-# Returns Values unranked: "(Int) / ESTIMATE(Dst_edg /Dst_trl /Dst_trl_bgn/ Trt) / R^2 /df / logLik  /AICc/ delta/ weight"
-
-#options(na.action = "na.omit")
-
 ```
 
 # Alpha Fuctional - All Species
@@ -133,11 +118,6 @@ dredge(gm4,evaluate=FALSE)
 ```{r, warning=FALSE}
 dredge(gm4, extra = c("R^2", F = function(x)
     summary(x)$fstatistic[[1]]))
-
-# Returns Values unranked: "(Int) / ESTIMATE(Dst_edg /Dst_trl /Dst_trl_bgn/ Trt) / R^2 /df / logLik  /AICc/ delta/ weight"
-
-#options(na.action = "na.omit")
-
 ```
 
 
@@ -156,11 +136,6 @@ dredge(gm5,evaluate=FALSE)
 ```{r, warning=FALSE}
 dredge(gm5, extra = c("R^2", F = function(x)
     summary(x)$fstatistic[[1]]))
-
-# Returns Values unranked: "(Int) / ESTIMATE(Dst_edg /Dst_trl /Dst_trl_bgn/ Trt) / R^2 /df / logLik  /AICc/ delta/ weight"
-
-#options(na.action = "na.omit")
-
 ```
 
 
@@ -180,32 +155,25 @@ dredge(gm6,evaluate=FALSE)
 ```{r, warning=FALSE}
 dredge(gm6, extra = c("R^2", F = function(x)
     summary(x)$fstatistic[[1]]))
-
-# Returns Values unranked: "(Int) / ESTIMATE(Dst_edg /Dst_trl /Dst_trl_bgn/ Trt) / R^2 /df / logLik  /AICc/ delta/ weight"
-
-#options(na.action = "na.omit")
 ```
 
 # Beta Taxonomic - All Species
 
 ## Generating the models
-```{r, warning=FALSE}
+
+``{r, warning=FALSE}
 
 gm7 <- glmer(BetaAllTotalVector ~ Dist_edge_std + Treatment + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = binomial)
 dredge(gm7,evaluate=FALSE)
-```
+``
 
 
 ## Model comparison table
-```{r, warning=FALSE}
+``{r, warning=FALSE}
 dredge(gm7, extra = c("R^2", F = function(x)
     summary(x)$fstatistic[[1]]))
 
-# Returns Values unranked: "(Int) / ESTIMATE(Dst_edg /Dst_trl /Dst_trl_bgn/ Trt) / R^2 /df / logLik  /AICc/ delta/ weight"
-
-#options(na.action = "na.omit")
-
-```
+``
 
 
 # Beta Taxonomic - Nat Species
@@ -222,11 +190,6 @@ dredge(gm8,evaluate=FALSE)
 ```{r, warning=FALSE}
 dredge(gm8, extra = c("R^2", F = function(x)
     summary(x)$fstatistic[[1]]))
-
-# Returns Values unranked: "(Int) / ESTIMATE(Dst_edg /Dst_trl /Dst_trl_bgn/ Trt) / R^2 /df / logLik  /AICc/ delta/ weight"
-
-#options(na.action = "na.omit")
-
 ```
 
 
@@ -245,78 +208,66 @@ dredge(gm9,evaluate=FALSE)
 dredge(gm9, extra = c("R^2", F = function(x)
     summary(x)$fstatistic[[1]]))
 
-# Returns Values unranked: "(Int) / ESTIMATE(Dst_edg /Dst_trl /Dst_trl_bgn/ Trt) / R^2 /df / logLik  /AICc/ delta/ weight"
-
-#options(na.action = "na.omit")
-
 ```
 
 
 
-# Beta Functional - All Species
+# FAILED Beta Functional - All 
 
 ## Generating the models
-```{r, warning=FALSE}
+``{r, warning=FALSE}
 
 gm10 <- glmer(BetaFuncAllTotalVector ~ Dist_edge_std + Treatment + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = binomial)
 dredge(gm10,evaluate=FALSE)
-```
+``
 
 
 ## Model comparison table
-```{r, warning=FALSE}
+``{r, warning=FALSE}
 dredge(gm10, extra = c("R^2", F = function(x)
     summary(x)$fstatistic[[1]]))
 
-# Returns Values unranked: "(Int) / ESTIMATE(Dst_edg /Dst_trl /Dst_trl_bgn/ Trt) / R^2 /df / logLik  /AICc/ delta/ weight"
-
-#options(na.action = "na.omit")
-
-```
+``
 
 
-# Beta Functional - Nat Species
+# FAILED Beta Functional - Nat 
 
 ## Generating the models
-```{r, warning=FALSE}
+``{r, warning=FALSE}
 
 gm11 <- glmer(BetaFuncNatTotalVector ~ Dist_edge_std + Treatment + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = binomial)
 dredge(gm10,evaluate=FALSE)
-```
+``
 
 
 ## Model comparison table
-```{r, warning=FALSE}
+``{r, warning=FALSE}
 dredge(gm11, extra = c("R^2", F = function(x)
     summary(x)$fstatistic[[1]]))
 
-# Returns Values unranked: "(Int) / ESTIMATE(Dst_edg /Dst_trl /Dst_trl_bgn/ Trt) / R^2 /df / logLik  /AICc/ delta/ weight"
-
-#options(na.action = "na.omit")
-
-```
 
 
-# Beta Functional - NInd Species
+``
+
+
+# FAILED Beta Functional - NInd 
 
 ## Generating the models
-```{r, warning=FALSE}
+``{r, warning=FALSE}
 
 gm12 <- glmer(BetaFuncNIndTotalVector ~ Dist_edge_std + Treatment + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = binomial)
 dredge(gm10,evaluate=FALSE)
-```
+``
 
 
 ## Model comparison table
-```{r, warning=FALSE}
+``{r, warning=FALSE}
 dredge(gm12, extra = c("R^2", F = function(x)
     summary(x)$fstatistic[[1]]))
 
-# Returns Values unranked: "(Int) / ESTIMATE(Dst_edg /Dst_trl /Dst_trl_bgn/ Trt) / R^2 /df / logLik  /AICc/ delta/ weight"
 
-#options(na.action = "na.omit")
 
-```
+``
 
 
 

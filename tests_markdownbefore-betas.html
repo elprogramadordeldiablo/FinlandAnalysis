@@ -1768,9 +1768,842 @@ div.tocify {
 ## Models ranked by AICc(x) 
 ## Random terms (all models): 
 ## '1 | ForestID'</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="co"># Returns Values unranked: &quot;(Int) / ESTIMATE(Dst_edg /Dst_trl /Dst_trl_bgn/ Trt) / R^2 /df / logLik  /AICc/ delta/ weight&quot;</span></a>
-<a class="sourceLine" id="cb11-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="co">#options(na.action = &quot;na.omit&quot;)</span></a></code></pre></div>
+</div>
+</div>
+<div id="alpha-taxonomic---native-species" class="section level1">
+<h1>Alpha Taxonomic - Native Species</h1>
+<div id="generating-the-models-1" class="section level2">
+<h2>Generating the models</h2>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">gm2 &lt;-<span class="st"> </span><span class="kw">glmer</span>(TAlphaNat <span class="op">~</span><span class="st"> </span>Dist_edge_std <span class="op">+</span><span class="st"> </span>Treatment <span class="op">+</span><span class="st"> </span>Dist_trail_std <span class="op">+</span><span class="st"> </span>Dist_trail_beginning_std <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="kw">options</span>(<span class="dt">na.action =</span> <span class="st">&quot;na.fail&quot;</span>)</a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="kw">dredge</span>(gm2,<span class="dt">evaluate=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<pre><code>## $`1`
+## glmer(formula = TAlphaNat ~ (1 | ForestID), data = Results2, 
+##     family = poisson)
+## 
+## $`2`
+## glmer(formula = TAlphaNat ~ Dist_edge_std + (1 | ForestID), data = Results2, 
+##     family = poisson)
+## 
+## $`3`
+## glmer(formula = TAlphaNat ~ Dist_trail_beginning_std + (1 | ForestID), 
+##     data = Results2, family = poisson)
+## 
+## $`4`
+## glmer(formula = TAlphaNat ~ Dist_edge_std + Dist_trail_beginning_std + 
+##     (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`5`
+## glmer(formula = TAlphaNat ~ Dist_trail_std + (1 | ForestID), 
+##     data = Results2, family = poisson)
+## 
+## $`6`
+## glmer(formula = TAlphaNat ~ Dist_edge_std + Dist_trail_std + 
+##     (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`7`
+## glmer(formula = TAlphaNat ~ Dist_trail_beginning_std + Dist_trail_std + 
+##     (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`8`
+## glmer(formula = TAlphaNat ~ Dist_edge_std + Dist_trail_beginning_std + 
+##     Dist_trail_std + (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`9`
+## glmer(formula = TAlphaNat ~ Treatment + (1 | ForestID), data = Results2, 
+##     family = poisson)
+## 
+## $`10`
+## glmer(formula = TAlphaNat ~ Dist_edge_std + Treatment + (1 | 
+##     ForestID), data = Results2, family = poisson)
+## 
+## $`11`
+## glmer(formula = TAlphaNat ~ Dist_trail_beginning_std + Treatment + 
+##     (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`12`
+## glmer(formula = TAlphaNat ~ Dist_edge_std + Dist_trail_beginning_std + 
+##     Treatment + (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`13`
+## glmer(formula = TAlphaNat ~ Dist_trail_std + Treatment + (1 | 
+##     ForestID), data = Results2, family = poisson)
+## 
+## $`14`
+## glmer(formula = TAlphaNat ~ Dist_edge_std + Dist_trail_std + 
+##     Treatment + (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`15`
+## glmer(formula = TAlphaNat ~ Dist_trail_beginning_std + Dist_trail_std + 
+##     Treatment + (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`16`
+## glmer(formula = TAlphaNat ~ Dist_edge_std + Dist_trail_beginning_std + 
+##     Dist_trail_std + Treatment + (1 | ForestID), data = Results2, 
+##     family = poisson)</code></pre>
+</div>
+<div id="model-comparison-table-1" class="section level2">
+<h2>Model comparison table</h2>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">dredge</span>(gm2, <span class="dt">extra =</span> <span class="kw">c</span>(<span class="st">&quot;R^2&quot;</span>, <span class="dt">F =</span> <span class="cf">function</span>(x)</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2">    <span class="kw">summary</span>(x)<span class="op">$</span>fstatistic[[<span class="dv">1</span>]]))</a></code></pre></div>
+<pre><code>## Global model call: glmer(formula = TAlphaNat ~ Dist_edge_std + Treatment + Dist_trail_std + 
+##     Dist_trail_beginning_std + (1 | ForestID), data = Results2, 
+##     family = poisson)
+## ---
+## Model selection table 
+##    (Int) Dst_edg_std Dst_trl_bgn_std Dst_trl_std Trt      R^2 df  logLik
+## 1  2.192                                             0.000000  2 -48.100
+## 2  2.175     0.02883                                 0.004538  3 -48.050
+## 5  2.187                                0.014610     0.001596  3 -48.083
+## 3  2.184                     0.01471                 0.001336  3 -48.086
+## 4  2.160     0.03391         0.02168                 0.007283  4 -48.020
+## 6  2.175     0.02722                    0.002692     0.004578  4 -48.050
+## 7  2.174                     0.02039    0.019530     0.003981  4 -48.056
+## 8  2.159     0.02999         0.02293    0.007011     0.007546  5 -48.017
+## 9  2.159                                           + 0.062450  7 -47.391
+## 13 2.133                                0.081630   + 0.070600  8 -47.295
+## 10 2.126     0.03820                               + 0.068250  8 -47.323
+## 11 2.159                    -0.03004               + 0.063760  8 -47.376
+## 14 2.114     0.02739                    0.067240   + 0.073280  9 -47.263
+## 15 2.133                    -0.03004    0.081630   + 0.071900  9 -47.280
+## 12 2.128     0.03599        -0.01800               + 0.068700  9 -47.317
+## 16 2.116     0.02443        -0.02190    0.068780   + 0.073930 10 -47.255
+##     AICc delta weight
+## 1  100.8  0.00  0.502
+## 2  103.4  2.60  0.137
+## 5  103.5  2.67  0.132
+## 3  103.5  2.67  0.132
+## 4  106.4  5.56  0.031
+## 6  106.5  5.62  0.030
+## 7  106.5  5.63  0.030
+## 8  109.8  8.95  0.006
+## 9  116.8 15.95  0.000
+## 13 121.7 20.83  0.000
+## 10 121.7 20.89  0.000
+## 11 121.8 21.00  0.000
+## 14 127.5 26.69  0.000
+## 15 127.6 26.73  0.000
+## 12 127.6 26.80  0.000
+## 16 134.5 33.68  0.000
+## Models ranked by AICc(x) 
+## Random terms (all models): 
+## '1 | ForestID'</code></pre>
+</div>
+</div>
+<div id="alpha-taxonomic---nind-species" class="section level1">
+<h1>Alpha Taxonomic - Nind species</h1>
+<div id="generating-the-models-2" class="section level2">
+<h2>Generating the models</h2>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">gm3 &lt;-<span class="st"> </span><span class="kw">glmer</span>(TAlphaNInd <span class="op">~</span><span class="st"> </span>Dist_edge_std <span class="op">+</span><span class="st"> </span>Treatment <span class="op">+</span><span class="st"> </span>Dist_trail_std <span class="op">+</span><span class="st"> </span>Dist_trail_beginning_std <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a></code></pre></div>
+<pre><code>## Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl =
+## control$checkConv, : Hessian is numerically singular: parameters are not
+## uniquely determined</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">options</span>(<span class="dt">na.action =</span> <span class="st">&quot;na.fail&quot;</span>)</a>
+<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="kw">dredge</span>(gm3,<span class="dt">evaluate=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<pre><code>## $`1`
+## glmer(formula = TAlphaNInd ~ (1 | ForestID), data = Results2, 
+##     family = poisson)
+## 
+## $`2`
+## glmer(formula = TAlphaNInd ~ Dist_edge_std + (1 | ForestID), 
+##     data = Results2, family = poisson)
+## 
+## $`3`
+## glmer(formula = TAlphaNInd ~ Dist_trail_beginning_std + (1 | 
+##     ForestID), data = Results2, family = poisson)
+## 
+## $`4`
+## glmer(formula = TAlphaNInd ~ Dist_edge_std + Dist_trail_beginning_std + 
+##     (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`5`
+## glmer(formula = TAlphaNInd ~ Dist_trail_std + (1 | ForestID), 
+##     data = Results2, family = poisson)
+## 
+## $`6`
+## glmer(formula = TAlphaNInd ~ Dist_edge_std + Dist_trail_std + 
+##     (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`7`
+## glmer(formula = TAlphaNInd ~ Dist_trail_beginning_std + Dist_trail_std + 
+##     (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`8`
+## glmer(formula = TAlphaNInd ~ Dist_edge_std + Dist_trail_beginning_std + 
+##     Dist_trail_std + (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`9`
+## glmer(formula = TAlphaNInd ~ Treatment + (1 | ForestID), data = Results2, 
+##     family = poisson)
+## 
+## $`10`
+## glmer(formula = TAlphaNInd ~ Dist_edge_std + Treatment + (1 | 
+##     ForestID), data = Results2, family = poisson)
+## 
+## $`11`
+## glmer(formula = TAlphaNInd ~ Dist_trail_beginning_std + Treatment + 
+##     (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`12`
+## glmer(formula = TAlphaNInd ~ Dist_edge_std + Dist_trail_beginning_std + 
+##     Treatment + (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`13`
+## glmer(formula = TAlphaNInd ~ Dist_trail_std + Treatment + (1 | 
+##     ForestID), data = Results2, family = poisson)
+## 
+## $`14`
+## glmer(formula = TAlphaNInd ~ Dist_edge_std + Dist_trail_std + 
+##     Treatment + (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`15`
+## glmer(formula = TAlphaNInd ~ Dist_trail_beginning_std + Dist_trail_std + 
+##     Treatment + (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`16`
+## glmer(formula = TAlphaNInd ~ Dist_edge_std + Dist_trail_beginning_std + 
+##     Dist_trail_std + Treatment + (1 | ForestID), data = Results2, 
+##     family = poisson)</code></pre>
+</div>
+<div id="model-comparison-table-2" class="section level2">
+<h2>Model comparison table</h2>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">dredge</span>(gm3, <span class="dt">extra =</span> <span class="kw">c</span>(<span class="st">&quot;R^2&quot;</span>, <span class="dt">F =</span> <span class="cf">function</span>(x)</a>
+<a class="sourceLine" id="cb19-2" data-line-number="2">    <span class="kw">summary</span>(x)<span class="op">$</span>fstatistic[[<span class="dv">1</span>]]))</a></code></pre></div>
+<pre><code>## Global model call: glmer(formula = TAlphaNInd ~ Dist_edge_std + Treatment + Dist_trail_std + 
+##     Dist_trail_beginning_std + (1 | ForestID), data = Results2, 
+##     family = poisson)
+## ---
+## Model selection table 
+##      (Int) Dst_edg_std Dst_trl_bgn_std Dst_trl_std Trt    R^2 df  logLik
+## 1   0.8938                                             0.4811  2 -42.711
+## 3   0.9953                     -0.2550                 0.5259  3 -41.717
+## 7   1.0940                     -0.3343     -0.2629     0.5755  4 -40.502
+## 5   0.9400                                 -0.1839     0.5095  3 -42.092
+## 2   1.0100    -0.26250                                 0.5012  3 -42.275
+## 4   1.1820    -0.36280         -0.3156                 0.5616  4 -40.856
+## 6   0.9351     0.01484                     -0.1909     0.5095  4 -42.091
+## 8   1.1000    -0.01757         -0.3347     -0.2548     0.5755  5 -40.502
+## 9   0.5251                                           + 0.6323  7 -38.922
+## 11  0.4520                     -1.0230               + 0.7064  8 -36.446
+## 13 -2.6170                                  9.8700   + 0.6910  8 -37.008
+## 15 -2.6270                     -0.9992      9.7010   + 0.7489  9 -34.725
+## 10  0.4523     0.11930                               + 0.6334  8 -38.887
+## 12  0.3466     0.16610         -1.0280               + 0.7079  9 -36.390
+## 14 -2.4410    -0.34780                     10.0200   + 0.7006  9 -36.662
+## 16 -2.4530    -0.39740         -1.0100      9.9800   + 0.7573 10 -34.353
+##     AICc delta weight
+## 1   90.1  0.00  0.271
+## 3   90.8  0.71  0.190
+## 7   91.4  1.30  0.141
+## 5   91.5  1.46  0.130
+## 2   91.9  1.83  0.108
+## 4   92.1  2.01  0.099
+## 6   94.5  4.48  0.029
+## 8   94.8  4.70  0.026
+## 9   99.8  9.79  0.002
+## 11 100.0  9.92  0.002
+## 13 101.1 11.04  0.001
+## 15 102.5 12.40  0.001
+## 10 104.9 14.80  0.000
+## 12 105.8 15.73  0.000
+## 14 106.3 16.27  0.000
+## 16 108.7 18.65  0.000
+## Models ranked by AICc(x) 
+## Random terms (all models): 
+## '1 | ForestID'</code></pre>
+</div>
+</div>
+<div id="alpha-fuctional---all-species" class="section level1">
+<h1>Alpha Fuctional - All Species</h1>
+<div id="generating-the-models-3" class="section level2">
+<h2>Generating the models</h2>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">gm4 &lt;-<span class="st"> </span><span class="kw">glmer</span>(FAlphaAll <span class="op">~</span><span class="st"> </span>Dist_edge_std <span class="op">+</span><span class="st"> </span>Treatment <span class="op">+</span><span class="st"> </span>Dist_trail_std <span class="op">+</span><span class="st"> </span>Dist_trail_beginning_std <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
+<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="kw">options</span>(<span class="dt">na.action =</span> <span class="st">&quot;na.fail&quot;</span>)</a>
+<a class="sourceLine" id="cb21-3" data-line-number="3"><span class="kw">dredge</span>(gm4,<span class="dt">evaluate=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<pre><code>## $`1`
+## glmer(formula = FAlphaAll ~ (1 | ForestID), data = Results2, 
+##     family = poisson)
+## 
+## $`2`
+## glmer(formula = FAlphaAll ~ Dist_edge_std + (1 | ForestID), data = Results2, 
+##     family = poisson)
+## 
+## $`3`
+## glmer(formula = FAlphaAll ~ Dist_trail_beginning_std + (1 | ForestID), 
+##     data = Results2, family = poisson)
+## 
+## $`4`
+## glmer(formula = FAlphaAll ~ Dist_edge_std + Dist_trail_beginning_std + 
+##     (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`5`
+## glmer(formula = FAlphaAll ~ Dist_trail_std + (1 | ForestID), 
+##     data = Results2, family = poisson)
+## 
+## $`6`
+## glmer(formula = FAlphaAll ~ Dist_edge_std + Dist_trail_std + 
+##     (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`7`
+## glmer(formula = FAlphaAll ~ Dist_trail_beginning_std + Dist_trail_std + 
+##     (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`8`
+## glmer(formula = FAlphaAll ~ Dist_edge_std + Dist_trail_beginning_std + 
+##     Dist_trail_std + (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`9`
+## glmer(formula = FAlphaAll ~ Treatment + (1 | ForestID), data = Results2, 
+##     family = poisson)
+## 
+## $`10`
+## glmer(formula = FAlphaAll ~ Dist_edge_std + Treatment + (1 | 
+##     ForestID), data = Results2, family = poisson)
+## 
+## $`11`
+## glmer(formula = FAlphaAll ~ Dist_trail_beginning_std + Treatment + 
+##     (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`12`
+## glmer(formula = FAlphaAll ~ Dist_edge_std + Dist_trail_beginning_std + 
+##     Treatment + (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`13`
+## glmer(formula = FAlphaAll ~ Dist_trail_std + Treatment + (1 | 
+##     ForestID), data = Results2, family = poisson)
+## 
+## $`14`
+## glmer(formula = FAlphaAll ~ Dist_edge_std + Dist_trail_std + 
+##     Treatment + (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`15`
+## glmer(formula = FAlphaAll ~ Dist_trail_beginning_std + Dist_trail_std + 
+##     Treatment + (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`16`
+## glmer(formula = FAlphaAll ~ Dist_edge_std + Dist_trail_beginning_std + 
+##     Dist_trail_std + Treatment + (1 | ForestID), data = Results2, 
+##     family = poisson)</code></pre>
+</div>
+<div id="model-comparison-table-3" class="section level2">
+<h2>Model comparison table</h2>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">dredge</span>(gm4, <span class="dt">extra =</span> <span class="kw">c</span>(<span class="st">&quot;R^2&quot;</span>, <span class="dt">F =</span> <span class="cf">function</span>(x)</a>
+<a class="sourceLine" id="cb23-2" data-line-number="2">    <span class="kw">summary</span>(x)<span class="op">$</span>fstatistic[[<span class="dv">1</span>]]))</a></code></pre></div>
+<pre><code>## Global model call: glmer(formula = FAlphaAll ~ Dist_edge_std + Treatment + Dist_trail_std + 
+##     Dist_trail_beginning_std + (1 | ForestID), data = Results2, 
+##     family = poisson)
+## ---
+## Model selection table 
+##    (Int) Dst_edg_std Dst_trl_bgn_std Dst_trl_std Trt df logLik AICc
+## 1  1.611                                              2   -Inf  Inf
+## 2  1.614   -0.007377                                  3   -Inf  Inf
+## 3  1.631                    -0.04667                  3   -Inf  Inf
+## 4  1.648   -0.031450        -0.05179                  4   -Inf  Inf
+## 5  1.618                               -0.024120      3   -Inf  Inf
+## 6  1.583    0.108000                   -0.072750      4   -Inf  Inf
+## 7  1.649                    -0.06023   -0.040740      4   -Inf  Inf
+## 8  1.616    0.101200        -0.05901   -0.085950      5   -Inf  Inf
+## 9  1.532                                           +  7   -Inf  Inf
+## 10 1.493    0.060290                               +  8   -Inf  Inf
+## 11 1.516                    -0.17240               +  8   -Inf  Inf
+## 12 1.480    0.056320        -0.17140               +  9   -Inf  Inf
+## 13 1.524                                0.024710   +  8   -Inf  Inf
+## 14 1.477    0.121300                   -0.075790   +  9   -Inf  Inf
+## 15 1.513                    -0.17170    0.009857   +  9   -Inf  Inf
+## 16 1.454    0.148200        -0.17840   -0.114000   + 10   -Inf  Inf
+## Models ranked by AICc(x) 
+## Random terms (all models): 
+## '1 | ForestID'</code></pre>
+</div>
+</div>
+<div id="alpha-functional---native-species" class="section level1">
+<h1>Alpha Functional - Native Species</h1>
+<div id="generating-the-models-4" class="section level2">
+<h2>Generating the models</h2>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">gm5 &lt;-<span class="st"> </span><span class="kw">glmer</span>(FAlphaNat <span class="op">~</span><span class="st"> </span>Dist_edge_std <span class="op">+</span><span class="st"> </span>Treatment <span class="op">+</span><span class="st"> </span>Dist_trail_std <span class="op">+</span><span class="st"> </span>Dist_trail_beginning_std <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
+<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="kw">options</span>(<span class="dt">na.action =</span> <span class="st">&quot;na.fail&quot;</span>)</a>
+<a class="sourceLine" id="cb25-3" data-line-number="3"><span class="kw">dredge</span>(gm5,<span class="dt">evaluate=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<pre><code>## $`1`
+## glmer(formula = FAlphaNat ~ (1 | ForestID), data = Results2, 
+##     family = poisson)
+## 
+## $`2`
+## glmer(formula = FAlphaNat ~ Dist_edge_std + (1 | ForestID), data = Results2, 
+##     family = poisson)
+## 
+## $`3`
+## glmer(formula = FAlphaNat ~ Dist_trail_beginning_std + (1 | ForestID), 
+##     data = Results2, family = poisson)
+## 
+## $`4`
+## glmer(formula = FAlphaNat ~ Dist_edge_std + Dist_trail_beginning_std + 
+##     (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`5`
+## glmer(formula = FAlphaNat ~ Dist_trail_std + (1 | ForestID), 
+##     data = Results2, family = poisson)
+## 
+## $`6`
+## glmer(formula = FAlphaNat ~ Dist_edge_std + Dist_trail_std + 
+##     (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`7`
+## glmer(formula = FAlphaNat ~ Dist_trail_beginning_std + Dist_trail_std + 
+##     (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`8`
+## glmer(formula = FAlphaNat ~ Dist_edge_std + Dist_trail_beginning_std + 
+##     Dist_trail_std + (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`9`
+## glmer(formula = FAlphaNat ~ Treatment + (1 | ForestID), data = Results2, 
+##     family = poisson)
+## 
+## $`10`
+## glmer(formula = FAlphaNat ~ Dist_edge_std + Treatment + (1 | 
+##     ForestID), data = Results2, family = poisson)
+## 
+## $`11`
+## glmer(formula = FAlphaNat ~ Dist_trail_beginning_std + Treatment + 
+##     (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`12`
+## glmer(formula = FAlphaNat ~ Dist_edge_std + Dist_trail_beginning_std + 
+##     Treatment + (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`13`
+## glmer(formula = FAlphaNat ~ Dist_trail_std + Treatment + (1 | 
+##     ForestID), data = Results2, family = poisson)
+## 
+## $`14`
+## glmer(formula = FAlphaNat ~ Dist_edge_std + Dist_trail_std + 
+##     Treatment + (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`15`
+## glmer(formula = FAlphaNat ~ Dist_trail_beginning_std + Dist_trail_std + 
+##     Treatment + (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`16`
+## glmer(formula = FAlphaNat ~ Dist_edge_std + Dist_trail_beginning_std + 
+##     Dist_trail_std + Treatment + (1 | ForestID), data = Results2, 
+##     family = poisson)</code></pre>
+</div>
+<div id="model-comparison-table-4" class="section level2">
+<h2>Model comparison table</h2>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="kw">dredge</span>(gm5, <span class="dt">extra =</span> <span class="kw">c</span>(<span class="st">&quot;R^2&quot;</span>, <span class="dt">F =</span> <span class="cf">function</span>(x)</a>
+<a class="sourceLine" id="cb27-2" data-line-number="2">    <span class="kw">summary</span>(x)<span class="op">$</span>fstatistic[[<span class="dv">1</span>]]))</a></code></pre></div>
+<pre><code>## Global model call: glmer(formula = FAlphaNat ~ Dist_edge_std + Treatment + Dist_trail_std + 
+##     Dist_trail_beginning_std + (1 | ForestID), data = Results2, 
+##     family = poisson)
+## ---
+## Model selection table 
+##     (Int) Dst_edg_std Dst_trl_bgn_std Dst_trl_std Trt df logLik AICc
+## 1  0.7654                                              2   -Inf  Inf
+## 2  0.7511     0.03036                                  3   -Inf  Inf
+## 3  0.7734                    -0.01754                  3   -Inf  Inf
+## 4  0.7601     0.02428        -0.01349                  4   -Inf  Inf
+## 5  0.7639                               0.0046930      3   -Inf  Inf
+## 6  0.7415     0.06693                  -0.0249800      4   -Inf  Inf
+## 7  0.7735                    -0.01762  -0.0002455      4   -Inf  Inf
+## 8  0.7511     0.06493        -0.01653  -0.0287200      5   -Inf  Inf
+## 9  0.7427                                           +  7   -Inf  Inf
+## 10 0.7065     0.05298                               +  8   -Inf  Inf
+## 11 0.7402                    -0.03210               +  8   -Inf  Inf
+## 12 0.7050     0.05169        -0.02984               +  9   -Inf  Inf
+## 13 0.7323                               0.0326600   +  8   -Inf  Inf
+## 14 0.7024     0.07057                  -0.0249200   +  9   -Inf  Inf
+## 15 0.7309                    -0.02967   0.0299700   +  9   -Inf  Inf
+## 16 0.7001     0.07221        -0.03135  -0.0291600   + 10   -Inf  Inf
+## Models ranked by AICc(x) 
+## Random terms (all models): 
+## '1 | ForestID'</code></pre>
+</div>
+</div>
+<div id="alpha-functional---nind-species" class="section level1">
+<h1>Alpha Functional - N/Ind Species</h1>
+<div id="generating-the-models-5" class="section level2">
+<h2>Generating the models</h2>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">gm6 &lt;-<span class="st"> </span><span class="kw">glmer</span>(FAlphaNInd <span class="op">~</span><span class="st"> </span>Dist_edge_std <span class="op">+</span><span class="st"> </span>Treatment <span class="op">+</span><span class="st"> </span>Dist_trail_std <span class="op">+</span><span class="st"> </span>Dist_trail_beginning_std <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
+<a class="sourceLine" id="cb29-2" data-line-number="2"><span class="kw">options</span>(<span class="dt">na.action =</span> <span class="st">&quot;na.fail&quot;</span>)</a>
+<a class="sourceLine" id="cb29-3" data-line-number="3"><span class="kw">dredge</span>(gm6,<span class="dt">evaluate=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<pre><code>## $`1`
+## glmer(formula = FAlphaNInd ~ (1 | ForestID), data = Results2, 
+##     family = poisson)
+## 
+## $`2`
+## glmer(formula = FAlphaNInd ~ Dist_edge_std + (1 | ForestID), 
+##     data = Results2, family = poisson)
+## 
+## $`3`
+## glmer(formula = FAlphaNInd ~ Dist_trail_beginning_std + (1 | 
+##     ForestID), data = Results2, family = poisson)
+## 
+## $`4`
+## glmer(formula = FAlphaNInd ~ Dist_edge_std + Dist_trail_beginning_std + 
+##     (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`5`
+## glmer(formula = FAlphaNInd ~ Dist_trail_std + (1 | ForestID), 
+##     data = Results2, family = poisson)
+## 
+## $`6`
+## glmer(formula = FAlphaNInd ~ Dist_edge_std + Dist_trail_std + 
+##     (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`7`
+## glmer(formula = FAlphaNInd ~ Dist_trail_beginning_std + Dist_trail_std + 
+##     (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`8`
+## glmer(formula = FAlphaNInd ~ Dist_edge_std + Dist_trail_beginning_std + 
+##     Dist_trail_std + (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`9`
+## glmer(formula = FAlphaNInd ~ Treatment + (1 | ForestID), data = Results2, 
+##     family = poisson)
+## 
+## $`10`
+## glmer(formula = FAlphaNInd ~ Dist_edge_std + Treatment + (1 | 
+##     ForestID), data = Results2, family = poisson)
+## 
+## $`11`
+## glmer(formula = FAlphaNInd ~ Dist_trail_beginning_std + Treatment + 
+##     (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`12`
+## glmer(formula = FAlphaNInd ~ Dist_edge_std + Dist_trail_beginning_std + 
+##     Treatment + (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`13`
+## glmer(formula = FAlphaNInd ~ Dist_trail_std + Treatment + (1 | 
+##     ForestID), data = Results2, family = poisson)
+## 
+## $`14`
+## glmer(formula = FAlphaNInd ~ Dist_edge_std + Dist_trail_std + 
+##     Treatment + (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`15`
+## glmer(formula = FAlphaNInd ~ Dist_trail_beginning_std + Dist_trail_std + 
+##     Treatment + (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`16`
+## glmer(formula = FAlphaNInd ~ Dist_edge_std + Dist_trail_beginning_std + 
+##     Dist_trail_std + Treatment + (1 | ForestID), data = Results2, 
+##     family = poisson)</code></pre>
+</div>
+<div id="model-comparison-table-5" class="section level2">
+<h2>Model comparison table</h2>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="kw">dredge</span>(gm6, <span class="dt">extra =</span> <span class="kw">c</span>(<span class="st">&quot;R^2&quot;</span>, <span class="dt">F =</span> <span class="cf">function</span>(x)</a>
+<a class="sourceLine" id="cb31-2" data-line-number="2">    <span class="kw">summary</span>(x)<span class="op">$</span>fstatistic[[<span class="dv">1</span>]]))</a></code></pre></div>
+<pre><code>## Global model call: glmer(formula = FAlphaNInd ~ Dist_edge_std + Treatment + Dist_trail_std + 
+##     Dist_trail_beginning_std + (1 | ForestID), data = Results2, 
+##     family = poisson)
+## ---
+## Model selection table 
+##       (Int) Dst_edg_std Dst_trl_bgn_std Dst_trl_std Trt df logLik AICc
+## 1  -0.21110                                              2   -Inf  Inf
+## 2  -0.17010   -0.088090                                  3   -Inf  Inf
+## 3  -0.11570                     -0.2298                  3   -Inf  Inf
+## 4  -0.02704   -0.165300         -0.2571                  4   -Inf  Inf
+## 5  -0.16950                                 -0.1550      3   -Inf  Inf
+## 6  -0.25710    0.259100                     -0.2765      4   -Inf  Inf
+## 7  -0.02635                     -0.2976     -0.2257      4   -Inf  Inf
+## 8  -0.11090    0.245000         -0.2948     -0.3396      5   -Inf  Inf
+## 9  -0.22550                                           +  7   -Inf  Inf
+## 10 -0.47130    0.372700                               +  8   -Inf  Inf
+## 11 -0.27200                     -0.6623               +  8   -Inf  Inf
+## 12 -0.50240    0.349500         -0.6466               +  9   -Inf  Inf
+## 13 -3.22100                                  9.4070   +  8   -Inf  Inf
+## 14 -3.23300    0.026520                      9.3900   +  9   -Inf  Inf
+## 15 -3.24000                     -0.6353      9.3330   +  9   -Inf  Inf
+## 16 -3.24200    0.003841         -0.6351      9.3310   + 10   -Inf  Inf
+## Models ranked by AICc(x) 
+## Random terms (all models): 
+## '1 | ForestID'</code></pre>
+</div>
+</div>
+<div id="beta-taxonomic---all-species" class="section level1">
+<h1>Beta Taxonomic - All Species</h1>
+<div id="generating-the-models-6" class="section level2">
+<h2>Generating the models</h2>
+<p>``{r, warning=FALSE}</p>
+<p>gm7 &lt;- glmer(BetaAllTotalVector ~ Dist_edge_std + Treatment + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = binomial) dredge(gm7,evaluate=FALSE) ``</p>
+</div>
+<div id="model-comparison-table-6" class="section level2">
+<h2>Model comparison table</h2>
+<p>``{r, warning=FALSE} dredge(gm7, extra = c(“R^2”, F = function(x) summary(x)$fstatistic[[1]]))</p>
+<p>``</p>
+</div>
+</div>
+<div id="beta-taxonomic---nat-species" class="section level1">
+<h1>Beta Taxonomic - Nat Species</h1>
+<div id="generating-the-models-7" class="section level2">
+<h2>Generating the models</h2>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">gm8 &lt;-<span class="st"> </span><span class="kw">glmer</span>(BetaNatTotalVector <span class="op">~</span><span class="st"> </span>Dist_edge_std <span class="op">+</span><span class="st"> </span>Treatment <span class="op">+</span><span class="st"> </span>Dist_trail_std <span class="op">+</span><span class="st"> </span>Dist_trail_beginning_std <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> binomial)</a>
+<a class="sourceLine" id="cb33-2" data-line-number="2"><span class="kw">dredge</span>(gm8,<span class="dt">evaluate=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<pre><code>## $`1`
+## glmer(formula = BetaNatTotalVector ~ (1 | ForestID), data = Results2, 
+##     family = binomial)
+## 
+## $`2`
+## glmer(formula = BetaNatTotalVector ~ Dist_edge_std + (1 | ForestID), 
+##     data = Results2, family = binomial)
+## 
+## $`3`
+## glmer(formula = BetaNatTotalVector ~ Dist_trail_beginning_std + 
+##     (1 | ForestID), data = Results2, family = binomial)
+## 
+## $`4`
+## glmer(formula = BetaNatTotalVector ~ Dist_edge_std + Dist_trail_beginning_std + 
+##     (1 | ForestID), data = Results2, family = binomial)
+## 
+## $`5`
+## glmer(formula = BetaNatTotalVector ~ Dist_trail_std + (1 | ForestID), 
+##     data = Results2, family = binomial)
+## 
+## $`6`
+## glmer(formula = BetaNatTotalVector ~ Dist_edge_std + Dist_trail_std + 
+##     (1 | ForestID), data = Results2, family = binomial)
+## 
+## $`7`
+## glmer(formula = BetaNatTotalVector ~ Dist_trail_beginning_std + 
+##     Dist_trail_std + (1 | ForestID), data = Results2, family = binomial)
+## 
+## $`8`
+## glmer(formula = BetaNatTotalVector ~ Dist_edge_std + Dist_trail_beginning_std + 
+##     Dist_trail_std + (1 | ForestID), data = Results2, family = binomial)
+## 
+## $`9`
+## glmer(formula = BetaNatTotalVector ~ Treatment + (1 | ForestID), 
+##     data = Results2, family = binomial)
+## 
+## $`10`
+## glmer(formula = BetaNatTotalVector ~ Dist_edge_std + Treatment + 
+##     (1 | ForestID), data = Results2, family = binomial)
+## 
+## $`11`
+## glmer(formula = BetaNatTotalVector ~ Dist_trail_beginning_std + 
+##     Treatment + (1 | ForestID), data = Results2, family = binomial)
+## 
+## $`12`
+## glmer(formula = BetaNatTotalVector ~ Dist_edge_std + Dist_trail_beginning_std + 
+##     Treatment + (1 | ForestID), data = Results2, family = binomial)
+## 
+## $`13`
+## glmer(formula = BetaNatTotalVector ~ Dist_trail_std + Treatment + 
+##     (1 | ForestID), data = Results2, family = binomial)
+## 
+## $`14`
+## glmer(formula = BetaNatTotalVector ~ Dist_edge_std + Dist_trail_std + 
+##     Treatment + (1 | ForestID), data = Results2, family = binomial)
+## 
+## $`15`
+## glmer(formula = BetaNatTotalVector ~ Dist_trail_beginning_std + 
+##     Dist_trail_std + Treatment + (1 | ForestID), data = Results2, 
+##     family = binomial)
+## 
+## $`16`
+## glmer(formula = BetaNatTotalVector ~ Dist_edge_std + Dist_trail_beginning_std + 
+##     Dist_trail_std + Treatment + (1 | ForestID), data = Results2, 
+##     family = binomial)</code></pre>
+</div>
+<div id="model-comparison-table-7" class="section level2">
+<h2>Model comparison table</h2>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="kw">dredge</span>(gm8, <span class="dt">extra =</span> <span class="kw">c</span>(<span class="st">&quot;R^2&quot;</span>, <span class="dt">F =</span> <span class="cf">function</span>(x)</a>
+<a class="sourceLine" id="cb35-2" data-line-number="2">    <span class="kw">summary</span>(x)<span class="op">$</span>fstatistic[[<span class="dv">1</span>]]))</a></code></pre></div>
+<pre><code>## Global model call: glmer(formula = BetaNatTotalVector ~ Dist_edge_std + Treatment + 
+##     Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), 
+##     data = Results2, family = binomial)
+## ---
+## Model selection table 
+##       (Int) Dst_edg_std Dst_trl_bgn_std Dst_trl_std Trt      R^2 df
+## 6    0.5539      3.2700                     -4.7770     0.369600  4
+## 5    1.0760                                 -1.8850     0.220500  3
+## 8    0.8034      3.4730        -0.35020     -5.1780     0.379300  5
+## 7    1.3480                    -0.39220     -2.1270     0.236500  4
+## 1    0.5596                                             0.007528  2
+## 2    0.4599      0.1729                                 0.011580  3
+## 3    0.5401                     0.03729                 0.007741  3
+## 4    0.4109      0.1897         0.07519                 0.012410  4
+## 9   33.0100                                           + 0.369300  7
+## 10   4.6010      7.5760                               + 0.475100  8
+## 11  12.4600                     0.38220               + 0.371400  8
+## 12  31.0300      4.3750         0.88850               + 0.485500  9
+## 14 117.2000      7.2700                   -262.2000   + 0.475500  9
+## 16   5.9240      4.4040         0.90750     -0.4004   + 0.485300 10
+##     logLik AICc delta weight
+## 6   -9.428 29.2  0.00  0.508
+## 5  -11.764 30.9  1.65  0.222
+## 8   -9.258 32.3  3.06  0.110
+## 7  -11.535 33.4  4.21  0.062
+## 1  -14.421 33.5  4.26  0.060
+## 2  -14.376 36.1  6.88  0.016
+## 3  -14.418 36.2  6.96  0.016
+## 4  -14.366 39.1  9.88  0.004
+## 9   -9.433 40.9 11.66  0.001
+## 10  -7.413 41.9 12.69  0.001
+## 11  -9.398 45.9 16.66  0.000
+## 12  -7.193 47.4 18.18  0.000
+## 14  -7.404 47.8 18.60  0.000
+## 16  -7.198 54.4 25.19  0.000
+## Models ranked by AICc(x) 
+## Random terms (all models): 
+## '1 | ForestID'</code></pre>
+</div>
+</div>
+<div id="beta-taxonomic---nind-species" class="section level1">
+<h1>Beta Taxonomic - NInd Species</h1>
+<div id="generating-the-models-8" class="section level2">
+<h2>Generating the models</h2>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">gm9 &lt;-<span class="st"> </span><span class="kw">glmer</span>(BetaNIndTotalVector <span class="op">~</span><span class="st"> </span>Dist_edge_std <span class="op">+</span><span class="st"> </span>Treatment <span class="op">+</span><span class="st"> </span>Dist_trail_std <span class="op">+</span><span class="st"> </span>Dist_trail_beginning_std <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> binomial)</a>
+<a class="sourceLine" id="cb37-2" data-line-number="2"><span class="kw">dredge</span>(gm9,<span class="dt">evaluate=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<pre><code>## $`1`
+## glmer(formula = BetaNIndTotalVector ~ (1 | ForestID), data = Results2, 
+##     family = binomial)
+## 
+## $`2`
+## glmer(formula = BetaNIndTotalVector ~ Dist_edge_std + (1 | ForestID), 
+##     data = Results2, family = binomial)
+## 
+## $`3`
+## glmer(formula = BetaNIndTotalVector ~ Dist_trail_beginning_std + 
+##     (1 | ForestID), data = Results2, family = binomial)
+## 
+## $`4`
+## glmer(formula = BetaNIndTotalVector ~ Dist_edge_std + Dist_trail_beginning_std + 
+##     (1 | ForestID), data = Results2, family = binomial)
+## 
+## $`5`
+## glmer(formula = BetaNIndTotalVector ~ Dist_trail_std + (1 | ForestID), 
+##     data = Results2, family = binomial)
+## 
+## $`6`
+## glmer(formula = BetaNIndTotalVector ~ Dist_edge_std + Dist_trail_std + 
+##     (1 | ForestID), data = Results2, family = binomial)
+## 
+## $`7`
+## glmer(formula = BetaNIndTotalVector ~ Dist_trail_beginning_std + 
+##     Dist_trail_std + (1 | ForestID), data = Results2, family = binomial)
+## 
+## $`8`
+## glmer(formula = BetaNIndTotalVector ~ Dist_edge_std + Dist_trail_beginning_std + 
+##     Dist_trail_std + (1 | ForestID), data = Results2, family = binomial)
+## 
+## $`9`
+## glmer(formula = BetaNIndTotalVector ~ Treatment + (1 | ForestID), 
+##     data = Results2, family = binomial)
+## 
+## $`10`
+## glmer(formula = BetaNIndTotalVector ~ Dist_edge_std + Treatment + 
+##     (1 | ForestID), data = Results2, family = binomial)
+## 
+## $`11`
+## glmer(formula = BetaNIndTotalVector ~ Dist_trail_beginning_std + 
+##     Treatment + (1 | ForestID), data = Results2, family = binomial)
+## 
+## $`12`
+## glmer(formula = BetaNIndTotalVector ~ Dist_edge_std + Dist_trail_beginning_std + 
+##     Treatment + (1 | ForestID), data = Results2, family = binomial)
+## 
+## $`13`
+## glmer(formula = BetaNIndTotalVector ~ Dist_trail_std + Treatment + 
+##     (1 | ForestID), data = Results2, family = binomial)
+## 
+## $`14`
+## glmer(formula = BetaNIndTotalVector ~ Dist_edge_std + Dist_trail_std + 
+##     Treatment + (1 | ForestID), data = Results2, family = binomial)
+## 
+## $`15`
+## glmer(formula = BetaNIndTotalVector ~ Dist_trail_beginning_std + 
+##     Dist_trail_std + Treatment + (1 | ForestID), data = Results2, 
+##     family = binomial)
+## 
+## $`16`
+## glmer(formula = BetaNIndTotalVector ~ Dist_edge_std + Dist_trail_beginning_std + 
+##     Dist_trail_std + Treatment + (1 | ForestID), data = Results2, 
+##     family = binomial)</code></pre>
+</div>
+<div id="model-comparison-table-8" class="section level2">
+<h2>Model comparison table</h2>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="kw">dredge</span>(gm9, <span class="dt">extra =</span> <span class="kw">c</span>(<span class="st">&quot;R^2&quot;</span>, <span class="dt">F =</span> <span class="cf">function</span>(x)</a>
+<a class="sourceLine" id="cb39-2" data-line-number="2">    <span class="kw">summary</span>(x)<span class="op">$</span>fstatistic[[<span class="dv">1</span>]]))</a></code></pre></div>
+<pre><code>## Global model call: glmer(formula = BetaNIndTotalVector ~ Dist_edge_std + Treatment + 
+##     Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), 
+##     data = Results2, family = binomial)
+## ---
+## Model selection table 
+##       (Int) Dst_edg_std Dst_trl_bgn_std Dst_trl_std Trt      R^2 df
+## 6    0.5539      3.2700                     -4.7770     0.369600  4
+## 5    1.0760                                 -1.8850     0.220500  3
+## 8    0.8034      3.4730        -0.35020     -5.1780     0.379300  5
+## 7    1.3480                    -0.39220     -2.1270     0.236500  4
+## 1    0.5596                                             0.007528  2
+## 2    0.4599      0.1729                                 0.011580  3
+## 3    0.5401                     0.03729                 0.007741  3
+## 4    0.4109      0.1897         0.07519                 0.012410  4
+## 9   33.0100                                           + 0.369300  7
+## 10   4.6010      7.5760                               + 0.475100  8
+## 11  12.4600                     0.38220               + 0.371400  8
+## 12  31.0300      4.3750         0.88850               + 0.485500  9
+## 14 117.2000      7.2700                   -262.2000   + 0.475500  9
+## 16   5.9240      4.4040         0.90750     -0.4004   + 0.485300 10
+##     logLik AICc delta weight
+## 6   -9.428 29.2  0.00  0.508
+## 5  -11.764 30.9  1.65  0.222
+## 8   -9.258 32.3  3.06  0.110
+## 7  -11.535 33.4  4.21  0.062
+## 1  -14.421 33.5  4.26  0.060
+## 2  -14.376 36.1  6.88  0.016
+## 3  -14.418 36.2  6.96  0.016
+## 4  -14.366 39.1  9.88  0.004
+## 9   -9.433 40.9 11.66  0.001
+## 10  -7.413 41.9 12.69  0.001
+## 11  -9.398 45.9 16.66  0.000
+## 12  -7.193 47.4 18.18  0.000
+## 14  -7.404 47.8 18.60  0.000
+## 16  -7.198 54.4 25.19  0.000
+## Models ranked by AICc(x) 
+## Random terms (all models): 
+## '1 | ForestID'</code></pre>
+</div>
+</div>
+<div id="failed-beta-functional---all" class="section level1">
+<h1>FAILED Beta Functional - All</h1>
+<div id="generating-the-models-9" class="section level2">
+<h2>Generating the models</h2>
+<p>``{r, warning=FALSE}</p>
+<p>gm10 &lt;- glmer(BetaFuncAllTotalVector ~ Dist_edge_std + Treatment + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = binomial) dredge(gm10,evaluate=FALSE) ``</p>
+</div>
+<div id="model-comparison-table-9" class="section level2">
+<h2>Model comparison table</h2>
+<p>``{r, warning=FALSE} dredge(gm10, extra = c(“R^2”, F = function(x) summary(x)$fstatistic[[1]]))</p>
+<p>``</p>
+</div>
+</div>
+<div id="failed-beta-functional---nat" class="section level1">
+<h1>FAILED Beta Functional - Nat</h1>
+<div id="generating-the-models-10" class="section level2">
+<h2>Generating the models</h2>
+<p>``{r, warning=FALSE}</p>
+<p>gm11 &lt;- glmer(BetaFuncNatTotalVector ~ Dist_edge_std + Treatment + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = binomial) dredge(gm10,evaluate=FALSE) ``</p>
+</div>
+<div id="model-comparison-table-10" class="section level2">
+<h2>Model comparison table</h2>
+<p>``{r, warning=FALSE} dredge(gm11, extra = c(“R^2”, F = function(x) summary(x)$fstatistic[[1]]))</p>
+<p>``</p>
+</div>
+</div>
+<div id="failed-beta-functional---nind" class="section level1">
+<h1>FAILED Beta Functional - NInd</h1>
+<div id="generating-the-models-11" class="section level2">
+<h2>Generating the models</h2>
+<p>``{r, warning=FALSE}</p>
+<p>gm12 &lt;- glmer(BetaFuncNIndTotalVector ~ Dist_edge_std + Treatment + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = binomial) dredge(gm10,evaluate=FALSE) ``</p>
+</div>
+<div id="model-comparison-table-11" class="section level2">
+<h2>Model comparison table</h2>
+<p>``{r, warning=FALSE} dredge(gm12, extra = c(“R^2”, F = function(x) summary(x)$fstatistic[[1]]))</p>
+<p>``</p>
 </div>
 </div>
 
@@ -1820,7 +2653,7 @@ $(document).ready(function ()  {
 
     // establish options
     var options = {
-      selectors: "h1,h2",
+      selectors: "h1,h2,h3",
       theme: "bootstrap3",
       context: '.toc-content',
       hashGenerator: function (text) {

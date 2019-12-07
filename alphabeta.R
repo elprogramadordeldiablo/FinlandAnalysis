@@ -44,6 +44,10 @@ Variables <- read.csv2(here("data","GLMM_Variables.csv"), row.names=1, header=TR
 Variables$Dist_trail <- as.numeric(Variables$Dist_trail)
 Variables$Dist_edge <- as.numeric(Variables$Dist_edge)
 Variables$Dist_trail_beginning <- as.numeric(Variables$Dist_trail_beginning)
+
+Variables$Dist_trail_std <- scale(Variables$Dist_trail, center = F)
+Variables$Dist_edge_std <- scale(Variables$Dist_edge, center = F)
+Variables$Dist_trail_beginning_std <- scale(Variables$Dist_trail_beginning, center = F)
 str(Variables)
 
 # Ficheiro com as abundâncias por amostra para os controlos 250/Max.
@@ -93,6 +97,7 @@ colnames(SANat) <- speciesNat
 # HEllinger transformation
 #SANat <- decostand(SANat, "hellinger") 
 #SANat
+
 
 # Ficheiro com as abundâncias por área de amostragem, para as espécies não-indígenas
 SANInd <- read.csv2(here("data","NInd_Fin.csv"),row.names=1, header = TRUE)
@@ -448,9 +453,9 @@ rownames(Results) <- rownames(Alphas)
 #PASSING RESULTS TO FILE
 write.csv(Results, file = here("results","RESULTS.csv"), row.names = TRUE)
 
-Results2 <- read.csv2(here("RESULTS.CSV"), header=TRUE, row.names = 1,  stringsAsFactors = T,sep = ",", dec = ".")
+Results2 <- read.csv2(here("results","RESULTS.CSV"), header=TRUE, row.names = 1,  stringsAsFactors = T,sep = ",", dec = ".")
 Results2
 
-Results3 <- read.csv("RESULTS.csv", header = TRUE, row.names = 1, sep = ",", dec = ".")
+Results3 <- read.csv(here("results","RESULTS.csv"), header = TRUE, row.names = 1, sep = ",", dec = ".")
 ResultsWithoutControls <- Results3[-c(5,6,11,12,17,18),-c(1:2)]
 

@@ -1593,1084 +1593,181 @@ div.tocify {
 <a class="sourceLine" id="cb2-7" data-line-number="7"><span class="kw">library</span>(here)       <span class="co"># to locate files</span></a>
 <a class="sourceLine" id="cb2-8" data-line-number="8"><span class="kw">library</span>(data.table) <span class="co"># to work with data</span></a>
 <a class="sourceLine" id="cb2-9" data-line-number="9"><span class="kw">library</span>(dplyr)      <span class="co"># to manage data</span></a>
-<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="kw">library</span>(magrittr)   <span class="co"># to use the pipe operator %&gt;% </span></a></code></pre></div>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="kw">library</span>(magrittr)   <span class="co"># to use the pipe operator %&gt;% </span></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="kw">library</span>(MuMIn)</a></code></pre></div>
 </div>
 <div id="calling-results-dataset" class="section level2">
 <h2>Calling results dataset</h2>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">Results2 &lt;-<span class="st"> </span><span class="kw">read.csv2</span>(<span class="kw">here</span>(<span class="st">&quot;results&quot;</span>,<span class="st">&quot;RESULTS.CSV&quot;</span>), <span class="dt">header=</span><span class="ot">TRUE</span>, <span class="dt">row.names =</span> <span class="dv">1</span>,  <span class="dt">stringsAsFactors =</span> T,<span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">dec =</span> <span class="st">&quot;.&quot;</span>)</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">str</span>(Results2)</a></code></pre></div>
-<pre><code>## 'data.frame':    22 obs. of  30 variables:
-##  $ TrailName              : Factor w/ 22 levels &quot;Guilherme_Moniz&quot;,..: 1 2 4 3 6 5 11 13 12 16 ...
-##  $ ForestID               : Factor w/ 5 levels &quot;Guilherme_Moniz&quot;,..: 1 2 2 2 2 2 3 3 3 3 ...
-##  $ Dist_trail             : int  0 0 0 0 50 235 0 0 0 0 ...
-##  $ Dist_edge              : int  0 0 0 0 293 50 0 -25 0 25 ...
-##  $ Dist_trail_beginning   : int  0 50 250 250 NA NA 0 50 250 1010 ...
-##  $ Treatment              : Factor w/ 6 levels &quot;CTRL_fifty&quot;,&quot;CTRL_twohundredfifty&quot;,..: 6 6 3 5 1 2 6 3 5 4 ...
-##  $ TAlphaAll              : int  23 11 7 5 10 8 17 11 16 11 ...
-##  $ TAlphaNat              : int  12 8 7 5 8 8 10 7 11 10 ...
-##  $ TAlphaNInd             : int  11 3 0 0 2 0 7 4 5 1 ...
-##  $ FAlphaAll              : num  3.6 2.31 1.84 1.48 2.28 ...
-##  $ FAlphaNat              : num  2.67 1.99 1.83 1.47 1.98 ...
-##  $ FAlphaNInd             : num  1.83 1.07 0 0 1.02 ...
-##  $ BetaAllTotalVector     : num  0 0.643 0.333 0.375 0.5 ...
-##  $ BetaAllRichVector      : num  0 0.214 0.111 0.375 0.167 ...
-##  $ BetaAllReplVector      : num  0 0.429 0.222 0 0.333 ...
-##  $ BetaFuncAllTotalVector : num  0 0.442 0.265 0.294 0.325 ...
-##  $ BetaFuncAllRichVector  : num  0 0.20191 0.00626 0.09646 0.10389 ...
-##  $ BetaFuncAllReplVector  : num  0 0.24 0.259 0.198 0.221 ...
-##  $ BetaNatTotalVector     : num  0 1 0 0 1 ...
-##  $ BetaNatRichVector      : num  0 1 0 0 1 ...
-##  $ BetaNatReplVector      : num  0 0 0 0 0 ...
-##  $ BetaFuncNatTotalVector : num  0 0.416 0.328 0.34 0.328 ...
-##  $ BetaFuncNatRichVector  : num  0 0.10315 0.00603 0.09387 0.04368 ...
-##  $ BetaFuncNatReplVector  : num  0 0.313 0.322 0.246 0.285 ...
-##  $ BetaNIndTotalVector    : num  0 1 0 0 1 ...
-##  $ BetaNIndRichVector     : num  0 1 0 0 1 ...
-##  $ BetaNIndReplVector     : num  0 0 0 0 0 ...
-##  $ BetaFuncNIndTotalVector: num  0 0.416 0.328 0.34 0.328 ...
-##  $ BetaFuncNIndRichVector : num  0 0.10315 0.00603 0.09387 0.04368 ...
-##  $ BetaFuncNIndReplVector : num  0 0.313 0.322 0.246 0.285 ...</code></pre>
+<pre><code>## 'data.frame':    22 obs. of  32 variables:
+##  $ ForestID                : Factor w/ 5 levels &quot;Guilherme_Moniz&quot;,..: 1 2 2 2 2 2 3 3 3 3 ...
+##  $ Dist_trail              : int  0 0 0 0 50 235 0 0 0 0 ...
+##  $ Dist_edge               : int  0 0 0 0 293 50 0 -25 0 25 ...
+##  $ Dist_trail_beginning    : int  0 50 250 250 0 0 0 50 250 1010 ...
+##  $ Treatment               : Factor w/ 6 levels &quot;CTRL_fifty&quot;,&quot;CTRL_twohundredfifty&quot;,..: 6 6 3 5 1 2 6 3 5 4 ...
+##  $ Dist_trail_std          : num  0 0 0 0 0.32 ...
+##  $ Dist_edge_std           : num  0 0 0 0 0.987 ...
+##  $ Dist_trail_beginning_std: num  0 0.178 0.888 0.888 0 ...
+##  $ TAlphaAll               : int  23 11 7 5 10 8 17 11 16 11 ...
+##  $ TAlphaNat               : int  12 8 7 5 8 8 10 7 11 10 ...
+##  $ TAlphaNInd              : int  11 3 0 0 2 0 7 4 5 1 ...
+##  $ FAlphaAll               : num  8.64 4.76 3.48 2.51 4.57 ...
+##  $ FAlphaNat               : num  2.73 2.03 1.87 1.51 2.02 ...
+##  $ FAlphaNInd              : num  1.84 1.09 0 0 1.04 ...
+##  $ BetaAllTotalVector      : num  0 0.643 0.333 0.375 0.5 ...
+##  $ BetaAllRichVector       : num  0 0.214 0.111 0.375 0.167 ...
+##  $ BetaAllReplVector       : num  0 0.429 0.222 0 0.333 ...
+##  $ BetaFuncAllTotalVector  : num  0 0.494 0.31 0.47 0.451 ...
+##  $ BetaFuncAllRichVector   : num  0 0.2532 0.0247 0.1315 0.3152 ...
+##  $ BetaFuncAllReplVector   : num  0 0.241 0.286 0.339 0.136 ...
+##  $ BetaNatTotalVector      : num  0 1 0 0 1 ...
+##  $ BetaNatRichVector       : num  0 1 0 0 1 ...
+##  $ BetaNatReplVector       : num  0 0 0 0 0 ...
+##  $ BetaFuncNatTotalVector  : num  0 0.531 0.371 0.547 0.437 ...
+##  $ BetaFuncNatRichVector   : num  0 0.3065 0.0238 0.1248 0.3344 ...
+##  $ BetaFuncNatReplVector   : num  0 0.225 0.347 0.423 0.103 ...
+##  $ BetaNIndTotalVector     : num  0 1 0 0 1 ...
+##  $ BetaNIndRichVector      : num  0 1 0 0 1 ...
+##  $ BetaNIndReplVector      : num  0 0 0 0 0 ...
+##  $ BetaFuncNIndTotalVector : num  0 0.531 0.371 0.547 0.437 ...
+##  $ BetaFuncNIndRichVector  : num  0 0.3065 0.0238 0.1248 0.3344 ...
+##  $ BetaFuncNIndReplVector  : num  0 0.225 0.347 0.423 0.103 ...</code></pre>
 </div>
 <div id="checking-for-colinearity" class="section level2">
 <h2>Checking for colinearity</h2>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">results.variables &lt;-<span class="st"> </span>Results2[,<span class="dv">3</span><span class="op">:</span><span class="dv">5</span>]</a>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">results.variables &lt;-<span class="st"> </span>Results2[,<span class="dv">5</span><span class="op">:</span><span class="dv">8</span>] <span class="co"># selecting the variables relevant to the test</span></a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw">cor</span>(results.variables, <span class="dt">use =</span> <span class="st">&quot;pairwise.complete.obs&quot;</span>)</a></code></pre></div>
-<pre><code>## Warning in cor(results.variables, use = &quot;pairwise.complete.obs&quot;): the
-## standard deviation is zero</code></pre>
-<pre><code>##                      Dist_trail   Dist_edge Dist_trail_beginning
-## Dist_trail            1.0000000  0.50983431                   NA
-## Dist_edge             0.5098343  1.00000000          -0.06788658
-## Dist_trail_beginning         NA -0.06788658           1.00000000</code></pre>
+<a class="sourceLine" id="cb5-3" data-line-number="3">numeric.results.variables &lt;-<span class="st"> </span>Results2[,<span class="dv">6</span><span class="op">:</span><span class="dv">8</span>] <span class="co"># selecting the variables relevant to the test</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="kw">cor</span>(numeric.results.variables)  <span class="co">#isto ontem funcionava, nÃ£o sei o que se passa</span></a></code></pre></div>
+<pre><code>##                          Dist_trail_std Dist_edge_std
+## Dist_trail_std                1.0000000     0.5098343
+## Dist_edge_std                 0.5098343     1.0000000
+## Dist_trail_beginning_std     -0.2650399    -0.2158209
+##                          Dist_trail_beginning_std
+## Dist_trail_std                         -0.2650399
+## Dist_edge_std                          -0.2158209
+## Dist_trail_beginning_std                1.0000000</code></pre>
 </div>
+<div id="generating-the-models" class="section level2">
+<h2>Generating the models</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">gm1 &lt;-<span class="st"> </span><span class="kw">glmer</span>(TAlphaAll <span class="op">~</span><span class="st"> </span>Dist_edge_std <span class="op">+</span><span class="st"> </span>Treatment <span class="op">+</span><span class="st"> </span>Dist_trail_std <span class="op">+</span><span class="st"> </span>Dist_trail_beginning_std <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw">options</span>(<span class="dt">na.action =</span> <span class="st">&quot;na.fail&quot;</span>)</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="kw">dredge</span>(gm1,<span class="dt">evaluate=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<pre><code>## $`1`
+## glmer(formula = TAlphaAll ~ (1 | ForestID), data = Results2, 
+##     family = poisson)
+## 
+## $`2`
+## glmer(formula = TAlphaAll ~ Dist_edge_std + (1 | ForestID), data = Results2, 
+##     family = poisson)
+## 
+## $`3`
+## glmer(formula = TAlphaAll ~ Dist_trail_beginning_std + (1 | ForestID), 
+##     data = Results2, family = poisson)
+## 
+## $`4`
+## glmer(formula = TAlphaAll ~ Dist_edge_std + Dist_trail_beginning_std + 
+##     (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`5`
+## glmer(formula = TAlphaAll ~ Dist_trail_std + (1 | ForestID), 
+##     data = Results2, family = poisson)
+## 
+## $`6`
+## glmer(formula = TAlphaAll ~ Dist_edge_std + Dist_trail_std + 
+##     (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`7`
+## glmer(formula = TAlphaAll ~ Dist_trail_beginning_std + Dist_trail_std + 
+##     (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`8`
+## glmer(formula = TAlphaAll ~ Dist_edge_std + Dist_trail_beginning_std + 
+##     Dist_trail_std + (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`9`
+## glmer(formula = TAlphaAll ~ Treatment + (1 | ForestID), data = Results2, 
+##     family = poisson)
+## 
+## $`10`
+## glmer(formula = TAlphaAll ~ Dist_edge_std + Treatment + (1 | 
+##     ForestID), data = Results2, family = poisson)
+## 
+## $`11`
+## glmer(formula = TAlphaAll ~ Dist_trail_beginning_std + Treatment + 
+##     (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`12`
+## glmer(formula = TAlphaAll ~ Dist_edge_std + Dist_trail_beginning_std + 
+##     Treatment + (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`13`
+## glmer(formula = TAlphaAll ~ Dist_trail_std + Treatment + (1 | 
+##     ForestID), data = Results2, family = poisson)
+## 
+## $`14`
+## glmer(formula = TAlphaAll ~ Dist_edge_std + Dist_trail_std + 
+##     Treatment + (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`15`
+## glmer(formula = TAlphaAll ~ Dist_trail_beginning_std + Dist_trail_std + 
+##     Treatment + (1 | ForestID), data = Results2, family = poisson)
+## 
+## $`16`
+## glmer(formula = TAlphaAll ~ Dist_edge_std + Dist_trail_beginning_std + 
+##     Dist_trail_std + Treatment + (1 | ForestID), data = Results2, 
+##     family = poisson)</code></pre>
 </div>
-<div id="glmm-alphas" class="section level1">
-<h1>GLMM Alphas</h1>
-<div id="taxonomical---all-species" class="section level2">
-<h2>Taxonomical - All Species</h2>
-<div id="a-distancia-ao-edge-tratamento-e-a-distancia-do-site-ao-inicio-do-trilho-explicam-a-abundancia-de-todas-as-especies" class="section level3">
-<h3>A distancia ao edge, tratamento e a distancia do site ao inicio do trilho explicam a abundancia de todas as especies?</h3>
-<pre><code>## Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl =
-## control$checkConv, : Model failed to converge with max|grad| = 0.0102779
-## (tol = 0.001, component 1)</code></pre>
-<pre><code>## Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl = control$checkConv, : Model is nearly unidentifiable: very large eigenvalue
-##  - Rescale variables?;Model is nearly unidentifiable: large eigenvalue ratio
-##  - Rescale variables?</code></pre>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
-##   Approximation) [glmerMod]
-##  Family: poisson  ( log )
-## Formula: TAlphaAll ~ Dist_edge + Treatment + Dist_trail_beginning + (1 |  
-##     ForestID)
-##    Data: Results2
-## 
-##      AIC      BIC   logLik deviance df.resid 
-##     96.8    102.2    -41.4     82.8        9 
-## 
-## Scaled residuals: 
-##      Min       1Q   Median       3Q      Max 
-## -1.30078 -0.41706 -0.05836  0.46631  1.29550 
-## 
-## Random effects:
-##  Groups   Name        Variance Std.Dev.
-##  ForestID (Intercept) 0.03044  0.1745  
-## Number of obs: 16, groups:  ForestID, 5
-## 
-## Fixed effects:
-##                                  Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)                     2.4242315  0.1999878  12.122   &lt;2e-16 ***
-## Dist_edge                      -0.0003130  0.0005662  -0.553    0.580    
-## TreatmentTrail_Max              0.4733334  0.3879404   1.220    0.222    
-## TreatmentTrail_twohundredfifty  0.0997237  0.2438749   0.409    0.683    
-## TreatmentTrail_zero             0.2766238  0.2119191   1.305    0.192    
-## Dist_trail_beginning           -0.0006389  0.0006193  -1.032    0.302    
+<div id="model-comparison-table" class="section level2">
+<h2>Model comparison table</h2>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">dredge</span>(gm1, <span class="dt">extra =</span> <span class="kw">c</span>(<span class="st">&quot;R^2&quot;</span>, <span class="dt">F =</span> <span class="cf">function</span>(x)</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">    <span class="kw">summary</span>(x)<span class="op">$</span>fstatistic[[<span class="dv">1</span>]]))</a></code></pre></div>
+<pre><code>## Global model call: glmer(formula = TAlphaAll ~ Dist_edge_std + Treatment + Dist_trail_std + 
+##     Dist_trail_beginning_std + (1 | ForestID), data = Results2, 
+##     family = poisson)
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Correlation of Fixed Effects:
-##             (Intr) Dst_dg TrtT_M TrtmntTrl_t TrtmntTrl_z
-## Dist_edge   -0.323                                      
-## TrtmntTrl_M -0.071 -0.106                               
-## TrtmntTrl_t -0.386 -0.035  0.584                        
-## TrtmntTrl_z -0.729  0.052  0.111  0.378                 
-## Dst_trl_bgn -0.312  0.107 -0.800 -0.402       0.252     
-## convergence code: 0
-## Model failed to converge with max|grad| = 0.0102779 (tol = 0.001, component 1)
-## Model is nearly unidentifiable: very large eigenvalue
-##  - Rescale variables?
-## Model is nearly unidentifiable: large eigenvalue ratio
-##  - Rescale variables?</code></pre>
-</div>
-<div id="a-distancia-ao-edge-e-a-distancia-do-site-ao-inicio-do-trilho-explicam-a-abundancia-de-todas-as-especies" class="section level3">
-<h3>A distancia ao edge e a distancia do site ao inicio do trilho explicam a abundancia de todas as especies?</h3>
-<pre><code>## Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl =
-## control$checkConv, : Model failed to converge with max|grad| = 0.00430367
-## (tol = 0.001, component 1)</code></pre>
-<pre><code>## Warning in checkConv(attr(opt, &quot;derivs&quot;), opt$par, ctrl = control$checkConv, : Model is nearly unidentifiable: very large eigenvalue
-##  - Rescale variables?</code></pre>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
-##   Approximation) [glmerMod]
-##  Family: poisson  ( log )
-## Formula: TAlphaAll ~ Dist_edge + Dist_trail_beginning + (1 | ForestID)
-##    Data: Results2
-## 
-##      AIC      BIC   logLik deviance df.resid 
-##     94.4     97.5    -43.2     86.4       12 
-## 
-## Scaled residuals: 
-##     Min      1Q  Median      3Q     Max 
-## -1.3673 -0.6086  0.1070  0.4719  1.2345 
-## 
-## Random effects:
-##  Groups   Name        Variance Std.Dev.
-##  ForestID (Intercept) 0.05817  0.2412  
-## Number of obs: 16, groups:  ForestID, 5
-## 
-## Fixed effects:
-##                        Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)           2.5758904  0.1573577  16.370   &lt;2e-16 ***
-## Dist_edge            -0.0002893  0.0006842  -0.423    0.672    
-## Dist_trail_beginning -0.0003017  0.0003098  -0.974    0.330    
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Correlation of Fixed Effects:
-##             (Intr) Dst_dg
-## Dist_edge   -0.430       
-## Dst_trl_bgn -0.329 -0.001
-## convergence code: 0
-## Model failed to converge with max|grad| = 0.00430367 (tol = 0.001, component 1)
-## Model is nearly unidentifiable: very large eigenvalue
-##  - Rescale variables?</code></pre>
-</div>
-<div id="a-distancia-ao-edge-explica-a-abundancia-de-todas-as-especies" class="section level3">
-<h3>A distancia ao edge explica a abundancia de todas as especies?</h3>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">glmmT_AlphaAll_A&lt;-<span class="kw">glmer</span>(TAlphaAll <span class="op">~</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2, <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="kw">summary</span>(glmmT_AlphaAll_A)</a></code></pre></div>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
-##   Approximation) [glmerMod]
-##  Family: poisson  ( log )
-## Formula: TAlphaAll ~ Dist_edge + (1 | ForestID)
-##    Data: Results2
-## 
-##      AIC      BIC   logLik deviance df.resid 
-##    120.4    123.7    -57.2    114.4       19 
-## 
-## Scaled residuals: 
-##      Min       1Q   Median       3Q      Max 
-## -1.39062 -0.53684 -0.08768  0.41284  1.44115 
-## 
-## Random effects:
-##  Groups   Name        Variance Std.Dev.
-##  ForestID (Intercept) 0.05776  0.2403  
-## Number of obs: 22, groups:  ForestID, 5
-## 
-## Fixed effects:
-##               Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)  2.4924142  0.1397459  17.835   &lt;2e-16 ***
-## Dist_edge   -0.0001383  0.0003971  -0.348    0.728    
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Correlation of Fixed Effects:
-##           (Intr)
-## Dist_edge -0.384
-## convergence code: 0
-## Model failed to converge with max|grad| = 0.00181401 (tol = 0.001, component 1)
-## Model is nearly unidentifiable: very large eigenvalue
-##  - Rescale variables?</code></pre>
-</div>
-<div id="a-distancia-do-site-ao-inicio-do-trilho-explica-a-abundancia-de-todas-as-especies" class="section level3">
-<h3>A distancia do site ao inicio do trilho explica a abundancia de todas as especies?</h3>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">glmm_TAlphaAll_B&lt;-<span class="kw">glmer</span>(TAlphaAll <span class="op">~</span><span class="st">  </span>Dist_trail_beginning <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaAll_B)</a></code></pre></div>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
-##   Approximation) [glmerMod]
-##  Family: poisson  ( log )
-## Formula: TAlphaAll ~ Dist_trail_beginning + (1 | ForestID)
-##    Data: Results2
-## 
-##      AIC      BIC   logLik deviance df.resid 
-##     92.6     94.9    -43.3     86.6       13 
-## 
-## Scaled residuals: 
-##      Min       1Q   Median       3Q      Max 
-## -1.32768 -0.57502  0.06004  0.52089  1.25658 
-## 
-## Random effects:
-##  Groups   Name        Variance Std.Dev.
-##  ForestID (Intercept) 0.06184  0.2487  
-## Number of obs: 16, groups:  ForestID, 5
-## 
-## Fixed effects:
-##                        Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)           2.5471871  0.1446962  17.604   &lt;2e-16 ***
-## Dist_trail_beginning -0.0002993  0.0003094  -0.967    0.333    
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Correlation of Fixed Effects:
-##             (Intr)
-## Dst_trl_bgn -0.357
-## convergence code: 0
-## Model failed to converge with max|grad| = 0.00423603 (tol = 0.001, component 1)
-## Model is nearly unidentifiable: very large eigenvalue
-##  - Rescale variables?</code></pre>
-</div>
-<div id="os-tratamentos-explicam-a-abundancia-de-todas-as-especies" class="section level3">
-<h3>Os tratamentos explicam a abundancia de todas as especies?</h3>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">glmm_TAlphaAll_C&lt;-<span class="kw">glmer</span>(TAlphaAll <span class="op">~</span><span class="st">  </span>Treatment <span class="op">+</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaAll_C)</a></code></pre></div>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
-##   Approximation) [glmerMod]
-##  Family: poisson  ( log )
-## Formula: TAlphaAll ~ Treatment + Dist_edge + (1 | ForestID)
-##    Data: Results2
-## 
-##      AIC      BIC   logLik deviance df.resid 
-##    126.3    135.0    -55.2    110.3       14 
-## 
-## Scaled residuals: 
-##     Min      1Q  Median      3Q     Max 
-## -1.2820 -0.4646 -0.1218  0.3635  1.5544 
-## 
-## Random effects:
-##  Groups   Name        Variance Std.Dev.
-##  ForestID (Intercept) 0.02243  0.1498  
-## Number of obs: 22, groups:  ForestID, 5
-## 
-## Fixed effects:
-##                                  Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)                     2.363e+00  2.185e-01  10.814   &lt;2e-16 ***
-## TreatmentCTRL_twohundredfifty  -3.137e-02  2.681e-01  -0.117    0.907    
-## TreatmentTrail_fifty           -3.297e-02  2.462e-01  -0.134    0.893    
-## TreatmentTrail_Max              1.109e-01  2.544e-01   0.436    0.663    
-## TreatmentTrail_twohundredfifty -3.299e-02  2.465e-01  -0.134    0.894    
-## TreatmentTrail_zero             3.080e-01  2.285e-01   1.348    0.178    
-## Dist_edge                      -7.520e-06  4.276e-04  -0.018    0.986    
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Correlation of Fixed Effects:
-##             (Intr) TCTRL_ TrtmntTrl_f TrtT_M TrtmntTrl_t TrtmntTrl_z
-## TrtmntCTRL_ -0.424                                                  
-## TrtmntTrl_f -0.702  0.426                                           
-## TrtmntTrl_M -0.686  0.420  0.569                                    
-## TrtmntTrl_t -0.703  0.423  0.589       0.569                        
-## TrtmntTrl_z -0.797  0.463  0.632       0.631  0.632                 
-## Dist_edge   -0.417 -0.299  0.206       0.173  0.212       0.206     
-## convergence code: 0
-## Model failed to converge with max|grad| = 0.00284125 (tol = 0.001, component 1)
-## Model is nearly unidentifiable: very large eigenvalue
-##  - Rescale variables?
-## Model is nearly unidentifiable: large eigenvalue ratio
-##  - Rescale variables?</code></pre>
-</div>
-</div>
-<div id="functional---all-species" class="section level2">
-<h2>Functional - All species</h2>
-<div id="a-distancia-ao-edge-e-a-distancia-do-site-ao-inicio-do-trilho-explicam-a-abundancia-de-todas-as-espe4cies" class="section level3">
-<h3>A distancia ao edge e a distancia do site ao inicio do trilho explicam a abundancia de todas as espe4cies?</h3>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">glmm_FAlphaAll_AB&lt;-<span class="kw">glmer</span>(FAlphaAll <span class="op">~</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>Dist_trail_beginning <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb20-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaAll_AB)</a></code></pre></div>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
-##   Approximation) [glmerMod]
-##  Family: poisson  ( log )
-## Formula: TAlphaAll ~ Dist_edge + Dist_trail_beginning + (1 | ForestID)
-##    Data: Results2
-## 
-##      AIC      BIC   logLik deviance df.resid 
-##     94.4     97.5    -43.2     86.4       12 
-## 
-## Scaled residuals: 
-##     Min      1Q  Median      3Q     Max 
-## -1.3673 -0.6086  0.1070  0.4719  1.2345 
-## 
-## Random effects:
-##  Groups   Name        Variance Std.Dev.
-##  ForestID (Intercept) 0.05817  0.2412  
-## Number of obs: 16, groups:  ForestID, 5
-## 
-## Fixed effects:
-##                        Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)           2.5758904  0.1573577  16.370   &lt;2e-16 ***
-## Dist_edge            -0.0002893  0.0006842  -0.423    0.672    
-## Dist_trail_beginning -0.0003017  0.0003098  -0.974    0.330    
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Correlation of Fixed Effects:
-##             (Intr) Dst_dg
-## Dist_edge   -0.430       
-## Dst_trl_bgn -0.329 -0.001
-## convergence code: 0
-## Model failed to converge with max|grad| = 0.00430367 (tol = 0.001, component 1)
-## Model is nearly unidentifiable: very large eigenvalue
-##  - Rescale variables?</code></pre>
-</div>
-<div id="a-distancia-ao-edge-explica-a-abundancia-de-todas-as-especies-1" class="section level3">
-<h3>A distancia ao edge explica a abundancia de todas as especies?</h3>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">glmmF_AlphaAll_A&lt;-<span class="kw">glmer</span>(FAlphaAll <span class="op">~</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2, <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="kw">summary</span>(glmmT_AlphaAll_A)</a></code></pre></div>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
-##   Approximation) [glmerMod]
-##  Family: poisson  ( log )
-## Formula: TAlphaAll ~ Dist_edge + (1 | ForestID)
-##    Data: Results2
-## 
-##      AIC      BIC   logLik deviance df.resid 
-##    120.4    123.7    -57.2    114.4       19 
-## 
-## Scaled residuals: 
-##      Min       1Q   Median       3Q      Max 
-## -1.39062 -0.53684 -0.08768  0.41284  1.44115 
-## 
-## Random effects:
-##  Groups   Name        Variance Std.Dev.
-##  ForestID (Intercept) 0.05776  0.2403  
-## Number of obs: 22, groups:  ForestID, 5
-## 
-## Fixed effects:
-##               Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)  2.4924142  0.1397459  17.835   &lt;2e-16 ***
-## Dist_edge   -0.0001383  0.0003971  -0.348    0.728    
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Correlation of Fixed Effects:
-##           (Intr)
-## Dist_edge -0.384
-## convergence code: 0
-## Model failed to converge with max|grad| = 0.00181401 (tol = 0.001, component 1)
-## Model is nearly unidentifiable: very large eigenvalue
-##  - Rescale variables?</code></pre>
-</div>
-<div id="a-distancia-do-site-ao-inicio-do-trilho-explica-a-abundancia-de-todas-as-espacies" class="section level3">
-<h3>A distancia do site ao inicio do trilho explica a abundancia de todas as espa©cies?</h3>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">glmm_FAlphaAll_B&lt;-<span class="kw">glmer</span>(FAlphaAll <span class="op">~</span><span class="st">  </span>Dist_trail_beginning <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb24-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaAll_B)</a></code></pre></div>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
-##   Approximation) [glmerMod]
-##  Family: poisson  ( log )
-## Formula: TAlphaAll ~ Dist_trail_beginning + (1 | ForestID)
-##    Data: Results2
-## 
-##      AIC      BIC   logLik deviance df.resid 
-##     92.6     94.9    -43.3     86.6       13 
-## 
-## Scaled residuals: 
-##      Min       1Q   Median       3Q      Max 
-## -1.32768 -0.57502  0.06004  0.52089  1.25658 
-## 
-## Random effects:
-##  Groups   Name        Variance Std.Dev.
-##  ForestID (Intercept) 0.06184  0.2487  
-## Number of obs: 16, groups:  ForestID, 5
-## 
-## Fixed effects:
-##                        Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)           2.5471871  0.1446962  17.604   &lt;2e-16 ***
-## Dist_trail_beginning -0.0002993  0.0003094  -0.967    0.333    
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Correlation of Fixed Effects:
-##             (Intr)
-## Dst_trl_bgn -0.357
-## convergence code: 0
-## Model failed to converge with max|grad| = 0.00423603 (tol = 0.001, component 1)
-## Model is nearly unidentifiable: very large eigenvalue
-##  - Rescale variables?</code></pre>
-</div>
-<div id="os-tratamentos-explicam-a-abundancia-de-todas-as-espacies" class="section level3">
-<h3>Os tratamentos explicam a abundancia de todas as espa©cies?</h3>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1">glmm_FAlphaAll_C&lt;-<span class="kw">glmer</span>(FAlphaAll <span class="op">~</span><span class="st">  </span>Treatment <span class="op">+</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb26-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaAll_C)</a></code></pre></div>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
-##   Approximation) [glmerMod]
-##  Family: poisson  ( log )
-## Formula: TAlphaAll ~ Treatment + Dist_edge + (1 | ForestID)
-##    Data: Results2
-## 
-##      AIC      BIC   logLik deviance df.resid 
-##    126.3    135.0    -55.2    110.3       14 
-## 
-## Scaled residuals: 
-##     Min      1Q  Median      3Q     Max 
-## -1.2820 -0.4646 -0.1218  0.3635  1.5544 
-## 
-## Random effects:
-##  Groups   Name        Variance Std.Dev.
-##  ForestID (Intercept) 0.02243  0.1498  
-## Number of obs: 22, groups:  ForestID, 5
-## 
-## Fixed effects:
-##                                  Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)                     2.363e+00  2.185e-01  10.814   &lt;2e-16 ***
-## TreatmentCTRL_twohundredfifty  -3.137e-02  2.681e-01  -0.117    0.907    
-## TreatmentTrail_fifty           -3.297e-02  2.462e-01  -0.134    0.893    
-## TreatmentTrail_Max              1.109e-01  2.544e-01   0.436    0.663    
-## TreatmentTrail_twohundredfifty -3.299e-02  2.465e-01  -0.134    0.894    
-## TreatmentTrail_zero             3.080e-01  2.285e-01   1.348    0.178    
-## Dist_edge                      -7.520e-06  4.276e-04  -0.018    0.986    
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Correlation of Fixed Effects:
-##             (Intr) TCTRL_ TrtmntTrl_f TrtT_M TrtmntTrl_t TrtmntTrl_z
-## TrtmntCTRL_ -0.424                                                  
-## TrtmntTrl_f -0.702  0.426                                           
-## TrtmntTrl_M -0.686  0.420  0.569                                    
-## TrtmntTrl_t -0.703  0.423  0.589       0.569                        
-## TrtmntTrl_z -0.797  0.463  0.632       0.631  0.632                 
-## Dist_edge   -0.417 -0.299  0.206       0.173  0.212       0.206     
-## convergence code: 0
-## Model failed to converge with max|grad| = 0.00284125 (tol = 0.001, component 1)
-## Model is nearly unidentifiable: very large eigenvalue
-##  - Rescale variables?
-## Model is nearly unidentifiable: large eigenvalue ratio
-##  - Rescale variables?</code></pre>
-</div>
-</div>
-<div id="taxonomical---natives" class="section level2">
-<h2>Taxonomical - Natives</h2>
-<div id="a-distancia-ao-edge-e-a-distancia-do-site-ao-inicio-do-trilho-explicam-a-abundancia-das-espacies-nativas" class="section level3">
-<h3>A distancia ao edge e a distancia do site ao inicio do trilho explicam a abundancia das espa©cies nativas?</h3>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">glmm_TAlphaNat_AB&lt;-<span class="kw">glmer</span>(TAlphaNat <span class="op">~</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>Dist_trail_beginning <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb28-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaNat_AB)</a></code></pre></div>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
-##   Approximation) [glmerMod]
-##  Family: poisson  ( log )
-## Formula: TAlphaNat ~ Dist_edge + Dist_trail_beginning + (1 | ForestID)
-##    Data: Results2
-## 
-##      AIC      BIC   logLik deviance df.resid 
-##     79.6     82.7    -35.8     71.6       12 
-## 
-## Scaled residuals: 
-##      Min       1Q   Median       3Q      Max 
-## -1.30956 -0.35769  0.03445  0.53808  1.08080 
-## 
-## Random effects:
-##  Groups   Name        Variance Std.Dev.
-##  ForestID (Intercept) 0        0       
-## Number of obs: 16, groups:  ForestID, 5
-## 
-## Fixed effects:
-##                       Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)          2.174e+00  1.206e-01  18.022   &lt;2e-16 ***
-## Dist_edge            1.073e-04  4.144e-04   0.259    0.796    
-## Dist_trail_beginning 5.148e-05  3.312e-04   0.155    0.876    
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Correlation of Fixed Effects:
-##             (Intr) Dst_dg
-## Dist_edge   -0.450       
-## Dst_trl_bgn -0.598  0.075
-## convergence code: 0
-## boundary (singular) fit: see ?isSingular</code></pre>
-</div>
-<div id="a-distancia-ao-edge-explica-a-abundancia-das-espacies-nativas" class="section level3">
-<h3>A distancia ao edge explica a abundancia das espa©cies nativas?</h3>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1">glmmT_AlphaNat_A&lt;-<span class="kw">glmer</span>(TAlphaNat <span class="op">~</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2, <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb30-2" data-line-number="2"><span class="kw">summary</span>(glmmT_AlphaNat_A)</a></code></pre></div>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
-##   Approximation) [glmerMod]
-##  Family: poisson  ( log )
-## Formula: TAlphaNat ~ Dist_edge + (1 | ForestID)
-##    Data: Results2
-## 
-##      AIC      BIC   logLik deviance df.resid 
-##    102.1    105.4    -48.1     96.1       19 
-## 
-## Scaled residuals: 
-##      Min       1Q   Median       3Q      Max 
-## -1.28121 -0.28027 -0.00439  0.40229  1.07838 
-## 
-## Random effects:
-##  Groups   Name        Variance Std.Dev.
-##  ForestID (Intercept) 0        0       
-## Number of obs: 22, groups:  ForestID, 5
-## 
-## Fixed effects:
-##              Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept) 2.175e+00  9.026e-02  24.096   &lt;2e-16 ***
-## Dist_edge   9.711e-05  3.062e-04   0.317    0.751    
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Correlation of Fixed Effects:
-##           (Intr)
-## Dist_edge -0.614
-## convergence code: 0
-## boundary (singular) fit: see ?isSingular</code></pre>
-</div>
-<div id="a-distancia-do-site-ao-inicio-do-trilho-explica-a-abundancia-das-espacies-nativas" class="section level3">
-<h3>A distancia do site ao inicio do trilho explica a abundÃncia das espÃ©cies nativas?</h3>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1">glmm_TAlphaNat_B&lt;-<span class="kw">glmer</span>(TAlphaNat <span class="op">~</span><span class="st">  </span>Dist_trail_beginning <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb32-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaNat_B)</a></code></pre></div>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
-##   Approximation) [glmerMod]
-##  Family: poisson  ( log )
-## Formula: TAlphaNat ~ Dist_trail_beginning + (1 | ForestID)
-##    Data: Results2
-## 
-##      AIC      BIC   logLik deviance df.resid 
-##     77.7     80.0    -35.8     71.7       13 
-## 
-## Scaled residuals: 
-##      Min       1Q   Median       3Q      Max 
-## -1.33807 -0.39703  0.02111  0.64280  1.03257 
-## 
-## Random effects:
-##  Groups   Name        Variance Std.Dev.
-##  ForestID (Intercept) 0        0       
-## Number of obs: 16, groups:  ForestID, 5
-## 
-## Fixed effects:
-##                       Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)          2.188e+00  1.077e-01  20.317   &lt;2e-16 ***
-## Dist_trail_beginning 4.533e-05  3.298e-04   0.137    0.891    
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Correlation of Fixed Effects:
-##             (Intr)
-## Dst_trl_bgn -0.633
-## convergence code: 0
-## boundary (singular) fit: see ?isSingular</code></pre>
-</div>
-<div id="os-tratamentos-explicam-a-abundancia-das-espacies-nativas" class="section level3">
-<h3>Os tratamentos explicam a abundÃncia das espÃ©cies nativas?</h3>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">glmm_TAlphaNat_C&lt;-<span class="kw">glmer</span>(TAlphaNat <span class="op">~</span><span class="st">  </span>Treatment <span class="op">+</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb34-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaNat_C)</a></code></pre></div>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
-##   Approximation) [glmerMod]
-##  Family: poisson  ( log )
-## Formula: TAlphaNat ~ Treatment + Dist_edge + (1 | ForestID)
-##    Data: Results2
-## 
-##      AIC      BIC   logLik deviance df.resid 
-##    110.6    119.4    -47.3     94.6       14 
-## 
-## Scaled residuals: 
-##      Min       1Q   Median       3Q      Max 
-## -1.09850 -0.29389  0.04671  0.21221  1.00544 
-## 
-## Random effects:
-##  Groups   Name        Variance Std.Dev.
-##  ForestID (Intercept) 0        0       
-## Number of obs: 22, groups:  ForestID, 5
-## 
-## Fixed effects:
-##                                  Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)                     2.1256492  0.2165933   9.814   &lt;2e-16 ***
-## TreatmentCTRL_twohundredfifty   0.0174195  0.2803816   0.062    0.950    
-## TreatmentTrail_fifty           -0.0612500  0.2687750  -0.228    0.820    
-## TreatmentTrail_Max              0.1582547  0.2710221   0.584    0.559    
-## TreatmentTrail_twohundredfifty -0.0297566  0.2674242  -0.111    0.911    
-## TreatmentTrail_zero             0.1432620  0.2486977   0.576    0.565    
-## Dist_edge                       0.0001286  0.0003473   0.370    0.711    
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Correlation of Fixed Effects:
-##             (Intr) TCTRL_ TrtmntTrl_f TrtT_M TrtmntTrl_t TrtmntTrl_z
-## TrtmntCTRL_ -0.549                                                  
-## TrtmntTrl_f -0.740  0.473                                           
-## TrtmntTrl_M -0.719  0.476  0.556                                    
-## TrtmntTrl_t -0.747  0.474  0.572       0.560                        
-## TrtmntTrl_z -0.807  0.508  0.616       0.604  0.621                 
-## Dist_edge   -0.424 -0.199  0.187       0.150  0.196       0.220     
-## convergence code: 0
-## boundary (singular) fit: see ?isSingular</code></pre>
-</div>
-</div>
-<div id="functional---natives" class="section level2">
-<h2>Functional - Natives</h2>
-<div id="a-distancia-ao-edge-e-a-distancia-do-site-ao-inicio-do-trilho-explicam-a-abundancia-das-espacies-nativas-1" class="section level3">
-<h3>A distancia ao edge e a distancia do site ao inicio do trilho explicam a abundancia das espa©cies nativas?</h3>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1">glmm_FAlphaNat_AB&lt;-<span class="kw">glmer</span>(FAlphaNat <span class="op">~</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>Dist_trail_beginning <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb36-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaNat_AB)</a></code></pre></div>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
-##   Approximation) [glmerMod]
-##  Family: poisson  ( log )
-## Formula: TAlphaNat ~ Dist_edge + Dist_trail_beginning + (1 | ForestID)
-##    Data: Results2
-## 
-##      AIC      BIC   logLik deviance df.resid 
-##     79.6     82.7    -35.8     71.6       12 
-## 
-## Scaled residuals: 
-##      Min       1Q   Median       3Q      Max 
-## -1.30956 -0.35769  0.03445  0.53808  1.08080 
-## 
-## Random effects:
-##  Groups   Name        Variance Std.Dev.
-##  ForestID (Intercept) 0        0       
-## Number of obs: 16, groups:  ForestID, 5
-## 
-## Fixed effects:
-##                       Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)          2.174e+00  1.206e-01  18.022   &lt;2e-16 ***
-## Dist_edge            1.073e-04  4.144e-04   0.259    0.796    
-## Dist_trail_beginning 5.148e-05  3.312e-04   0.155    0.876    
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Correlation of Fixed Effects:
-##             (Intr) Dst_dg
-## Dist_edge   -0.450       
-## Dst_trl_bgn -0.598  0.075
-## convergence code: 0
-## boundary (singular) fit: see ?isSingular</code></pre>
-</div>
-<div id="a-distancia-ao-edge-explica-a-abundancia-das-espacies-nativas-1" class="section level3">
-<h3>A distancia ao edge explica a abundancia das espa©cies nativas?</h3>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1">glmmF_AlphaNat_A&lt;-<span class="kw">glmer</span>(FAlphaNat <span class="op">~</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2, <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb38-2" data-line-number="2"><span class="kw">summary</span>(glmmT_AlphaNat_A)</a></code></pre></div>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
-##   Approximation) [glmerMod]
-##  Family: poisson  ( log )
-## Formula: TAlphaNat ~ Dist_edge + (1 | ForestID)
-##    Data: Results2
-## 
-##      AIC      BIC   logLik deviance df.resid 
-##    102.1    105.4    -48.1     96.1       19 
-## 
-## Scaled residuals: 
-##      Min       1Q   Median       3Q      Max 
-## -1.28121 -0.28027 -0.00439  0.40229  1.07838 
-## 
-## Random effects:
-##  Groups   Name        Variance Std.Dev.
-##  ForestID (Intercept) 0        0       
-## Number of obs: 22, groups:  ForestID, 5
-## 
-## Fixed effects:
-##              Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept) 2.175e+00  9.026e-02  24.096   &lt;2e-16 ***
-## Dist_edge   9.711e-05  3.062e-04   0.317    0.751    
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Correlation of Fixed Effects:
-##           (Intr)
-## Dist_edge -0.614
-## convergence code: 0
-## boundary (singular) fit: see ?isSingular</code></pre>
-</div>
-<div id="a-distancia-do-site-ao-inicio-do-trilho-explica-a-abundancia-das-espacies-nativas-1" class="section level3">
-<h3>A distancia do site ao inicio do trilho explica a abundancia das espa©cies nativas?</h3>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1">glmm_FAlphaNat_B&lt;-<span class="kw">glmer</span>(FAlphaNat <span class="op">~</span><span class="st">  </span>Dist_trail_beginning <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb40-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaNat_B)</a></code></pre></div>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
-##   Approximation) [glmerMod]
-##  Family: poisson  ( log )
-## Formula: TAlphaNat ~ Dist_trail_beginning + (1 | ForestID)
-##    Data: Results2
-## 
-##      AIC      BIC   logLik deviance df.resid 
-##     77.7     80.0    -35.8     71.7       13 
-## 
-## Scaled residuals: 
-##      Min       1Q   Median       3Q      Max 
-## -1.33807 -0.39703  0.02111  0.64280  1.03257 
-## 
-## Random effects:
-##  Groups   Name        Variance Std.Dev.
-##  ForestID (Intercept) 0        0       
-## Number of obs: 16, groups:  ForestID, 5
-## 
-## Fixed effects:
-##                       Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)          2.188e+00  1.077e-01  20.317   &lt;2e-16 ***
-## Dist_trail_beginning 4.533e-05  3.298e-04   0.137    0.891    
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Correlation of Fixed Effects:
-##             (Intr)
-## Dst_trl_bgn -0.633
-## convergence code: 0
-## boundary (singular) fit: see ?isSingular</code></pre>
-</div>
-<div id="os-tratamentos-explicam-a-abundancia-das-espacies-nativas-1" class="section level3">
-<h3>Os tratamentos explicam a abundancia das espa©cies nativas?</h3>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1">glmm_FAlphaNat_C&lt;-<span class="kw">glmer</span>(FAlphaNat <span class="op">~</span><span class="st">  </span>Treatment <span class="op">+</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb42-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaNat_C)</a></code></pre></div>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
-##   Approximation) [glmerMod]
-##  Family: poisson  ( log )
-## Formula: TAlphaNat ~ Treatment + Dist_edge + (1 | ForestID)
-##    Data: Results2
-## 
-##      AIC      BIC   logLik deviance df.resid 
-##    110.6    119.4    -47.3     94.6       14 
-## 
-## Scaled residuals: 
-##      Min       1Q   Median       3Q      Max 
-## -1.09850 -0.29389  0.04671  0.21221  1.00544 
-## 
-## Random effects:
-##  Groups   Name        Variance Std.Dev.
-##  ForestID (Intercept) 0        0       
-## Number of obs: 22, groups:  ForestID, 5
-## 
-## Fixed effects:
-##                                  Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)                     2.1256492  0.2165933   9.814   &lt;2e-16 ***
-## TreatmentCTRL_twohundredfifty   0.0174195  0.2803816   0.062    0.950    
-## TreatmentTrail_fifty           -0.0612500  0.2687750  -0.228    0.820    
-## TreatmentTrail_Max              0.1582547  0.2710221   0.584    0.559    
-## TreatmentTrail_twohundredfifty -0.0297566  0.2674242  -0.111    0.911    
-## TreatmentTrail_zero             0.1432620  0.2486977   0.576    0.565    
-## Dist_edge                       0.0001286  0.0003473   0.370    0.711    
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Correlation of Fixed Effects:
-##             (Intr) TCTRL_ TrtmntTrl_f TrtT_M TrtmntTrl_t TrtmntTrl_z
-## TrtmntCTRL_ -0.549                                                  
-## TrtmntTrl_f -0.740  0.473                                           
-## TrtmntTrl_M -0.719  0.476  0.556                                    
-## TrtmntTrl_t -0.747  0.474  0.572       0.560                        
-## TrtmntTrl_z -0.807  0.508  0.616       0.604  0.621                 
-## Dist_edge   -0.424 -0.199  0.187       0.150  0.196       0.220     
-## convergence code: 0
-## boundary (singular) fit: see ?isSingular</code></pre>
-<div id="non-natives" class="section level5">
-<h5>Non-Natives</h5>
-</div>
-</div>
-</div>
-<div id="taxonomical---non-indigenous" class="section level2">
-<h2>Taxonomical - Non Indigenous</h2>
-<div id="a-distancia-ao-edge-e-a-distancia-do-site-ao-inicio-do-trilho-explicam-a-abundancia-das-espacies-nao-indagenas" class="section level3">
-<h3>A distancia ao edge e a distancia do site ao inicio do trilho explicam a abunda ncia das espa©cies na£o inda?genas?</h3>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1">glmm_TAlphaNInd_AB&lt;-<span class="kw">glmer</span>(TAlphaNInd <span class="op">~</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>Dist_trail_beginning <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb44-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaNInd_AB)</a></code></pre></div>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
-##   Approximation) [glmerMod]
-##  Family: poisson  ( log )
-## Formula: TAlphaNInd ~ Dist_edge + Dist_trail_beginning + (1 | ForestID)
-##    Data: Results2
-## 
-##      AIC      BIC   logLik deviance df.resid 
-##     69.1     72.2    -30.5     61.1       12 
-## 
-## Scaled residuals: 
-##     Min      1Q  Median      3Q     Max 
-## -1.1888 -0.5857 -0.1872  0.5693  1.5549 
-## 
-## Random effects:
-##  Groups   Name        Variance Std.Dev.
-##  ForestID (Intercept) 0.3706   0.6088  
-## Number of obs: 16, groups:  ForestID, 5
-## 
-## Fixed effects:
-##                       Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)           1.390076   0.362519   3.834 0.000126 ***
-## Dist_edge            -0.001610   0.001684  -0.957 0.338818    
-## Dist_trail_beginning -0.001568   0.000839  -1.869 0.061602 .  
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Correlation of Fixed Effects:
-##             (Intr) Dst_dg
-## Dist_edge   -0.388       
-## Dst_trl_bgn -0.274 -0.041
-## convergence code: 0
-## Model failed to converge with max|grad| = 0.00229 (tol = 0.001, component 1)
-## Model is nearly unidentifiable: very large eigenvalue
-##  - Rescale variables?</code></pre>
-</div>
-<div id="a-distancia-ao-edge-explica-a-abundancia-das-especies-nao-indagenas" class="section level3">
-<h3>A distancia ao edge explica a abundancia das especies na£o indagenas?</h3>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1">glmmT_AlphaNInd_A&lt;-<span class="kw">glmer</span>(TAlphaNInd <span class="op">~</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2, <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb46-2" data-line-number="2"><span class="kw">summary</span>(glmmT_AlphaNInd_A)</a></code></pre></div>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
-##   Approximation) [glmerMod]
-##  Family: poisson  ( log )
-## Formula: TAlphaNInd ~ Dist_edge + (1 | ForestID)
-##    Data: Results2
-## 
-##      AIC      BIC   logLik deviance df.resid 
-##     90.6     93.8    -42.3     84.6       19 
-## 
-## Scaled residuals: 
-##      Min       1Q   Median       3Q      Max 
-## -1.42577 -0.82426  0.04476  0.56427  1.60427 
-## 
-## Random effects:
-##  Groups   Name        Variance Std.Dev.
-##  ForestID (Intercept) 0.5281   0.7267  
-## Number of obs: 22, groups:  ForestID, 5
-## 
-## Fixed effects:
-##               Estimate Std. Error z value Pr(&gt;|z|)   
-## (Intercept)  1.0101348  0.3780290   2.672  0.00754 **
-## Dist_edge   -0.0008840  0.0009737  -0.908  0.36395   
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Correlation of Fixed Effects:
-##           (Intr)
-## Dist_edge -0.322
-## convergence code: 0
-## Model is nearly unidentifiable: very large eigenvalue
-##  - Rescale variables?</code></pre>
-</div>
-<div id="a-distancia-do-site-ao-inicio-do-trilho-explica-a-abundancia-das-especies-nao-indagenas" class="section level3">
-<h3>A distancia do site ao inicio do trilho explica a abundancia das especies na£o indagenas?</h3>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1">glmm_TAlphaNInd_B&lt;-<span class="kw">glmer</span>(TAlphaNInd <span class="op">~</span><span class="st">  </span>Dist_trail_beginning <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb48-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaNInd_B)</a></code></pre></div>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
-##   Approximation) [glmerMod]
-##  Family: poisson  ( log )
-## Formula: TAlphaNInd ~ Dist_trail_beginning + (1 | ForestID)
-##    Data: Results2
-## 
-##      AIC      BIC   logLik deviance df.resid 
-##     67.9     70.3    -31.0     61.9       13 
-## 
-## Scaled residuals: 
-##     Min      1Q  Median      3Q     Max 
-## -1.1341 -0.5242 -0.1863  0.5896  1.4589 
-## 
-## Random effects:
-##  Groups   Name        Variance Std.Dev.
-##  ForestID (Intercept) 0.4478   0.6692  
-## Number of obs: 16, groups:  ForestID, 5
-## 
-## Fixed effects:
-##                        Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)           1.2349013  0.3562256   3.467 0.000527 ***
-## Dist_trail_beginning -0.0015541  0.0008243  -1.885 0.059394 .  
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Correlation of Fixed Effects:
-##             (Intr)
-## Dst_trl_bgn -0.287
-## convergence code: 0
-## Model failed to converge with max|grad| = 0.00223048 (tol = 0.001, component 1)
-## Model is nearly unidentifiable: very large eigenvalue
-##  - Rescale variables?</code></pre>
-</div>
-<div id="os-tratamentos-explicam-a-abundancia-das-espacies-nao-indagenas" class="section level3">
-<h3>Os tratamentos explicam a abundancia das espa©cies na£o indagenas?</h3>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1">glmm_TAlphaNInd_C&lt;-<span class="kw">glmer</span>(TAlphaNInd <span class="op">~</span><span class="st">  </span>Treatment <span class="op">+</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb50-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaNInd_C)</a></code></pre></div>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
-##   Approximation) [glmerMod]
-##  Family: poisson  ( log )
-## Formula: TAlphaNInd ~ Treatment + Dist_edge + (1 | ForestID)
-##    Data: Results2
-## 
-##      AIC      BIC   logLik deviance df.resid 
-##     93.8    102.5    -38.9     77.8       14 
-## 
-## Scaled residuals: 
-##      Min       1Q   Median       3Q      Max 
-## -1.20331 -0.69340  0.00709  0.43912  1.38948 
-## 
-## Random effects:
-##  Groups   Name        Variance Std.Dev.
-##  ForestID (Intercept) 0.3779   0.6148  
-## Number of obs: 22, groups:  ForestID, 5
-## 
-## Fixed effects:
-##                                  Estimate Std. Error z value Pr(&gt;|z|)  
-## (Intercept)                     0.4523349  0.6030581   0.750   0.4532  
-## TreatmentCTRL_twohundredfifty  -0.6324803  0.8682111  -0.728   0.4663  
-## TreatmentTrail_fifty            0.2743114  0.5880090   0.467   0.6409  
-## TreatmentTrail_Max              0.1577431  0.6202210   0.254   0.7992  
-## TreatmentTrail_twohundredfifty  0.1400188  0.6019969   0.233   0.8161  
-## TreatmentTrail_zero             0.9021654  0.5234810   1.723   0.0848 .
-## Dist_edge                       0.0004018  0.0015460   0.260   0.7949  
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Correlation of Fixed Effects:
-##             (Intr) TCTRL_ TrtmntTrl_f TrtT_M TrtmntTrl_t TrtmntTrl_z
-## TrtmntCTRL_ -0.112                                                  
-## TrtmntTrl_f -0.689  0.235                                           
-## TrtmntTrl_M -0.630  0.252  0.606                                    
-## TrtmntTrl_t -0.671  0.232  0.632       0.591                        
-## TrtmntTrl_z -0.758  0.324  0.699       0.662  0.683                 
-## Dist_edge   -0.465 -0.557  0.263       0.202  0.253       0.190     
-## convergence code: 0
-## Model failed to converge with max|grad| = 0.00123864 (tol = 0.001, component 1)
-## Model is nearly unidentifiable: very large eigenvalue
-##  - Rescale variables?
-## Model is nearly unidentifiable: large eigenvalue ratio
-##  - Rescale variables?</code></pre>
-</div>
-</div>
-</div>
-<div id="functional---non-indigenous" class="section level1">
-<h1>Functional - Non Indigenous</h1>
-<div id="a-distancia-ao-edge-e-a-distancia-do-site-ao-inicio-do-trilho-explicam-a-abundancia-das-especies-nao-indagenas" class="section level3">
-<h3>A distancia ao edge e a distancia do site ao inicio do trilho explicam a abundancia das especies na£o indagenas?</h3>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1">glmm_FAlphaNInd_AB&lt;-<span class="kw">glmer</span>(FAlphaNInd <span class="op">~</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>Dist_trail_beginning <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb52-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaNInd_AB)</a></code></pre></div>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
-##   Approximation) [glmerMod]
-##  Family: poisson  ( log )
-## Formula: TAlphaNInd ~ Dist_edge + Dist_trail_beginning + (1 | ForestID)
-##    Data: Results2
-## 
-##      AIC      BIC   logLik deviance df.resid 
-##     69.1     72.2    -30.5     61.1       12 
-## 
-## Scaled residuals: 
-##     Min      1Q  Median      3Q     Max 
-## -1.1888 -0.5857 -0.1872  0.5693  1.5549 
-## 
-## Random effects:
-##  Groups   Name        Variance Std.Dev.
-##  ForestID (Intercept) 0.3706   0.6088  
-## Number of obs: 16, groups:  ForestID, 5
-## 
-## Fixed effects:
-##                       Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)           1.390076   0.362519   3.834 0.000126 ***
-## Dist_edge            -0.001610   0.001684  -0.957 0.338818    
-## Dist_trail_beginning -0.001568   0.000839  -1.869 0.061602 .  
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Correlation of Fixed Effects:
-##             (Intr) Dst_dg
-## Dist_edge   -0.388       
-## Dst_trl_bgn -0.274 -0.041
-## convergence code: 0
-## Model failed to converge with max|grad| = 0.00229 (tol = 0.001, component 1)
-## Model is nearly unidentifiable: very large eigenvalue
-##  - Rescale variables?</code></pre>
-</div>
-<div id="a-distancia-ao-edge-explica-a-abundancia-das-especies-nao-indagenas-1" class="section level3">
-<h3>A distancia ao edge explica a abundancia das especies na£o indagenas?</h3>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1">glmmF_AlphaNInd_A&lt;-<span class="kw">glmer</span>(FAlphaNInd <span class="op">~</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2, <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb54-2" data-line-number="2"><span class="kw">summary</span>(glmmT_AlphaNInd_A)</a></code></pre></div>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
-##   Approximation) [glmerMod]
-##  Family: poisson  ( log )
-## Formula: TAlphaNInd ~ Dist_edge + (1 | ForestID)
-##    Data: Results2
-## 
-##      AIC      BIC   logLik deviance df.resid 
-##     90.6     93.8    -42.3     84.6       19 
-## 
-## Scaled residuals: 
-##      Min       1Q   Median       3Q      Max 
-## -1.42577 -0.82426  0.04476  0.56427  1.60427 
-## 
-## Random effects:
-##  Groups   Name        Variance Std.Dev.
-##  ForestID (Intercept) 0.5281   0.7267  
-## Number of obs: 22, groups:  ForestID, 5
-## 
-## Fixed effects:
-##               Estimate Std. Error z value Pr(&gt;|z|)   
-## (Intercept)  1.0101348  0.3780290   2.672  0.00754 **
-## Dist_edge   -0.0008840  0.0009737  -0.908  0.36395   
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Correlation of Fixed Effects:
-##           (Intr)
-## Dist_edge -0.322
-## convergence code: 0
-## Model is nearly unidentifiable: very large eigenvalue
-##  - Rescale variables?</code></pre>
-</div>
-<div id="a-distancia-do-site-ao-inicio-do-trilho-explica-a-abundancia-das-especies-nao-indagenas-1" class="section level3">
-<h3>A distancia do site ao inicio do trilho explica a abundancia das especies na£o indagenas?</h3>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1">glmm_FAlphaNInd_B&lt;-<span class="kw">glmer</span>(FAlphaNInd <span class="op">~</span><span class="st">  </span>Dist_trail_beginning <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb56-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaNInd_B)</a></code></pre></div>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
-##   Approximation) [glmerMod]
-##  Family: poisson  ( log )
-## Formula: TAlphaNInd ~ Dist_trail_beginning + (1 | ForestID)
-##    Data: Results2
-## 
-##      AIC      BIC   logLik deviance df.resid 
-##     67.9     70.3    -31.0     61.9       13 
-## 
-## Scaled residuals: 
-##     Min      1Q  Median      3Q     Max 
-## -1.1341 -0.5242 -0.1863  0.5896  1.4589 
-## 
-## Random effects:
-##  Groups   Name        Variance Std.Dev.
-##  ForestID (Intercept) 0.4478   0.6692  
-## Number of obs: 16, groups:  ForestID, 5
-## 
-## Fixed effects:
-##                        Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)           1.2349013  0.3562256   3.467 0.000527 ***
-## Dist_trail_beginning -0.0015541  0.0008243  -1.885 0.059394 .  
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Correlation of Fixed Effects:
-##             (Intr)
-## Dst_trl_bgn -0.287
-## convergence code: 0
-## Model failed to converge with max|grad| = 0.00223048 (tol = 0.001, component 1)
-## Model is nearly unidentifiable: very large eigenvalue
-##  - Rescale variables?</code></pre>
-</div>
-<div id="os-tratamentos-explicam-a-abundancia-das-especies-nao-indagenas" class="section level3">
-<h3>Os tratamentos explicam a abundancia das especies nao indagenas?</h3>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1">glmm_FAlphaNInd_C&lt;-<span class="kw">glmer</span>(FAlphaNInd <span class="op">~</span><span class="st">  </span>Treatment <span class="op">+</span><span class="st"> </span>Dist_edge <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb58-2" data-line-number="2"><span class="kw">summary</span>(glmm_TAlphaNInd_C)</a></code></pre></div>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
-##   Approximation) [glmerMod]
-##  Family: poisson  ( log )
-## Formula: TAlphaNInd ~ Treatment + Dist_edge + (1 | ForestID)
-##    Data: Results2
-## 
-##      AIC      BIC   logLik deviance df.resid 
-##     93.8    102.5    -38.9     77.8       14 
-## 
-## Scaled residuals: 
-##      Min       1Q   Median       3Q      Max 
-## -1.20331 -0.69340  0.00709  0.43912  1.38948 
-## 
-## Random effects:
-##  Groups   Name        Variance Std.Dev.
-##  ForestID (Intercept) 0.3779   0.6148  
-## Number of obs: 22, groups:  ForestID, 5
-## 
-## Fixed effects:
-##                                  Estimate Std. Error z value Pr(&gt;|z|)  
-## (Intercept)                     0.4523349  0.6030581   0.750   0.4532  
-## TreatmentCTRL_twohundredfifty  -0.6324803  0.8682111  -0.728   0.4663  
-## TreatmentTrail_fifty            0.2743114  0.5880090   0.467   0.6409  
-## TreatmentTrail_Max              0.1577431  0.6202210   0.254   0.7992  
-## TreatmentTrail_twohundredfifty  0.1400188  0.6019969   0.233   0.8161  
-## TreatmentTrail_zero             0.9021654  0.5234810   1.723   0.0848 .
-## Dist_edge                       0.0004018  0.0015460   0.260   0.7949  
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Correlation of Fixed Effects:
-##             (Intr) TCTRL_ TrtmntTrl_f TrtT_M TrtmntTrl_t TrtmntTrl_z
-## TrtmntCTRL_ -0.112                                                  
-## TrtmntTrl_f -0.689  0.235                                           
-## TrtmntTrl_M -0.630  0.252  0.606                                    
-## TrtmntTrl_t -0.671  0.232  0.632       0.591                        
-## TrtmntTrl_z -0.758  0.324  0.699       0.662  0.683                 
-## Dist_edge   -0.465 -0.557  0.263       0.202  0.253       0.190     
-## convergence code: 0
-## Model failed to converge with max|grad| = 0.00123864 (tol = 0.001, component 1)
-## Model is nearly unidentifiable: very large eigenvalue
-##  - Rescale variables?
-## Model is nearly unidentifiable: large eigenvalue ratio
-##  - Rescale variables?</code></pre>
+## Model selection table 
+##    (Int) Dst_edg_std Dst_trl_bgn_std Dst_trl_std Trt    R^2 df  logLik
+## 1  2.474                                             0.1422  2 -57.283
+## 3  2.496                    -0.04894                 0.1575  3 -57.085
+## 5  2.482                                -0.02716     0.1479  3 -57.210
+## 2  2.492   -0.041070                                 0.1469  3 -57.223
+## 7  2.515                    -0.06298    -0.04391     0.1709  4 -56.909
+## 4  2.529   -0.062570        -0.05939                 0.1679  4 -56.948
+## 6  2.487   -0.016560                    -0.01970     0.1482  4 -57.206
+## 8  2.523   -0.023660        -0.06356    -0.03340     0.1715  5 -56.901
+## 9  2.361                                           + 0.2933  7 -55.152
+## 11 2.356                    -0.17100               + 0.3253  8 -54.643
+## 13 2.306                                 0.14090   + 0.3091  8 -54.904
+## 10 2.363   -0.002233                               + 0.2933  8 -55.152
+## 15 2.313                    -0.15900     0.11830   + 0.3361  9 -54.465
+## 12 2.365   -0.013780        -0.17230               + 0.3256  9 -54.637
+## 14 2.334   -0.054050                     0.18210   + 0.3150  9 -54.809
+## 16 2.346   -0.070310        -0.16510     0.17660   + 0.3443 10 -54.328
+##     AICc delta weight
+## 1  119.2  0.00  0.474
+## 3  121.5  2.31  0.150
+## 5  121.8  2.56  0.132
+## 2  121.8  2.58  0.130
+## 7  124.2  4.97  0.039
+## 4  124.2  5.05  0.038
+## 6  124.8  5.57  0.029
+## 8  127.6  8.35  0.007
+## 9  132.3 13.11  0.001
+## 11 136.4 17.16  0.000
+## 13 136.9 17.69  0.000
+## 10 137.4 18.18  0.000
+## 15 141.9 22.73  0.000
+## 12 142.3 23.08  0.000
+## 14 142.6 23.42  0.000
+## 16 148.7 29.46  0.000
+## Models ranked by AICc(x) 
+## Random terms (all models): 
+## '1 | ForestID'</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="co"># Returns Values unranked: &quot;(Int) / ESTIMATE(Dst_edg /Dst_trl /Dst_trl_bgn/ Trt) / R^2 /df / logLik  /AICc/ delta/ weight&quot;</span></a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="co">#options(na.action = &quot;na.omit&quot;)</span></a></code></pre></div>
 </div>
 </div>
 

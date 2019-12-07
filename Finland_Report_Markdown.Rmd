@@ -83,7 +83,7 @@ Three Site/Species matrixes with species abundance were created, for All species
 
 ```{r}
 # Ficheiro com as abundâncias por Área de amostragem, para todas as amostras
-SAAll <- read.csv2(here("All_Fin.csv"))
+SAAll <- read.csv2(here("data", "All_Fin.csv"))
 sites <- SAAll[,1]
 SAAll <- SAAll[,-1] 
 

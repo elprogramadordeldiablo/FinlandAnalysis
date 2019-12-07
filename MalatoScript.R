@@ -17,7 +17,7 @@
 #   9.  MDS_vectors.csv          - data.mds
 #   10. Weight_Ratios_Traits.csv - data.wr
 
-# CALC COMPLETENESS - Faz as curvas de acumulação para os controlos 250
+# CALC COMPLETENESS - Faz as curvas de acumula??o para os controlos 250
 # SETTTING FILES
 # CALC_COMPLETENESS
 # CALC_TD_ALPHA
@@ -53,7 +53,7 @@ library(magrittr)   # to use the pipe operator %>%
 # Load files ----------------------------------------------
 
 # 1. data.variables ----------------------
-# Ficheiro com as variável de distâncias com edge, trilhos e etc - para o GLMM
+# Ficheiro com as vari?vel de dist?ncias com edge, trilhos e etc - para o GLMM
 
 data.variables <- fread(here("data", "GLMM_Variables.csv"), stringsAsFactors = T)
 colnames(data.variables)
@@ -64,7 +64,7 @@ barplot(table(data.variables$ForestID), las=2, main="Forest ID", ylab="Frequency
 barplot(table(data.variables$Treatment), las=2, main="Treatment", ylab="Frequency")
 
 # 2. data.alpha.controls -----------------
-# Ficheiro com as abundâncias por amostra para os controlos 250/Max
+# Ficheiro com as abund?ncias por amostra para os controlos 250/Max
 data.alpha.controls <- fread(here("data", "Control250_Fin.csv"), header = T)
 # change column name and transform in in a factor
 setnames(data.alpha.controls, old="Trail_Sampling Area", new="TSA")
@@ -112,12 +112,12 @@ setnames(data.traits.nind,
          old = c("MF","SPECIES","FAMILY","FAMILY.1","N.E.I","IND.NONNAIND","HABITATNALeaves..branches..flowers..seeds..fruits..surface.","HABITATNAinside.stems..roots..fruits..pods..fungi","HABITATNAGround","HABITATNAUnder.stones..bark..twigs","HABITATNADecaying.matter","HABITATNASubterranean","Stenophagous...Not.Euryphagous"),
          new = c("Mf","Sp","Family.name","Family","Nei","Ind.nonind","Hab.leaves","Hab.inside","Hab.ground","Hab.under","Hab.matter","Hab.sub","Stenophagous"))
 str(data.traits.nind)
-summary(data.traits.nind) # há duas linhas NA
+summary(data.traits.nind) # h? duas linhas NA
 
 
 # 6. data.all.fin ------------------------
-# Ficheiro com as abundâncias por Área de amostragem, para todas as amostras
-SAAll <- fread(here("data", "All_Fin.csv"), header = T) %>% 
+# Ficheiro com as abund?ncias por ?rea de amostragem, para todas as amostras
+SAAll <- read.csv2(here("data", "All_Fin.csv"), header = T) %>% 
   setnames(old="Trail_Sampling Area", new="TSA")
 sites <- as.vector(SAAll$TSA)
 # SAAll <- SAAll[,-1]
@@ -130,8 +130,8 @@ SAAll.standard
 
 
 # 7. data.nat.fin ------------------------
-# Ficheiro com as abundâncias por área de amostragem, para as espécies indígenas
-SANat <- fread(here("data", "Nat_Fin.csv"), header = T) %>% 
+# Ficheiro com as abund?ncias por ?rea de amostragem, para as esp?cies ind?genas
+SANat <- read.csv2(here("data", "Nat_Fin.csv"), header = T) %>% 
   setnames(old="Trail_Sampling Area", new="TSA")
 # sites are the same as the previous object
 # SANat <- SANat[,-1] 
@@ -143,8 +143,8 @@ SANat.standard
 
 
 # 8. data.nind.fin -----------------------
-# Ficheiro com as abundâncias por área de amostragem, para as espécies não-indígenas
-SANInd <- fread(here("data", "NInd_Fin.csv"), header = T) %>% 
+# Ficheiro com as abund?ncias por ?rea de amostragem, para as esp?cies n?o-ind?genas
+SANInd <- read.csv2(here("data", "NInd_Fin.csv"), header = T) %>% 
   setnames(old="Trail_Sampling Area", new="TSA")
 # SANInd <- SANInd[,-1] 
 # rownames(SANInd) <- sites
@@ -205,7 +205,7 @@ for(i in seq_along(tsa)) {
 
 # CALC_COMPLETENESS -----
 
-# Quero usar o fichero dos contrlos para calcular os estimadores, e daí obter completeness.
+# Quero usar o fichero dos contrlos para calcular os estimadores, e da? obter completeness.
 # rownames(data.alpha.controls) <-tsa
 # colnames(data.alpha.controls) <- tsa
 # data.alpha.controls <- data.alpha.controls[,-1]

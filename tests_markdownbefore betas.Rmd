@@ -161,19 +161,19 @@ dredge(gm6, extra = c("R^2", F = function(x)
 
 ## Generating the models
 
-``{r, warning=FALSE}
+```{r, warning=FALSE}
 
 gm7 <- glmer(BetaAllTotalVector ~ Dist_edge_std + Treatment + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = binomial)
 dredge(gm7,evaluate=FALSE)
-``
+```
 
 
 ## Model comparison table
-``{r, warning=FALSE}
+```{r, warning=FALSE}
 dredge(gm7, extra = c("R^2", F = function(x)
     summary(x)$fstatistic[[1]]))
 
-``
+```
 
 
 # Beta Taxonomic - Nat Species

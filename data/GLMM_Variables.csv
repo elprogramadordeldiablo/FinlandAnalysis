@@ -10,7 +10,7 @@ Mist_Negros_50;Mistérios_Negros;0;-25;50;Trail_fifty
 Mist_Negros_250;Mistérios_Negros;0;0;250;Trail_twohundredfifty
 Mist_Negros_Max;Mistérios_Negros;0;25;1010;Trail_Max
 Mist_Negros_Control_50;Mistérios_Negros;50;50;550;CTRL_fifty
-Mist_Negros_Control_250;Mistérios_Negros;600;600;1930';CTRL_twohundredfifty
+Mist_Negros_Control_250;Mistérios_Negros;600;600;1930;CTRL_twohundredfifty
 Sta_Barbara_0;Santa_Barbara;0;510;0;Trail_zero
 Sta_Barbara_50;Santa_Barbara;0;481;50;Trail_fifty
 Sta_Barbara_250;Santa_Barbara;0;436;250;Trail_twohundredfifty

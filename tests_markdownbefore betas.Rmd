@@ -35,56 +35,45 @@ library(data.table) # to work with data
 library(dplyr)      # to manage data
 library(magrittr)   # to use the pipe operator %>% 
 library(MuMIn)
+library(glmmTMB)
+library(bbmle)
 ```
 
 
 ## Calling results dataset
 
 ```{r}
-Results2 <- read.csv2(here("results","RESULTS.CSV"), header=TRUE, row.names = 1,  stringsAsFactors = T,sep = ",", dec = ".")
+Results2 <- read.csv2(here("results","RESULTS.csv"), header=TRUE, row.names = 1,  stringsAsFactors = T, sep = ",", dec = ".")
 str(Results2)
 ```
 
 ## Checking for colinearity 
 
-```{r}
+``{r}
 results.variables <- Results2[,5:8] # selecting the variables relevant to the test
 
 numeric.results.variables <- Results2[,6:8] # selecting the variables relevant to the test
 cor(numeric.results.variables)  #isto ontem funcionava, não sei o que se passa
-```
+
+``
 
 # Alpha Taxonomic - All Species
 
 ## Generating the models
 ```{r}
 
-gm1 <- glmer(TAlphaAll ~ Dist_edge_std + Treatment + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = poisson)
+gm1 <- glmer(TAlphaAll ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = poisson)
 options(na.action = "na.fail")
-dredge(gm1,evaluate=FALSE)
+dredge(gm1)
 ```
-
-## Model comparison table
-```{r}
-dredge(gm1, extra = c("R^2", F = function(x)
-    summary(x)$fstatistic[[1]]))
-```
-
 
 # Alpha Taxonomic - Native Species
 
 ## Generating the models
 ```{r}
 
-gm2 <- glmer(TAlphaNat ~ Dist_edge_std + Treatment + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = poisson)
-options(na.action = "na.fail")
-dredge(gm2,evaluate=FALSE)
-```
-
-## Model comparison table
-```{r}
-dredge(gm2, extra = c("R^2", F = function(x)
-    summary(x)$fstatistic[[1]]))
+gm2 <- glmer(TAlphaNat ~ Dist_edge_std +Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = poisson)
+dredge(gm2)
 ```
 
 # Alpha Taxonomic - Nind species
@@ -92,70 +81,47 @@ dredge(gm2, extra = c("R^2", F = function(x)
 ## Generating the models
 ```{r}
 
-gm3 <- glmer(TAlphaNInd ~ Dist_edge_std + Treatment + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = poisson)
-options(na.action = "na.fail")
-dredge(gm3,evaluate=FALSE)
+gm3 <- glmer(TAlphaNInd ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = poisson)
+summary(gm3)
+
 ```
 
-## Model comparison table
-```{r, warning=FALSE}
-dredge(gm3, extra = c("R^2", F = function(x)
-    summary(x)$fstatistic[[1]]))
-```
 
 # Alpha Fuctional - All Species
 
 ## Generating the models
 ```{r, warning=FALSE}
 
-gm4 <- glmer(FAlphaAll ~ Dist_edge_std + Treatment + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = poisson)
-options(na.action = "na.fail")
-dredge(gm4,evaluate=FALSE)
+gm4 <- glmer(FAlphaAll ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = Gamma)
+dredge(gm4)
 ```
-
-
-## Model comparison table
-```{r, warning=FALSE}
-dredge(gm4, extra = c("R^2", F = function(x)
-    summary(x)$fstatistic[[1]]))
-```
-
 
 # Alpha Functional - Native Species
 
 ## Generating the models
 ```{r, warning=FALSE}
 
-gm5 <- glmer(FAlphaNat ~ Dist_edge_std + Treatment + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = poisson)
-options(na.action = "na.fail")
-dredge(gm5,evaluate=FALSE)
+gm5 <- glmer(FAlphaNat ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = Gamma)
+dredge(gm5)
 ```
-
-
-## Model comparison table
-```{r, warning=FALSE}
-dredge(gm5, extra = c("R^2", F = function(x)
-    summary(x)$fstatistic[[1]]))
-```
-
-
 
 # Alpha Functional - N/Ind Species
 
 ## Generating the models
-```{r, warning=FALSE}
-
-gm6 <- glmer(FAlphaNInd ~ Dist_edge_std + Treatment + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = poisson)
+``{r, warning=FALSE}
+gm6 <- glmer(FAlphaNInd ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = Gamma)
 options(na.action = "na.fail")
 dredge(gm6,evaluate=FALSE)
-```
-
+``
+FAILED - Error in eval(family$initialize, rho) : non-positive values not allowed for the 'gamma' family
 
 ## Model comparison table
-```{r, warning=FALSE}
+``{r, warning=FALSE}
 dredge(gm6, extra = c("R^2", F = function(x)
     summary(x)$fstatistic[[1]]))
-```
+``
+
+
 
 # Beta Taxonomic - All Species
 
@@ -163,8 +129,10 @@ dredge(gm6, extra = c("R^2", F = function(x)
 
 ```{r, warning=FALSE}
 
-gm7 <- glmer(BetaAllTotalVector ~ Dist_edge_std + Treatment + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = binomial)
-dredge(gm7,evaluate=FALSE)
+gm7 <- glmer(BetaAllTotalVector ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = beta_family(link = "logit"))
+dredge(gm7)
+
+
 ```
 
 
@@ -175,19 +143,25 @@ dredge(gm7, extra = c("R^2", F = function(x)
 
 ```
 
+``{r, warning=FALSE}
 
-# Beta Taxonomic - Nat Species
+gm7.5 <- glmer(formula = BetaAllTotalVector ~ Dist_trail_std + (1 | ForestID), data = Results2, family = binomial)
+summary(gm7)
 
-## Generating the models
-```{r, warning=FALSE}
+gm7.glmer(formula = BetaAllTotalVector ~ Dist_edge_std + Dist_trail_std + 
+##     (1 | ForestID), data = Results2, family = binomial)
+## 
+## $`7`
+## glmer(formula = BetaAllTotalVector ~ Dist_trail_beginning_std + 
+##     Dist_trail_std + (1 | ForestID), data = Results2, family = binomial)
 
-gm8 <- glmer(BetaNatTotalVector ~ Dist_edge_std + Treatment + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = binomial)
-dredge(gm8,evaluate=FALSE)
-```
+``
 
 
 ## Model comparison table
 ```{r, warning=FALSE}
+gm8.6 <- glmer(BetaNatTotalVector ~ Dist_edge_std + Dist_trail_std +  (1 | ForestID), data = Results2 , family = binomial)
+summary(gm8.6)
 dredge(gm8, extra = c("R^2", F = function(x)
     summary(x)$fstatistic[[1]]))
 ```
@@ -198,7 +172,7 @@ dredge(gm8, extra = c("R^2", F = function(x)
 ## Generating the models
 ```{r, warning=FALSE}
 
-gm9 <- glmer(BetaNIndTotalVector ~ Dist_edge_std + Treatment + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = binomial)
+gm9 <- glmer(BetaNIndTotalVector ~ Dist_edge_std +  Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = binomial)
 dredge(gm9,evaluate=FALSE)
 ```
 
@@ -217,10 +191,10 @@ dredge(gm9, extra = c("R^2", F = function(x)
 ## Generating the models
 ``{r, warning=FALSE}
 
-gm10 <- glmer(BetaFuncAllTotalVector ~ Dist_edge_std + Treatment + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = binomial)
+gm10 <- glmer(BetaFuncAllTotalVector ~ Dist_edge_std +Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = binomial)
 dredge(gm10,evaluate=FALSE)
 ``
-
+Error presented: "Error in pwrssUpdate(pp, resp, tol = tolPwrss, GQmat = GQmat, compDev = compDev, : (maxstephalfit) PIRLS step-halvings failed to reduce deviance in pwrssUpdate"
 
 ## Model comparison table
 ``{r, warning=FALSE}
@@ -235,7 +209,7 @@ dredge(gm10, extra = c("R^2", F = function(x)
 ## Generating the models
 ``{r, warning=FALSE}
 
-gm11 <- glmer(BetaFuncNatTotalVector ~ Dist_edge_std + Treatment + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = binomial)
+gm11 <- glmer(BetaFuncNatTotalVector ~ Dist_edge_std +  Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = binomial)
 dredge(gm10,evaluate=FALSE)
 ``
 
@@ -255,7 +229,7 @@ dredge(gm11, extra = c("R^2", F = function(x)
 ## Generating the models
 ``{r, warning=FALSE}
 
-gm12 <- glmer(BetaFuncNIndTotalVector ~ Dist_edge_std + Treatment + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = binomial)
+gm12 <- glmer(BetaFuncNIndTotalVector ~ Dist_edge_std +  Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = binomial)
 dredge(gm10,evaluate=FALSE)
 ``
 

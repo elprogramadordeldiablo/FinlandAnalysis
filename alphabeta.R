@@ -82,7 +82,8 @@ str(TraitsNInd)
 # Ficheiro com as abundâncias por Área de amostragem, para todas as amostras
 SAAll <- read.csv2(here("data","All_Fin.csv"),row.names=1, header = TRUE)
 colnames(SAAll) <- species   ##Estava assim originalmente, mas parece-me trocado
-
+sites <- row.names(SAAll)
+sites
 
 
 # HEllinger transformation
@@ -242,7 +243,8 @@ BetaFuncNInd <- beta(SANInd, treeNInd, abund= T)
 
 
 ## Separating Total, Richness and Replacement  TAXONOMICAL betas into different data frames
-BetaAllTotal <- data.frame(as.matrix(BetaAll[["Btotal"]]), sep= "tab")
+BetaAllTotal <- data.frame(as.matrix(BetaAll[["Btotal"]]), row.names= sites, sep= "tab")
+colnames(BetaAllTotal) <- sites
 BetaAllRich <- data.frame(as.matrix(BetaAll[["Brich"]]), sep= "tab")
 BetaAllRepl <- data.frame(as.matrix(BetaAll[["Brepl"]]), sep= "tab")
 BetaNatTotal <- data.frame(as.matrix(BetaNat[["Btotal"]]), sep= "tab")
@@ -267,65 +269,65 @@ BetaFuncNIndRepl <- as.data.frame(as.matrix(BetaFuncNat[["Brepl"]]), sep= "tab")
 
 A01 <- BetaAllTotal[1,1]
 AA1 <- BetaAllTotal[6,c(2:6)]
-BB1 <- BetaAllTotal[12,c(7:12)]
-CC1 <- BetaAllTotal[18,c(13:18)]
-DD1 <- BetaAllTotal[22,c(19:22)]
+BB1 <- BetaAllTotal[11,c(7:11)]
+CC1 <- BetaAllTotal[17,c(12:17)]
+DD1 <- BetaAllTotal[21,c(18:21)]
 BetaAllTotalVector <- c(A01,AA1, BB1,  CC1, DD1)
 
 A02 <- BetaAllRich[1,1]
 AA2 <- BetaAllRich[6,c(2:6)]
-BB2 <- BetaAllRich[12,c(7:12)]
-CC2 <- BetaAllRich[18,c(13:18)]
-DD2<- BetaAllRich[22,c(19:22)]
+BB2 <- BetaAllRich[11,c(7:11)]
+CC2 <- BetaAllRich[17,c(12:17)]
+DD2<- BetaAllRich[21,c(18:21)]
 BetaAllRichVector <- c(A02,AA2, BB2,  CC2, DD2)
 
 A03 <- BetaAllRepl[1,1]
 AA3 <- BetaAllRepl[6,c(2:6)]
-BB3 <- BetaAllRepl[12,c(7:12)]
-CC3 <- BetaAllRepl[18,c(13:18)]
-DD3 <- BetaAllRepl[22,c(19:22)]
+BB3 <- BetaAllRepl[11,c(7:11)]
+CC3 <- BetaAllRepl[17,c(12:17)]
+DD3 <- BetaAllRepl[21,c(18:21)]
 BetaAllReplVector <- c(A03,AA3, BB3, CC3, DD3)
 
 A01 <- BetaNatTotal[1,1]
 AA1 <- BetaNatTotal[6,c(2:6)]
-BB1 <- BetaNatTotal[12,c(7:12)]
-CC1 <- BetaNatTotal[18,c(13:18)]
-DD1 <- BetaNatTotal[22,c(19:22)]
+BB1 <- BetaNatTotal[11,c(7:11)]
+CC1 <- BetaNatTotal[17,c(12:17)]
+DD1 <- BetaNatTotal[21,c(18:21)]
 BetaNatTotalVector <- c(A01,AA1, BB1,  CC1, DD1)
 
 A02 <- BetaNatRich[1,1]
 AA2 <- BetaNatRich[6,c(2:6)]
-BB2 <- BetaNatRich[12,c(7:12)]
-CC2 <- BetaNatRich[18,c(13:18)]
-DD2<- BetaNatRich[22,c(19:22)]
+BB2 <- BetaNatRich[11,c(7:11)]
+CC2 <- BetaNatRich[17,c(12:17)]
+DD2<- BetaNatRich[21,c(18:21)]
 BetaNatRichVector <- c(A02,AA2, BB2,  CC2, DD2)
 
 A03 <- BetaNatRepl[1,1]
 AA3 <- BetaNatRepl[6,c(2:6)]
-BB3 <- BetaNatRepl[12,c(7:12)]
-CC3 <- BetaNatRepl[18,c(13:18)]
-DD3 <- BetaNatRepl[22,c(19:22)]
+BB3 <- BetaNatRepl[11,c(7:11)]
+CC3 <- BetaNatRepl[17,c(12:17)]
+DD3 <- BetaNatRepl[21,c(18:21)]
 BetaNatReplVector <- c(A03,AA3, BB3, CC3, DD3)
 
 A01 <- BetaNIndTotal[1,1]
 AA1 <- BetaNIndTotal[6,c(2:6)]
-BB1 <- BetaNIndTotal[12,c(7:12)]
-CC1 <- BetaNIndTotal[18,c(13:18)]
-DD1 <- BetaNIndTotal[22,c(19:22)]
+BB1 <- BetaNIndTotal[11,c(7:11)]
+CC1 <- BetaNIndTotal[17,c(12:17)]
+DD1 <- BetaNIndTotal[21,c(18:21)]
 BetaNIndTotalVector <- c(A01,AA1, BB1,  CC1, DD1)
 
 A02 <- BetaNIndRich[1,1]
 AA2 <- BetaNIndRich[6,c(2:6)]
-BB2 <- BetaNIndRich[12,c(7:12)]
-CC2 <- BetaNIndRich[18,c(13:18)]
-DD2<- BetaNIndRich[22,c(19:22)]
+BB2 <- BetaNIndRich[11,c(7:11)]
+CC2 <- BetaNIndRich[17,c(12:17)]
+DD2<- BetaNIndRich[21,c(18:21)]
 BetaNIndRichVector <- c(A02,AA2, BB2,  CC2, DD2)
 
 A03 <- BetaNIndRepl[1,1]
 AA3 <- BetaNIndRepl[6,c(2:6)]
-BB3 <- BetaNIndRepl[12,c(7:12)]
-CC3 <- BetaNIndRepl[18,c(13:18)]
-DD3 <- BetaNIndRepl[22,c(19:22)]
+BB3 <- BetaNIndRepl[11,c(7:11)]
+CC3 <- BetaNIndRepl[17,c(12:17)]
+DD3 <- BetaNIndRepl[21,c(18:21)]
 BetaNIndReplVector <- c(A03,AA3, BB3, CC3, DD3)
 
 ## Separating the FUNCTIONAL beta values between the Control 250/Max and the other sampling areas from each trail
@@ -333,65 +335,65 @@ BetaNIndReplVector <- c(A03,AA3, BB3, CC3, DD3)
 
 A01 <- BetaFuncAllTotal[1,1]
 AA1 <- BetaFuncAllTotal[6,c(2:6)]
-BB1 <- BetaFuncAllTotal[12,c(7:12)]
-CC1 <- BetaFuncAllTotal[18,c(13:18)]
-DD1 <- BetaFuncAllTotal[22,c(19:22)]
+BB1 <- BetaFuncAllTotal[11,c(7:11)]
+CC1 <- BetaFuncAllTotal[17,c(12:17)]
+DD1 <- BetaFuncAllTotal[21,c(18:21)]
 BetaFuncAllTotalVector <- c(A01,AA1, BB1,  CC1, DD1)
 
 A02 <- BetaFuncAllRich[1,1]
 AA2 <- BetaFuncAllRich[6,c(2:6)]
-BB2 <- BetaFuncAllRich[12,c(7:12)]
-CC2 <- BetaFuncAllRich[18,c(13:18)]
-DD2<- BetaFuncAllRich[22,c(19:22)]
+BB2 <- BetaFuncAllRich[11,c(7:11)]
+CC2 <- BetaFuncAllRich[17,c(12:17)]
+DD2<- BetaFuncAllRich[21,c(18:21)]
 BetaFuncAllRichVector <- c(A02,AA2, BB2,  CC2, DD2)
 
 A03 <- BetaFuncAllRepl[1,1]
 AA3 <- BetaFuncAllRepl[6,c(2:6)]
-BB3 <- BetaFuncAllRepl[12,c(7:12)]
-CC3 <- BetaFuncAllRepl[18,c(13:18)]
-DD3 <- BetaFuncAllRepl[22,c(19:22)]
+BB3 <- BetaFuncAllRepl[11,c(7:11)]
+CC3 <- BetaFuncAllRepl[17,c(12:17)]
+DD3 <- BetaFuncAllRepl[21,c(18:21)]
 BetaFuncAllReplVector <- c(A03,AA3, BB3, CC3, DD3)
 
 A01 <- BetaFuncNatTotal[1,1]
 AA1 <- BetaFuncNatTotal[6,c(2:6)]
-BB1 <- BetaFuncNatTotal[12,c(7:12)]
-CC1 <- BetaFuncNatTotal[18,c(13:18)]
-DD1 <- BetaFuncNatTotal[22,c(19:22)]
+BB1 <- BetaFuncNatTotal[11,c(7:11)]
+CC1 <- BetaFuncNatTotal[17,c(12:17)]
+DD1 <- BetaFuncNatTotal[21,c(18:21)]
 BetaFuncNatTotalVector <- c(A01,AA1, BB1,  CC1, DD1)
 
 A02 <- BetaFuncNatRich[1,1]
 AA2 <- BetaFuncNatRich[6,c(2:6)]
-BB2 <- BetaFuncNatRich[12,c(7:12)]
-CC2 <- BetaFuncNatRich[18,c(13:18)]
-DD2<- BetaFuncNatRich[22,c(19:22)]
+BB2 <- BetaFuncNatRich[11,c(7:11)]
+CC2 <- BetaFuncNatRich[17,c(12:17)]
+DD2<- BetaFuncNatRich[21,c(18:21)]
 BetaFuncNatRichVector <- c(A02,AA2, BB2,  CC2, DD2)
 
 A03 <- BetaFuncNatRepl[1,1]
 AA3 <- BetaFuncNatRepl[6,c(2:6)]
-BB3 <- BetaFuncNatRepl[12,c(7:12)]
-CC3 <- BetaFuncNatRepl[18,c(13:18)]
-DD3 <- BetaFuncNatRepl[22,c(19:22)]
+BB3 <- BetaFuncNatRepl[11,c(7:11)]
+CC3 <- BetaFuncNatRepl[17,c(12:17)]
+DD3 <- BetaFuncNatRepl[21,c(18:21)]
 BetaFuncNatReplVector <- c(A03,AA3, BB3, CC3, DD3)
 
 A01 <- BetaFuncNIndTotal[1,1]
 AA1 <- BetaFuncNIndTotal[6,c(2:6)]
-BB1 <- BetaFuncNIndTotal[12,c(7:12)]
-CC1 <- BetaFuncNIndTotal[18,c(13:18)]
-DD1 <- BetaFuncNIndTotal[22,c(19:22)]
+BB1 <- BetaFuncNIndTotal[11,c(7:11)]
+CC1 <- BetaFuncNIndTotal[17,c(12:17)]
+DD1 <- BetaFuncNIndTotal[21,c(18:21)]
 BetaFuncNIndTotalVector <- c(A01,AA1, BB1,  CC1, DD1)
 
 A02 <- BetaFuncNIndRich[1,1]
 AA2 <- BetaFuncNIndRich[6,c(2:6)]
-BB2 <- BetaFuncNIndRich[12,c(7:12)]
-CC2 <- BetaFuncNIndRich[18,c(13:18)]
-DD2<- BetaFuncNIndRich[22,c(19:22)]
+BB2 <- BetaFuncNIndRich[11,c(7:11)]
+CC2 <- BetaFuncNIndRich[17,c(12:17)]
+DD2<- BetaFuncNIndRich[21,c(18:21)]
 BetaFuncNIndRichVector <- c(A02,AA2, BB2,  CC2, DD2)
 
 A03 <- BetaFuncNIndRepl[1,1]
 AA3 <- BetaFuncNIndRepl[6,c(2:6)]
-BB3 <- BetaFuncNIndRepl[12,c(7:12)]
-CC3 <- BetaFuncNIndRepl[18,c(13:18)]
-DD3 <- BetaFuncNIndRepl[22,c(19:22)]
+BB3 <- BetaFuncNIndRepl[11,c(7:11)]
+CC3 <- BetaFuncNIndRepl[17,c(12:17)]
+DD3 <- BetaFuncNIndRepl[21,c(18:21)]
 BetaFuncNIndReplVector <- c(A03,AA3, BB3, CC3, DD3)
 
 
@@ -405,6 +407,9 @@ Betas <- as.data.frame( t(rbind(
   BetaNIndTotalVector, BetaNIndRichVector, BetaNIndReplVector,
   BetaFuncNIndTotalVector, BetaFuncNIndRichVector, BetaFuncNIndReplVector)))
 
+str(Betas)
+Betas[Betas == 0] <- 0.0001
+Betas[Betas == 1] <- 0.9999
 str(Betas)
 
 
@@ -440,12 +445,17 @@ write.csv(BetaFuncNIndRepl,file = here("results", "BetaFuncNIndRepl.csv"))
 #####                            RESULTS                              #####
 ###########################################################################
 
-
+str(Variables)
+str(Alphas)
+str(Betas)
 Results <- cbind.data.frame(Variables, Alphas, Betas)
 str(Results)
 
+
 #MAKING THE RESULTS EXPORTABLE INTO CSV
 Results <- apply(Results, 2 , as.character)
+
+
 
 #NAMING THE TRAIL SEGMENTS
 rownames(Results) <- rownames(Alphas)
@@ -457,5 +467,5 @@ Results2 <- read.csv2(here("results","RESULTS.CSV"), header=TRUE, row.names = 1,
 Results2
 
 Results3 <- read.csv(here("results","RESULTS.csv"), header = TRUE, row.names = 1, sep = ",", dec = ".")
-ResultsWithoutControls <- Results3[-c(5,6,11,12,17,18),-c(1:2)]
+ResultsWithoutControls <- Results3[-c(5,6,10,11,16,17),-c(1:2)]
 

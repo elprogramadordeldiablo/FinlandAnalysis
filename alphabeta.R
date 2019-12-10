@@ -250,9 +250,9 @@ BetaAllRepl <- data.frame(as.matrix(BetaAll[["Brepl"]]), sep= "tab")
 BetaNatTotal <- data.frame(as.matrix(BetaNat[["Btotal"]]), sep= "tab")
 BetaNatRich <- data.frame(as.matrix(BetaNat[["Brich"]]), sep= "tab")
 BetaNatRepl <- data.frame(as.matrix(BetaNat[["Brepl"]]), sep= "tab")
-BetaNIndTotal <- data.frame(as.matrix(BetaNat[["Btotal"]]), sep= "tab")
-BetaNIndRich <- data.frame(as.matrix(BetaNat[["Brich"]]), sep= "tab")
-BetaNIndRepl <- data.frame(as.matrix(BetaNat[["Brepl"]]), sep= "tab")
+BetaNIndTotal <- data.frame(as.matrix(BetaNInd[["Btotal"]]), sep= "tab")
+BetaNIndRich <- data.frame(as.matrix(BetaNInd[["Brich"]]), sep= "tab")
+BetaNIndRepl <- data.frame(as.matrix(BetaNInd[["Brepl"]]), sep= "tab")
 
 ## Separating Total, Richness and Replacement  FUNCTIONAL betas into different data frames
 BetaFuncAllTotal <- data.frame(as.matrix(BetaFuncAll[["Btotal"]]), sep= "tab")
@@ -261,9 +261,9 @@ BetaFuncAllRepl <- data.frame(as.matrix(BetaFuncAll[["Brepl"]]), sep= "tab")
 BetaFuncNatTotal <- data.frame(as.matrix(BetaFuncNat[["Btotal"]]), sep= "tab")
 BetaFuncNatRich <- data.frame(as.matrix(BetaFuncNat[["Brich"]]), sep= "tab")
 BetaFuncNatRepl <- data.frame(as.matrix(BetaFuncNat[["Brepl"]]), sep= "tab")
-BetaFuncNIndTotal <- data.frame(as.matrix(BetaFuncNat[["Btotal"]]), sep= "tab")
-BetaFuncNIndRich <- data.frame(as.matrix(BetaFuncNat[["Brich"]]), sep= "tab")
-BetaFuncNIndRepl <- as.data.frame(as.matrix(BetaFuncNat[["Brepl"]]), sep= "tab")
+BetaFuncNIndTotal <- data.frame(as.matrix(BetaFuncNInd[["Btotal"]]), sep= "tab")
+BetaFuncNIndRich <- data.frame(as.matrix(BetaFuncNInd[["Brich"]]), sep= "tab")
+BetaFuncNIndRepl <- as.data.frame(as.matrix(BetaFuncNInd[["Brepl"]]), sep= "tab")
 
 # Separating the TAXONOMICAL beta values between the Control 250/Max and the other sampling areas from each trail ----
 

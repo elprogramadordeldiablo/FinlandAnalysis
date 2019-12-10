@@ -1631,10 +1631,9 @@ div.tocify {
 ##  $ BetaNIndTotalVector     : num  1e-04 1e+00 1e-04 1e-04 1e+00 ...
 ##  $ BetaNIndRichVector      : num  1e-04 1e+00 1e-04 1e-04 1e+00 ...
 ##  $ BetaNIndReplVector      : num  0.0001 0.0001 0.0001 0.0001 0.0001 0.0001 0.25 0.0001 0.5 0.5 ...
-##  $ BetaFuncNIndTotalVector : num  1e-04 1e+00 1e-04 1e-04 1e+00 ...
-##  $ BetaFuncNIndRichVector  : num  1e-04 1e+00 1e-04 1e-04 1e+00 ...
-##  $ BetaFuncNIndReplVector  : num  1e-04 1e-04 1e-04 1e-04 1e-04 ...</code></pre>
-<p>#Test results and analysis When model fits are ranked according to their AIC values, the model with the lowest AIC value being considered the ???best???. Models in which the difference in AIC relative to AICmin is &lt; 2 will be considered also to have substantial support (Burnham, 2002; Burnham and Anderson, 1998). I will then assess the variables importance, by assessing their respective weights within each models fit. By these two criteria, I will then elavborate the discussion on what factors do accet the spiders community.</p>
+##  $ BetaFuncNIndTotalVector : num  0.0001 0.5312 0.3708 0.5473 0.4373 ...
+##  $ BetaFuncNIndRichVector  : num  0.0001 0.3065 0.0238 0.1248 0.3344 ...
+##  $ BetaFuncNIndReplVector  : num  0.0001 0.2246 0.347 0.4225 0.1029 ...</code></pre>
 </div>
 <div id="checking-for-colinearity" class="section level2">
 <h2>Checking for colinearity</h2>
@@ -1718,38 +1717,703 @@ div.tocify {
 <div id="alpha-taxonomic---nind-species" class="section level1">
 <h1>Alpha Taxonomic - Nind species</h1>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">gm3 &lt;-<span class="st"> </span><span class="kw">glmmTMB</span>(TAlphaNInd <span class="op">~</span><span class="st"> </span>Dist_edge_std <span class="op">+</span><span class="st"> </span>Dist_trail_std <span class="op">+</span><span class="st"> </span>Dist_trail_beginning_std <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> poisson)</a>
-<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="kw">dredge</span>(gm3)</a></code></pre></div>
-<pre><code>## Global model call: glmmTMB(formula = TAlphaNInd ~ Dist_edge_std + Dist_trail_std + 
-##     Dist_trail_beginning_std + (1 | ForestID), data = Results2, 
-##     family = poisson, ziformula = ~0, dispformula = ~1)
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="kw">summary</span>(gm3)</a></code></pre></div>
+<pre><code>##  Family: poisson  ( log )
+## Formula:          
+## TAlphaNInd ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std +  
+##     (1 | ForestID)
+## Data: Results2
+## 
+##      AIC      BIC   logLik deviance df.resid 
+##     89.5     94.7    -39.7     79.5       16 
+## 
+## Random effects:
+## 
+## Conditional model:
+##  Groups   Name        Variance Std.Dev.
+##  ForestID (Intercept) 0.6505   0.8065  
+## Number of obs: 21, groups:  ForestID, 5
+## 
+## Conditional model:
+##                           Estimate Std. Error z value Pr(&gt;|z|)  
+## (Intercept)               0.986840   0.448070   2.202   0.0276 *
+## Dist_edge_std             0.134268   0.631981   0.212   0.8318  
+## Dist_trail_std           -0.008777   0.379498  -0.023   0.9815  
+## Dist_trail_beginning_std -0.352609   0.327957  -1.075   0.2823  
 ## ---
-## Model selection table 
-##   cnd((Int)) dsp((Int)) cnd(Dst_edg_std) cnd(Dst_trl_bgn_std)
-## 1     0.8873          +                                      
-## 3     1.0240          +                               -0.3052
-## 5     0.9374          +                                      
-## 2     1.0070          +         -0.26650                     
-## 4     0.9902          +          0.12500              -0.3560
-## 7     1.0280          +                               -0.3394
-## 6     0.9306          +          0.02091                     
-## 8     0.9868          +          0.13430              -0.3526
-##   cnd(Dst_trl_std) df  logLik AICc delta weight
-## 1                   2 -40.953 86.6  0.00  0.318
-## 3                   3 -39.775 87.0  0.39  0.261
-## 5        -0.187200  3 -40.362 88.1  1.56  0.145
-## 2                   3 -40.547 88.5  1.93  0.121
-## 4                   4 -39.741 90.0  3.41  0.058
-## 7         0.042300  4 -39.765 90.0  3.46  0.056
-## 6        -0.196900  4 -40.361 91.2  4.65  0.031
-## 8        -0.008777  5 -39.741 93.5  6.91  0.010
-## Models ranked by AICc(x) 
-## Random terms (all models): 
-## 'cond(1 | ForestID)'</code></pre>
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div id="alpha-functional---all-species" class="section level1">
-<h1>Alpha Functional - All Species</h1>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">gm4 &lt;-<span class="st"> </span><span class="kw">glmmTMB</span>(FAlphaAll <span class="op">~</span><span class="st"> </span>Dist_edge_std <span class="op">+</span><span class="st"> </span>Dist_trail_std <span class="op">+</span><span class="st"> </span>Dist_trail_beginning_std <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> Gamma)</a>
-<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="kw">dredge</span>(gm4)</a></code></pre></div>
+<div id="alpha-fuctional---all-species" class="section level1">
+<h1>Alpha Fuctional - All Species</h1>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">gm4 &lt;-<span class="st"> </span><span class="kw">glmmTMB</span>(FAlphaAll <span class="op">~</span><span class="st"> </span>Dist_edge_std <span class="op">+</span><span class="st"> </span>Dist_trail_std <span class="op">+</span><span class="st"> </span>Dist_trail_beginning_std <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> Gamma)</a></code></pre></div>
+<pre><code>## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">dredge</span>(gm4)</a></code></pre></div>
+<pre><code>## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation</code></pre>
 <pre><code>## Global model call: glmmTMB(formula = FAlphaAll ~ Dist_edge_std + Dist_trail_std + 
 ##     Dist_trail_beginning_std + (1 | ForestID), data = Results2, 
 ##     family = Gamma, ziformula = ~0, dispformula = ~1)
@@ -1779,8 +2443,261 @@ div.tocify {
 </div>
 <div id="alpha-functional---native-species" class="section level1">
 <h1>Alpha Functional - Native Species</h1>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">gm5 &lt;-<span class="st"> </span><span class="kw">glmmTMB</span>(FAlphaNat <span class="op">~</span><span class="st"> </span>Dist_edge_std <span class="op">+</span><span class="st"> </span>Dist_trail_std <span class="op">+</span><span class="st"> </span>Dist_trail_beginning_std <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> Gamma)</a>
-<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="kw">dredge</span>(gm5)</a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">gm5 &lt;-<span class="st"> </span><span class="kw">glmmTMB</span>(FAlphaNat <span class="op">~</span><span class="st"> </span>Dist_edge_std <span class="op">+</span><span class="st"> </span>Dist_trail_std <span class="op">+</span><span class="st"> </span>Dist_trail_beginning_std <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> Gamma)</a></code></pre></div>
+<pre><code>## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw">dredge</span>(gm5)</a></code></pre></div>
+<pre><code>## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation
+
+## Warning in nlminb(start = par, objective = fn, gradient = gr, control =
+## control$optCtrl): NA/NaN function evaluation</code></pre>
 <pre><code>## Global model call: glmmTMB(formula = FAlphaNat ~ Dist_edge_std + Dist_trail_std + 
 ##     Dist_trail_beginning_std + (1 | ForestID), data = Results2, 
 ##     family = Gamma, ziformula = ~0, dispformula = ~1)
@@ -1810,12 +2727,12 @@ div.tocify {
 </div>
 <div id="failed-alpha-functional---nind-species" class="section level1">
 <h1>FAILED Alpha Functional - N/Ind Species</h1>
-<p><code>{r, warning=FALSE} gm6 &lt;- glmmTMB(FAlphaNInd ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = Gamma) dredge(gm6)</code> FAILED - Error in eval(family$initialize, rho) : non-positive values not allowed for the ‘gamma’ family</p>
+<p><code>{r, } gm6 &lt;- glmmTMB(FAlphaNInd ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = Gamma) dredge(gm6)</code> FAILED - Error in eval(family$initialize, rho) : non-positive values not allowed for the ‘gamma’ family</p>
 </div>
 <div id="beta-taxonomic---all-species" class="section level1">
 <h1>Beta Taxonomic - All Species</h1>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">gm7 &lt;-<span class="st"> </span><span class="kw">glmmTMB</span>(BetaAllTotalVector <span class="op">~</span><span class="st"> </span>Dist_edge_std <span class="op">+</span><span class="st"> </span>Dist_trail_std <span class="op">+</span><span class="st"> </span>Dist_trail_beginning_std <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> beta_family)</a>
-<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="kw">dredge</span>(gm7)</a></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">gm7 &lt;-<span class="st"> </span><span class="kw">glmmTMB</span>(BetaAllTotalVector <span class="op">~</span><span class="st"> </span>Dist_edge_std <span class="op">+</span><span class="st"> </span>Dist_trail_std <span class="op">+</span><span class="st"> </span>Dist_trail_beginning_std <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> beta_family)</a>
+<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="kw">dredge</span>(gm7)</a></code></pre></div>
 <pre><code>## Global model call: glmmTMB(formula = BetaAllTotalVector ~ Dist_edge_std + Dist_trail_std + 
 ##     Dist_trail_beginning_std + (1 | ForestID), data = Results2, 
 ##     family = beta_family, ziformula = ~0, dispformula = ~1)
@@ -1842,91 +2759,6 @@ div.tocify {
 ## Models ranked by AICc(x) 
 ## Random terms (all models): 
 ## 'cond(1 | ForestID)'</code></pre>
-<div id="section" class="section level2">
-<h2></h2>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">gm7<span class="fl">.5</span>  &lt;-<span class="st"> </span><span class="kw">glmmTMB</span>(BetaAllTotalVector <span class="op">~</span><span class="st"> </span>Dist_trail_std <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> beta_family)</a>
-<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="kw">summary</span>(gm7<span class="fl">.5</span>)</a></code></pre></div>
-<pre><code>##  Family: beta  ( logit )
-## Formula:          BetaAllTotalVector ~ Dist_trail_std + (1 | ForestID)
-## Data: Results2
-## 
-##      AIC      BIC   logLik deviance df.resid 
-##    -33.9    -29.7     20.9    -41.9       17 
-## 
-## Random effects:
-## 
-## Conditional model:
-##  Groups   Name        Variance Std.Dev.
-##  ForestID (Intercept) 0.8608   0.9278  
-## Number of obs: 21, groups:  ForestID, 5
-## 
-## Overdispersion parameter for beta family ():    3 
-## 
-## Conditional model:
-##                Estimate Std. Error z value Pr(&gt;|z|)   
-## (Intercept)     -0.8334     0.4983  -1.673  0.09443 . 
-## Dist_trail_std  -1.2546     0.4024  -3.118  0.00182 **
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-</div>
-<div id="section-1" class="section level2">
-<h2></h2>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">gm7<span class="fl">.6</span>  &lt;-<span class="st"> </span><span class="kw">glmmTMB</span>(BetaAllTotalVector <span class="op">~</span><span class="st"> </span>Dist_edge_std <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> beta_family)</a>
-<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="kw">summary</span>(gm7<span class="fl">.6</span>)</a></code></pre></div>
-<pre><code>##  Family: beta  ( logit )
-## Formula:          BetaAllTotalVector ~ Dist_edge_std + (1 | ForestID)
-## Data: Results2
-## 
-##      AIC      BIC   logLik deviance df.resid 
-##    -23.3    -19.2     15.7    -31.3       17 
-## 
-## Random effects:
-## 
-## Conditional model:
-##  Groups   Name        Variance Std.Dev. 
-##  ForestID (Intercept) 4.05e-10 2.013e-05
-## Number of obs: 21, groups:  ForestID, 5
-## 
-## Overdispersion parameter for beta family (): 1.27 
-## 
-## Conditional model:
-##               Estimate Std. Error z value Pr(&gt;|z|)  
-## (Intercept)    -0.8049     0.3528  -2.282   0.0225 *
-## Dist_edge_std  -0.2216     0.3125  -0.709   0.4783  
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-</div>
-<div id="section-2" class="section level2">
-<h2></h2>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">gm7<span class="fl">.7</span>  &lt;-<span class="st"> </span><span class="kw">glmmTMB</span>(BetaAllTotalVector <span class="op">~</span><span class="st"> </span>Dist_trail_beginning_std <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> beta_family)</a>
-<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="kw">summary</span>(gm7<span class="fl">.7</span>)</a></code></pre></div>
-<pre><code>##  Family: beta  ( logit )
-## Formula:          
-## BetaAllTotalVector ~ Dist_trail_beginning_std + (1 | ForestID)
-## Data: Results2
-## 
-##      AIC      BIC   logLik deviance df.resid 
-##    -25.6    -21.4     16.8    -33.6       17 
-## 
-## Random effects:
-## 
-## Conditional model:
-##  Groups   Name        Variance  Std.Dev. 
-##  ForestID (Intercept) 1.243e-09 3.526e-05
-## Number of obs: 21, groups:  ForestID, 5
-## 
-## Overdispersion parameter for beta family (): 1.39 
-## 
-## Conditional model:
-##                          Estimate Std. Error z value Pr(&gt;|z|)  
-## (Intercept)               -0.6597     0.3378  -1.953   0.0508 .
-## Dist_trail_beginning_std  -0.4729     0.3143  -1.505   0.1324  
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-</div>
-</div>
-<div id="beta-taxonomic---nat-species" class="section level1">
-<h1>Beta Taxonomic - Nat Species</h1>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">gm8 &lt;-<span class="st"> </span><span class="kw">glmmTMB</span>(BetaNatTotalVector <span class="op">~</span><span class="st"> </span>Dist_edge_std <span class="op">+</span><span class="st"> </span>Dist_trail_std <span class="op">+</span><span class="st"> </span>Dist_trail_beginning_std <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> beta_family)</a>
 <a class="sourceLine" id="cb25-2" data-line-number="2"><span class="kw">dredge</span>(gm8)</a></code></pre></div>
 <pre><code>## Global model call: glmmTMB(formula = BetaNatTotalVector ~ Dist_edge_std + Dist_trail_std + 
@@ -1955,62 +2787,11 @@ div.tocify {
 ## Models ranked by AICc(x) 
 ## Random terms (all models): 
 ## 'cond(1 | ForestID)'</code></pre>
-<div id="testing-specific-models" class="section level2">
-<h2>Testing specific models</h2>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">gm8<span class="fl">.6</span> &lt;-<span class="st"> </span><span class="kw">glmmTMB</span>(BetaNatTotalVector <span class="op">~</span><span class="st"> </span>Dist_edge_std <span class="op">+</span><span class="st"> </span>Dist_trail_std <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> beta_family)</a>
-<a class="sourceLine" id="cb27-2" data-line-number="2"><span class="kw">summary</span>(gm8<span class="fl">.6</span>)</a></code></pre></div>
-<pre><code>##  Family: beta  ( logit )
-## Formula:          
-## BetaNatTotalVector ~ Dist_edge_std + Dist_trail_std + (1 | ForestID)
-## Data: Results2
-## 
-##      AIC      BIC   logLik deviance df.resid 
-##   -153.4   -148.2     81.7   -163.4       16 
-## 
-## Random effects:
-## 
-## Conditional model:
-##  Groups   Name        Variance  Std.Dev. 
-##  ForestID (Intercept) 1.876e-09 4.331e-05
-## Number of obs: 21, groups:  ForestID, 5
-## 
-## Overdispersion parameter for beta family (): 0.396 
-## 
-## Conditional model:
-##                Estimate Std. Error z value Pr(&gt;|z|)  
-## (Intercept)    -0.03587    0.38041  -0.094   0.9249  
-## Dist_edge_std   0.90713    0.44137   2.055   0.0399 *
-## Dist_trail_std -0.97860    0.40175  -2.436   0.0149 *
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">gm8<span class="fl">.7</span> &lt;-<span class="st"> </span><span class="kw">glmmTMB</span>(BetaNatTotalVector <span class="op">~</span><span class="st">  </span>Dist_trail_std  <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> beta_family)</a>
-<a class="sourceLine" id="cb29-2" data-line-number="2"><span class="kw">summary</span>(gm8<span class="fl">.7</span>)</a></code></pre></div>
-<pre><code>##  Family: beta  ( logit )
-## Formula:          BetaNatTotalVector ~ Dist_trail_std + (1 | ForestID)
-## Data: Results2
-## 
-##      AIC      BIC   logLik deviance df.resid 
-##   -151.2   -147.1     79.6   -159.2       17 
-## 
-## Random effects:
-## 
-## Conditional model:
-##  Groups   Name        Variance  Std.Dev. 
-##  ForestID (Intercept) 7.475e-09 8.646e-05
-## Number of obs: 21, groups:  ForestID, 5
-## 
-## Overdispersion parameter for beta family (): 0.327 
-## 
-## Conditional model:
-##                Estimate Std. Error z value Pr(&gt;|z|)
-## (Intercept)      0.3882     0.3348   1.160    0.246
-## Dist_trail_std  -0.5428     0.3386  -1.603    0.109</code></pre>
-</div>
 </div>
 <div id="beta-taxonomic---nind-species" class="section level1">
 <h1>Beta Taxonomic - NInd Species</h1>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">gm9 &lt;-<span class="st"> </span><span class="kw">glmmTMB</span>(BetaNIndTotalVector <span class="op">~</span><span class="st"> </span>Dist_edge_std <span class="op">+</span><span class="st">  </span>Dist_trail_std <span class="op">+</span><span class="st"> </span>Dist_trail_beginning_std <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> beta_family)</a>
-<a class="sourceLine" id="cb31-2" data-line-number="2"><span class="kw">dredge</span>(gm9)</a></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">gm9 &lt;-<span class="st"> </span><span class="kw">glmmTMB</span>(BetaNIndTotalVector <span class="op">~</span><span class="st"> </span>Dist_edge_std <span class="op">+</span><span class="st">  </span>Dist_trail_std <span class="op">+</span><span class="st"> </span>Dist_trail_beginning_std <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> beta_family)</a>
+<a class="sourceLine" id="cb27-2" data-line-number="2"><span class="kw">dredge</span>(gm9)</a></code></pre></div>
 <pre><code>## Global model call: glmmTMB(formula = BetaNIndTotalVector ~ Dist_edge_std + Dist_trail_std + 
 ##     Dist_trail_beginning_std + (1 | ForestID), data = Results2, 
 ##     family = beta_family, ziformula = ~0, dispformula = ~1)
@@ -2037,34 +2818,11 @@ div.tocify {
 ## Models ranked by AICc(x) 
 ## Random terms (all models): 
 ## 'cond(1 | ForestID)'</code></pre>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">gm9<span class="fl">.5</span> &lt;-<span class="st"> </span><span class="kw">glmmTMB</span>(BetaNIndTotalVector <span class="op">~</span><span class="st">  </span>Dist_trail_beginning_std <span class="op">+</span><span class="st">  </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> beta_family)</a>
-<a class="sourceLine" id="cb33-2" data-line-number="2"><span class="kw">summary</span>(gm9<span class="fl">.5</span>)</a></code></pre></div>
-<pre><code>##  Family: beta  ( logit )
-## Formula:          
-## BetaNIndTotalVector ~ Dist_trail_beginning_std + (1 | ForestID)
-## Data: Results2
-## 
-##      AIC      BIC   logLik deviance df.resid 
-##   -149.1   -144.9     78.5   -157.1       17 
-## 
-## Random effects:
-## 
-## Conditional model:
-##  Groups   Name        Variance  Std.Dev. 
-##  ForestID (Intercept) 5.135e-09 7.166e-05
-## Number of obs: 21, groups:  ForestID, 5
-## 
-## Overdispersion parameter for beta family (): 0.295 
-## 
-## Conditional model:
-##                          Estimate Std. Error z value Pr(&gt;|z|)
-## (Intercept)                0.3098     0.3787   0.818    0.413
-## Dist_trail_beginning_std  -0.2725     0.3633  -0.750    0.453</code></pre>
 </div>
 <div id="beta-functional---all" class="section level1">
 <h1>Beta Functional - All</h1>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1">gm10 &lt;-<span class="st"> </span><span class="kw">glmmTMB</span>(BetaFuncAllTotalVector <span class="op">~</span><span class="st"> </span>Dist_edge_std <span class="op">+</span>Dist_trail_std <span class="op">+</span><span class="st"> </span>Dist_trail_beginning_std <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> beta_family)</a>
-<a class="sourceLine" id="cb35-2" data-line-number="2"><span class="kw">dredge</span>(gm10)</a></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">gm10 &lt;-<span class="st"> </span><span class="kw">glmmTMB</span>(BetaFuncAllTotalVector <span class="op">~</span><span class="st"> </span>Dist_edge_std <span class="op">+</span>Dist_trail_std <span class="op">+</span><span class="st"> </span>Dist_trail_beginning_std <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> beta_family)</a>
+<a class="sourceLine" id="cb29-2" data-line-number="2"><span class="kw">dredge</span>(gm10)</a></code></pre></div>
 <pre><code>## Global model call: glmmTMB(formula = BetaFuncAllTotalVector ~ Dist_edge_std + Dist_trail_std + 
 ##     Dist_trail_beginning_std + (1 | ForestID), data = Results2, 
 ##     family = beta_family, ziformula = ~0, dispformula = ~1)
@@ -2091,65 +2849,11 @@ div.tocify {
 ## Models ranked by AICc(x) 
 ## Random terms (all models): 
 ## 'cond(1 | ForestID)'</code></pre>
-<div id="exploring-best-ranked-models" class="section level2">
-<h2>Exploring best ranked models</h2>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">gm10<span class="fl">.5</span> &lt;-<span class="st"> </span><span class="kw">glmmTMB</span>(BetaFuncAllTotalVector <span class="op">~</span><span class="st"> </span>Dist_trail_std <span class="op">+</span><span class="st">  </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> beta_family)</a>
-<a class="sourceLine" id="cb37-2" data-line-number="2"><span class="kw">summary</span>(gm10<span class="fl">.5</span>)</a></code></pre></div>
-<pre><code>##  Family: beta  ( logit )
-## Formula:          BetaFuncAllTotalVector ~ Dist_trail_std + (1 | ForestID)
-## Data: Results2
-## 
-##      AIC      BIC   logLik deviance df.resid 
-##    -33.4    -29.3     20.7    -41.4       17 
-## 
-## Random effects:
-## 
-## Conditional model:
-##  Groups   Name        Variance Std.Dev.
-##  ForestID (Intercept) 0.6208   0.7879  
-## Number of obs: 21, groups:  ForestID, 5
-## 
-## Overdispersion parameter for beta family (): 2.66 
-## 
-## Conditional model:
-##                Estimate Std. Error z value Pr(&gt;|z|)   
-## (Intercept)     -0.8169     0.4538  -1.800  0.07186 . 
-## Dist_trail_std  -1.1691     0.4214  -2.775  0.00553 **
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1">gm10<span class="fl">.6</span> &lt;-<span class="st"> </span><span class="kw">glmmTMB</span>(BetaFuncAllTotalVector <span class="op">~</span><span class="st"> </span>Dist_edge_std <span class="op">+</span>Dist_trail_std <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> beta_family)</a>
-<a class="sourceLine" id="cb39-2" data-line-number="2"><span class="kw">summary</span>(gm10<span class="fl">.6</span>)</a></code></pre></div>
-<pre><code>##  Family: beta  ( logit )
-## Formula:          
-## BetaFuncAllTotalVector ~ Dist_edge_std + Dist_trail_std + (1 |  
-##     ForestID)
-## Data: Results2
-## 
-##      AIC      BIC   logLik deviance df.resid 
-##    -34.9    -29.7     22.5    -44.9       16 
-## 
-## Random effects:
-## 
-## Conditional model:
-##  Groups   Name        Variance Std.Dev.
-##  ForestID (Intercept) 0.5002   0.7072  
-## Number of obs: 21, groups:  ForestID, 5
-## 
-## Overdispersion parameter for beta family (): 3.03 
-## 
-## Conditional model:
-##                Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)     -1.2038     0.4923  -2.445  0.01448 *  
-## Dist_edge_std    1.0580     0.6150   1.720  0.08536 .  
-## Dist_trail_std  -1.5955     0.4718  -3.382  0.00072 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-</div>
 </div>
 <div id="beta-functional---nat" class="section level1">
 <h1>Beta Functional - Nat</h1>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1">gm11 &lt;-<span class="st"> </span><span class="kw">glmmTMB</span>(BetaFuncNatTotalVector <span class="op">~</span><span class="st"> </span>Dist_edge_std <span class="op">+</span><span class="st">  </span>Dist_trail_std <span class="op">+</span><span class="st"> </span>Dist_trail_beginning_std <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> beta_family)</a>
-<a class="sourceLine" id="cb41-2" data-line-number="2"><span class="kw">dredge</span>(gm11)</a></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">gm11 &lt;-<span class="st"> </span><span class="kw">glmmTMB</span>(BetaFuncNatTotalVector <span class="op">~</span><span class="st"> </span>Dist_edge_std <span class="op">+</span><span class="st">  </span>Dist_trail_std <span class="op">+</span><span class="st"> </span>Dist_trail_beginning_std <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> beta_family)</a>
+<a class="sourceLine" id="cb31-2" data-line-number="2"><span class="kw">dredge</span>(gm11)</a></code></pre></div>
 <pre><code>## Global model call: glmmTMB(formula = BetaFuncNatTotalVector ~ Dist_edge_std + Dist_trail_std + 
 ##     Dist_trail_beginning_std + (1 | ForestID), data = Results2, 
 ##     family = beta_family, ziformula = ~0, dispformula = ~1)
@@ -2176,121 +2880,37 @@ div.tocify {
 ## Models ranked by AICc(x) 
 ## Random terms (all models): 
 ## 'cond(1 | ForestID)'</code></pre>
-<div id="exploring-best-ranked-models-1" class="section level2">
-<h2>Exploring best ranked models</h2>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1">gm11<span class="fl">.5</span> &lt;-<span class="st"> </span><span class="kw">glmmTMB</span>(BetaFuncNatTotalVector <span class="op">~</span><span class="st">  </span>Dist_trail_std <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> beta_family)</a>
-<a class="sourceLine" id="cb43-2" data-line-number="2"><span class="kw">summary</span>(gm11<span class="fl">.5</span>)</a></code></pre></div>
-<pre><code>##  Family: beta  ( logit )
-## Formula:          BetaFuncNatTotalVector ~ Dist_trail_std + (1 | ForestID)
-## Data: Results2
-## 
-##      AIC      BIC   logLik deviance df.resid 
-##    -32.4    -28.3     20.2    -40.4       17 
-## 
-## Random effects:
-## 
-## Conditional model:
-##  Groups   Name        Variance Std.Dev.
-##  ForestID (Intercept) 0.5708   0.7555  
-## Number of obs: 21, groups:  ForestID, 5
-## 
-## Overdispersion parameter for beta family (): 2.48 
-## 
-## Conditional model:
-##                Estimate Std. Error z value Pr(&gt;|z|)   
-## (Intercept)     -0.7555     0.4443  -1.701  0.08903 . 
-## Dist_trail_std  -1.1455     0.4259  -2.690  0.00715 **
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1">gm11<span class="fl">.6</span> &lt;-<span class="st"> </span><span class="kw">glmmTMB</span>(BetaFuncNatTotalVector <span class="op">~</span><span class="st"> </span>Dist_edge_std <span class="op">+</span><span class="st">  </span>Dist_trail_std <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> beta_family)</a>
-<a class="sourceLine" id="cb45-2" data-line-number="2"><span class="kw">summary</span>(gm11<span class="fl">.6</span>)</a></code></pre></div>
-<pre><code>##  Family: beta  ( logit )
-## Formula:          
-## BetaFuncNatTotalVector ~ Dist_edge_std + Dist_trail_std + (1 |  
-##     ForestID)
-## Data: Results2
-## 
-##      AIC      BIC   logLik deviance df.resid 
-##    -33.3    -28.1     21.6    -43.3       16 
-## 
-## Random effects:
-## 
-## Conditional model:
-##  Groups   Name        Variance Std.Dev.
-##  ForestID (Intercept) 0.4731   0.6878  
-## Number of obs: 21, groups:  ForestID, 5
-## 
-## Overdispersion parameter for beta family (): 2.74 
-## 
-## Conditional model:
-##                Estimate Std. Error z value Pr(&gt;|z|)   
-## (Intercept)     -1.0996     0.4853  -2.266  0.02345 * 
-## Dist_edge_std    0.9476     0.6052   1.566  0.11739   
-## Dist_trail_std  -1.5235     0.4747  -3.209  0.00133 **
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-</div>
 </div>
 <div id="beta-functional---nind" class="section level1">
 <h1>Beta Functional - NInd</h1>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1">gm12 &lt;-<span class="st"> </span><span class="kw">glmmTMB</span>(BetaFuncNIndTotalVector <span class="op">~</span><span class="st"> </span>Dist_edge_std <span class="op">+</span><span class="st">  </span>Dist_trail_std <span class="op">+</span><span class="st"> </span>Dist_trail_beginning_std <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> beta_family)</a>
-<a class="sourceLine" id="cb47-2" data-line-number="2"><span class="kw">dredge</span>(gm12)</a></code></pre></div>
-<pre><code>## Global model call: glmmTMB(formula = BetaFuncNIndTotalVector ~ Dist_edge_std + Dist_trail_std + 
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">gm12 &lt;-<span class="st"> </span><span class="kw">glmmTMB</span>(BetaFuncNIndTotalVector <span class="op">~</span><span class="st"> </span>Dist_edge_std <span class="op">+</span><span class="st">  </span>Dist_trail_std <span class="op">+</span><span class="st"> </span>Dist_trail_beginning_std <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> beta_family)</a>
+<a class="sourceLine" id="cb33-2" data-line-number="2"><span class="kw">dredge</span>(gm10)</a></code></pre></div>
+<pre><code>## Global model call: glmmTMB(formula = BetaFuncAllTotalVector ~ Dist_edge_std + Dist_trail_std + 
 ##     Dist_trail_beginning_std + (1 | ForestID), data = Results2, 
 ##     family = beta_family, ziformula = ~0, dispformula = ~1)
 ## ---
 ## Model selection table 
 ##   cnd((Int)) dsp((Int)) cnd(Dst_edg_std) cnd(Dst_trl_bgn_std)
-## 6  -0.224400          +           1.1160                     
-## 1   0.071840          +                                      
-## 5   0.310600          +                                      
-## 8  -0.365200          +           1.1390               0.3851
-## 2  -0.200700          +           0.4577                     
-## 3   0.286000          +                               -0.3483
-## 4  -0.007551          +           0.7583              -0.6790
-## 7   0.218400          +                                0.2931
-##   cnd(Dst_trl_std) df logLik   AICc delta weight
-## 6          -1.0830  5 73.187 -132.4  0.00  0.462
-## 1                   3 68.811 -130.2  2.16  0.157
-## 5          -0.5319  4 70.150 -129.8  2.57  0.127
-## 8          -1.3520  6 73.417 -128.8  3.54  0.079
-## 2                   4 69.406 -128.3  4.06  0.061
-## 3                   4 69.265 -128.0  4.34  0.053
-## 4                   5 70.668 -127.3  5.04  0.037
-## 7          -0.7285  5 70.282 -126.6  5.81  0.025
+## 5    -0.8169          +                                      
+## 6    -1.2040          +           1.0580                     
+## 7    -0.9079          +                                0.3016
+## 8    -1.2490          +           0.9810               0.2440
+## 1    -0.9474          +                                      
+## 3    -0.6636          +                               -0.4804
+## 2    -0.8303          +          -0.1924                     
+## 4    -0.7083          +           0.1222              -0.5392
+##   cnd(Dst_trl_std) df logLik  AICc delta weight
+## 5           -1.169  4 20.725 -30.9  0.00  0.416
+## 6           -1.596  5 22.457 -30.9  0.03  0.409
+## 7           -1.247  5 20.887 -27.8  3.18  0.085
+## 8           -1.634  6 22.555 -27.1  3.84  0.061
+## 1                   3 15.685 -24.0  6.99  0.013
+## 3                   4 17.081 -23.7  7.29  0.011
+## 2                   4 15.874 -21.2  9.70  0.003
+## 4                   5 17.139 -20.3 10.67  0.002
 ## Models ranked by AICc(x) 
 ## Random terms (all models): 
 ## 'cond(1 | ForestID)'</code></pre>
-<div id="exploring-best-ranked-models-2" class="section level2">
-<h2>Exploring best ranked models</h2>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">gm12<span class="fl">.6</span> &lt;-<span class="st"> </span><span class="kw">glmmTMB</span>(BetaFuncNIndTotalVector <span class="op">~</span><span class="st"> </span>Dist_edge_std <span class="op">+</span><span class="st">  </span>Dist_trail_std <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>ForestID), <span class="dt">data =</span> Results2 , <span class="dt">family =</span> beta_family)</a>
-<a class="sourceLine" id="cb49-2" data-line-number="2"><span class="kw">summary</span>(gm12<span class="fl">.6</span>)</a></code></pre></div>
-<pre><code>##  Family: beta  ( logit )
-## Formula:          
-## BetaFuncNIndTotalVector ~ Dist_edge_std + Dist_trail_std + (1 |  
-##     ForestID)
-## Data: Results2
-## 
-##      AIC      BIC   logLik deviance df.resid 
-##   -136.4   -131.2     73.2   -146.4       16 
-## 
-## Random effects:
-## 
-## Conditional model:
-##  Groups   Name        Variance  Std.Dev. 
-##  ForestID (Intercept) 1.254e-09 3.541e-05
-## Number of obs: 21, groups:  ForestID, 5
-## 
-## Overdispersion parameter for beta family (): 0.468 
-## 
-## Conditional model:
-##                Estimate Std. Error z value Pr(&gt;|z|)   
-## (Intercept)     -0.2244     0.3775  -0.594  0.55231   
-## Dist_edge_std    1.1157     0.4471   2.496  0.01258 * 
-## Dist_trail_std  -1.0829     0.4067  -2.663  0.00775 **
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-</div>
 </div>
 
 

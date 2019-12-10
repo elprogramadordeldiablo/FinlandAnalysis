@@ -62,7 +62,7 @@ cor(numeric.results.variables)  #isto ontem funcionava, não sei o que se passa
 ## Generating the models
 ```{r}
 
-gm1 <- glmer(TAlphaAll ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = poisson)
+gm1 <- glmmTMB(TAlphaAll ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = poisson)
 options(na.action = "na.fail")
 dredge(gm1)
 ```
@@ -72,7 +72,7 @@ dredge(gm1)
 ## Generating the models
 ```{r}
 
-gm2 <- glmer(TAlphaNat ~ Dist_edge_std +Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = poisson)
+gm2 <- glmmTMB(TAlphaNat ~ Dist_edge_std +Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = poisson)
 dredge(gm2)
 ```
 
@@ -81,7 +81,7 @@ dredge(gm2)
 ## Generating the models
 ```{r}
 
-gm3 <- glmer(TAlphaNInd ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = poisson)
+gm3 <- glmmTMB(TAlphaNInd ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = poisson)
 summary(gm3)
 
 ```
@@ -92,7 +92,7 @@ summary(gm3)
 ## Generating the models
 ```{r, warning=FALSE}
 
-gm4 <- glmer(FAlphaAll ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = Gamma)
+gm4 <- glmmTMB(FAlphaAll ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = Gamma)
 dredge(gm4)
 ```
 
@@ -101,7 +101,7 @@ dredge(gm4)
 ## Generating the models
 ```{r, warning=FALSE}
 
-gm5 <- glmer(FAlphaNat ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = Gamma)
+gm5 <- glmmTMB(FAlphaNat ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = Gamma)
 dredge(gm5)
 ```
 
@@ -109,9 +109,8 @@ dredge(gm5)
 
 ## Generating the models
 ``{r, warning=FALSE}
-gm6 <- glmer(FAlphaNInd ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = Gamma)
-options(na.action = "na.fail")
-dredge(gm6,evaluate=FALSE)
+gm6 <- glmmTMB(FAlphaNInd ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = Gamma)
+dredge(gm6)
 ``
 FAILED - Error in eval(family$initialize, rho) : non-positive values not allowed for the 'gamma' family
 
@@ -129,41 +128,17 @@ dredge(gm6, extra = c("R^2", F = function(x)
 
 ```{r, warning=FALSE}
 
-gm7 <- glmer(BetaAllTotalVector ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = beta_family(link = "logit"))
+gm7 <- glmmTMB(BetaAllTotalVector ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = beta_family)
 dredge(gm7)
 
-
 ```
+
 
 
 ## Model comparison table
 ```{r, warning=FALSE}
-dredge(gm7, extra = c("R^2", F = function(x)
-    summary(x)$fstatistic[[1]]))
-
-```
-
-``{r, warning=FALSE}
-
-gm7.5 <- glmer(formula = BetaAllTotalVector ~ Dist_trail_std + (1 | ForestID), data = Results2, family = binomial)
-summary(gm7)
-
-gm7.glmer(formula = BetaAllTotalVector ~ Dist_edge_std + Dist_trail_std + 
-##     (1 | ForestID), data = Results2, family = binomial)
-## 
-## $`7`
-## glmer(formula = BetaAllTotalVector ~ Dist_trail_beginning_std + 
-##     Dist_trail_std + (1 | ForestID), data = Results2, family = binomial)
-
-``
-
-
-## Model comparison table
-```{r, warning=FALSE}
-gm8.6 <- glmer(BetaNatTotalVector ~ Dist_edge_std + Dist_trail_std +  (1 | ForestID), data = Results2 , family = binomial)
-summary(gm8.6)
-dredge(gm8, extra = c("R^2", F = function(x)
-    summary(x)$fstatistic[[1]]))
+gm8 <- glmmTMB(BetaNatTotalVector ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = beta_family)
+dredge(gm8)
 ```
 
 
@@ -172,76 +147,39 @@ dredge(gm8, extra = c("R^2", F = function(x)
 ## Generating the models
 ```{r, warning=FALSE}
 
-gm9 <- glmer(BetaNIndTotalVector ~ Dist_edge_std +  Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = binomial)
-dredge(gm9,evaluate=FALSE)
+gm9 <- glmmTMB(BetaNIndTotalVector ~ Dist_edge_std +  Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = beta_family)
+dredge(gm9)
 ```
 
 
-## Model comparison table
+
+# Beta Functional - All 
+
+## Generating the models
 ```{r, warning=FALSE}
-dredge(gm9, extra = c("R^2", F = function(x)
-    summary(x)$fstatistic[[1]]))
 
+gm10 <- glmmTMB(BetaFuncAllTotalVector ~ Dist_edge_std +Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = beta_family)
+dredge(gm10)
+```
+
+# Beta Functional - Nat 
+
+## Generating the models
+```{r, warning=FALSE}
+
+gm11 <- glmmTMB(BetaFuncNatTotalVector ~ Dist_edge_std +  Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = beta_family)
+dredge(gm11)
 ```
 
 
-
-# FAILED Beta Functional - All 
-
-## Generating the models
-``{r, warning=FALSE}
-
-gm10 <- glmer(BetaFuncAllTotalVector ~ Dist_edge_std +Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = binomial)
-dredge(gm10,evaluate=FALSE)
-``
-Error presented: "Error in pwrssUpdate(pp, resp, tol = tolPwrss, GQmat = GQmat, compDev = compDev, : (maxstephalfit) PIRLS step-halvings failed to reduce deviance in pwrssUpdate"
-
-## Model comparison table
-``{r, warning=FALSE}
-dredge(gm10, extra = c("R^2", F = function(x)
-    summary(x)$fstatistic[[1]]))
-
-``
-
-
-# FAILED Beta Functional - Nat 
+# Beta Functional - NInd 
 
 ## Generating the models
-``{r, warning=FALSE}
+```{r, warning=FALSE}
 
-gm11 <- glmer(BetaFuncNatTotalVector ~ Dist_edge_std +  Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = binomial)
-dredge(gm10,evaluate=FALSE)
-``
-
-
-## Model comparison table
-``{r, warning=FALSE}
-dredge(gm11, extra = c("R^2", F = function(x)
-    summary(x)$fstatistic[[1]]))
-
-
-
-``
-
-
-# FAILED Beta Functional - NInd 
-
-## Generating the models
-``{r, warning=FALSE}
-
-gm12 <- glmer(BetaFuncNIndTotalVector ~ Dist_edge_std +  Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = binomial)
-dredge(gm10,evaluate=FALSE)
-``
-
-
-## Model comparison table
-``{r, warning=FALSE}
-dredge(gm12, extra = c("R^2", F = function(x)
-    summary(x)$fstatistic[[1]]))
-
-
-
-``
+gm12 <- glmmTMB(BetaFuncNIndTotalVector ~ Dist_edge_std +  Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = beta_family)
+dredge(gm10)
+```
 
 
 

@@ -1,30 +1,176 @@
 ---
-title: "glmmTMB"
+title: "GLMM and GLM Analysis"
 author: "Rui Carvalho"
-date: "12/9/2019"
-output: html_document
+output:
+  html_document:
+    theme: united
+    highlight: tango
+    toc: yes
+    toc_depth: 3
+    toc_float:
+      collapsed: no
+      smooth_scroll: no
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r setup, }
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+options(knitr.table.format = "html")
+
 ```
 
-## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+# Preparing files
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+## Libraries 
 
-```{r cars}
-summary(cars)
+``` {r, results ='hide'}  
+library(BAT)
+library(readr)
+library(FD) 
+library(car)
+library(MASS)
+library(lme4)
+library(here)       # to locate files
+library(data.table) # to work with data
+library(dplyr)      # to manage data
+library(magrittr)   # to use the pipe operator %>% 
+library(MuMIn)
+library(glmmTMB)
+library(bbmle)
 ```
 
-## Including Plots
 
-You can also embed plots, for example:
+## Calling results dataset
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r}
+Results2 <- read.csv2(here("results","RESULTS.csv"), header=TRUE, row.names = 1,  stringsAsFactors = T, sep = ",", dec = ".")
+str(Results2)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+## Checking for colinearity 
+
+```{r}
+results.variables <- Results2[,5:7] # selecting the variables relevant to the test
+
+numeric.results.variables <- Results2[,5:7] # selecting the variables relevant to the test
+cor(numeric.results.variables)  #isto ontem funcionava, não sei o que se passa
+
+```
+
+# Alpha Taxonomic - All Species
+
+
+```{r}
+
+gm1 <- glmmTMB(TAlphaAll ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = poisson)
+options(na.action = "na.fail")
+dredge(gm1)
+```
+
+# Alpha Taxonomic - Native Species
+
+
+```{r}
+
+gm2 <- glmmTMB(TAlphaNat ~ Dist_edge_std +Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = poisson)
+dredge(gm2)
+```
+
+# Alpha Taxonomic - Nind species
+
+
+```{r}
+
+gm3 <- glmmTMB(TAlphaNInd ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = poisson)
+summary(gm3)
+
+```
+
+
+# Alpha Fuctional - All Species
+
+
+```{r, }
+
+gm4 <- glmmTMB(FAlphaAll ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = Gamma)
+dredge(gm4)
+```
+
+# Alpha Functional - Native Species
+
+
+```{r, }
+
+gm5 <- glmmTMB(FAlphaNat ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = Gamma)
+dredge(gm5)
+```
+
+# FAILED Alpha Functional - N/Ind Species
+
+
+``{r, }
+gm6 <- glmmTMB(FAlphaNInd ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = Gamma)
+dredge(gm6)
+``
+FAILED - Error in eval(family$initialize, rho) : non-positive values not allowed for the 'gamma' family
+
+
+# Beta Taxonomic - All Species
+
+
+```{r, }
+
+gm7 <- glmmTMB(BetaAllTotalVector ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = beta_family)
+dredge(gm7)
+
+```
+
+
+```{r, }
+gm8 <- glmmTMB(BetaNatTotalVector ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = beta_family)
+dredge(gm8)
+```
+
+
+# Beta Taxonomic - NInd Species
+
+
+```{r, }
+
+gm9 <- glmmTMB(BetaNIndTotalVector ~ Dist_edge_std +  Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = beta_family)
+dredge(gm9)
+```
+
+
+
+# Beta Functional - All 
+
+
+```{r, }
+
+gm10 <- glmmTMB(BetaFuncAllTotalVector ~ Dist_edge_std +Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = beta_family)
+dredge(gm10)
+```
+
+# Beta Functional - Nat 
+
+
+```{r, }
+
+gm11 <- glmmTMB(BetaFuncNatTotalVector ~ Dist_edge_std +  Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = beta_family)
+dredge(gm11)
+```
+
+
+# Beta Functional - NInd 
+
+
+```{r, }
+
+gm12 <- glmmTMB(BetaFuncNIndTotalVector ~ Dist_edge_std +  Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = beta_family)
+dredge(gm10)
+```
+
+
+
+

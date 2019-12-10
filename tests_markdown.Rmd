@@ -1,7 +1,9 @@
 ---
 title: "GLMM and GLM Analysis"
 author: "Rui Carvalho"
-output:
+output: word_document
+  
+---
   html_document:
     theme: united
     highlight: tango
@@ -35,288 +37,237 @@ library(data.table) # to work with data
 library(dplyr)      # to manage data
 library(magrittr)   # to use the pipe operator %>% 
 library(MuMIn)
+library(glmmTMB)
+library(bbmle)
 ```
 
 
 ## Calling results dataset
 
 ```{r}
-Results2 <- read.csv2(here("results","RESULTS.CSV"), header=TRUE, row.names = 1,  stringsAsFactors = T,sep = ",", dec = ".")
+Results2 <- read.csv2(here("results","RESULTS.csv"), header=TRUE, row.names = 1,  stringsAsFactors = T, sep = ",", dec = ".")
 str(Results2)
 ```
+
+#Test results and analysis 
+When model fits are ranked according to their AIC values, the model with the lowest AIC value being considered the ???best???. Models in which the difference in AIC relative to AICmin is < 2 will be considered also to have substantial support (Burnham, 2002; Burnham and Anderson, 1998).
+I will then assess the variables importance, by assessing their respective weights within each models fit. 
+By these two criteria, I will then elavborate the discussion on what factors do accet the spiders community. 
 
 ## Checking for colinearity 
 
 ```{r}
-results.variables <- Results2[,5:8] # selecting the variables relevant to the test
+results.variables <- Results2[,5:7] # selecting the variables relevant to the test
 
-numeric.results.variables <- Results2[,6:8] # selecting the variables relevant to the test
+numeric.results.variables <- Results2[,5:7] # selecting the variables relevant to the test
 cor(numeric.results.variables)  #isto ontem funcionava, não sei o que se passa
+
 ```
 
 # Alpha Taxonomic - All Species
 
-## Generating the models
+
 ```{r}
 
-gm1 <- glmer(TAlphaAll ~ Dist_edge_std + Treatment + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = poisson)
+gm1 <- glmmTMB(TAlphaAll ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = poisson)
 options(na.action = "na.fail")
-dredge(gm1,evaluate=FALSE)
+dredge(gm1)
 ```
-
-## Model comparison table
-```{r}
-dredge(gm1, extra = c("R^2", F = function(x)
-    summary(x)$fstatistic[[1]]))
-
-# Returns Values unranked: "(Int) / ESTIMATE(Dst_edg /Dst_trl /Dst_trl_bgn/ Trt) / R^2 /df / logLik  /AICc/ delta/ weight"
-
-#options(na.action = "na.omit")
-
-```
-
 
 # Alpha Taxonomic - Native Species
 
-## Generating the models
+
 ```{r}
 
-gm2 <- glmer(TAlphaNat ~ Dist_edge_std + Treatment + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = poisson)
-options(na.action = "na.fail")
-dredge(gm2,evaluate=FALSE)
-```
-
-## Model comparison table
-```{r}
-dredge(gm2, extra = c("R^2", F = function(x)
-    summary(x)$fstatistic[[1]]))
-
-# Returns Values unranked: "(Int) / ESTIMATE(Dst_edg /Dst_trl /Dst_trl_bgn/ Trt) / R^2 /df / logLik  /AICc/ delta/ weight"
-
-#options(na.action = "na.omit")
-
+gm2 <- glmmTMB(TAlphaNat ~ Dist_edge_std +Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = poisson)
+dredge(gm2)
 ```
 
 # Alpha Taxonomic - Nind species
 
-## Generating the models
+
 ```{r}
 
-gm3 <- glmer(TAlphaNInd ~ Dist_edge_std + Treatment + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = poisson)
-options(na.action = "na.fail")
-dredge(gm3,evaluate=FALSE)
-```
-
-## Model comparison table
-```{r, warning=FALSE}
-dredge(gm3, extra = c("R^2", F = function(x)
-    summary(x)$fstatistic[[1]]))
-
-# Returns Values unranked: "(Int) / ESTIMATE(Dst_edg /Dst_trl /Dst_trl_bgn/ Trt) / R^2 /df / logLik  /AICc/ delta/ weight"
-
-#options(na.action = "na.omit")
+gm3 <- glmmTMB(TAlphaNInd ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = poisson)
+dredge(gm3)
 
 ```
 
-# Alpha Fuctional - All Species
 
-## Generating the models
+# Alpha Functional - All Species
+
+
 ```{r, warning=FALSE}
 
-gm4 <- glmer(FAlphaAll ~ Dist_edge_std + Treatment + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = poisson)
-options(na.action = "na.fail")
-dredge(gm4,evaluate=FALSE)
+gm4 <- glmmTMB(FAlphaAll ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = Gamma)
+dredge(gm4)
 ```
-
-
-## Model comparison table
-```{r, warning=FALSE}
-dredge(gm4, extra = c("R^2", F = function(x)
-    summary(x)$fstatistic[[1]]))
-
-# Returns Values unranked: "(Int) / ESTIMATE(Dst_edg /Dst_trl /Dst_trl_bgn/ Trt) / R^2 /df / logLik  /AICc/ delta/ weight"
-
-#options(na.action = "na.omit")
-
-```
-
 
 # Alpha Functional - Native Species
 
-## Generating the models
+
 ```{r, warning=FALSE}
 
-gm5 <- glmer(FAlphaNat ~ Dist_edge_std + Treatment + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = poisson)
-options(na.action = "na.fail")
-dredge(gm5,evaluate=FALSE)
+gm5 <- glmmTMB(FAlphaNat ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = Gamma)
+dredge(gm5)
 ```
 
-
-## Model comparison table
-```{r, warning=FALSE}
-dredge(gm5, extra = c("R^2", F = function(x)
-    summary(x)$fstatistic[[1]]))
-
-# Returns Values unranked: "(Int) / ESTIMATE(Dst_edg /Dst_trl /Dst_trl_bgn/ Trt) / R^2 /df / logLik  /AICc/ delta/ weight"
-
-#options(na.action = "na.omit")
-
-```
+# FAILED Alpha Functional - N/Ind Species
 
 
+``{r, warning=FALSE}
+gm6 <- glmmTMB(FAlphaNInd ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = Gamma)
+dredge(gm6)
+``
+FAILED - Error in eval(family$initialize, rho) : non-positive values not allowed for the 'gamma' family
 
-# Alpha Functional - N/Ind Species
-
-## Generating the models
-```{r, warning=FALSE}
-
-gm6 <- glmer(FAlphaNInd ~ Dist_edge_std + Treatment + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = poisson)
-options(na.action = "na.fail")
-dredge(gm6,evaluate=FALSE)
-```
-
-
-## Model comparison table
-```{r, warning=FALSE}
-dredge(gm6, extra = c("R^2", F = function(x)
-    summary(x)$fstatistic[[1]]))
-
-# Returns Values unranked: "(Int) / ESTIMATE(Dst_edg /Dst_trl /Dst_trl_bgn/ Trt) / R^2 /df / logLik  /AICc/ delta/ weight"
-
-#options(na.action = "na.omit")
-```
 
 # Beta Taxonomic - All Species
 
-## Generating the models
+
 ```{r, warning=FALSE}
 
-gm7 <- glmer(BetaAllTotalVector ~ Dist_edge_std + Treatment + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = binomial)
-dredge(gm7,evaluate=FALSE)
+gm7 <- glmmTMB(BetaAllTotalVector ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = beta_family)
+dredge(gm7)
+
 ```
 
 
-## Model comparison table
+## 
 ```{r, warning=FALSE}
-dredge(gm7, extra = c("R^2", F = function(x)
-    summary(x)$fstatistic[[1]]))
-
-# Returns Values unranked: "(Int) / ESTIMATE(Dst_edg /Dst_trl /Dst_trl_bgn/ Trt) / R^2 /df / logLik  /AICc/ delta/ weight"
-
-#options(na.action = "na.omit")
-
+gm7.5  <- glmmTMB(BetaAllTotalVector ~ Dist_trail_std + (1 | ForestID), data = Results2 , family = beta_family)
+summary(gm7.5)
 ```
+
+##
+```{r, warning=FALSE}
+gm7.6  <- glmmTMB(BetaAllTotalVector ~ Dist_edge_std + (1 | ForestID), data = Results2 , family = beta_family)
+summary(gm7.6)
+```
+
+##
+```{r, warning=FALSE}
+gm7.7  <- glmmTMB(BetaAllTotalVector ~ Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = beta_family)
+summary(gm7.7)
+```
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # Beta Taxonomic - Nat Species
 
-## Generating the models
 ```{r, warning=FALSE}
-
-gm8 <- glmer(BetaNatTotalVector ~ Dist_edge_std + Treatment + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = binomial)
-dredge(gm8,evaluate=FALSE)
+gm8 <- glmmTMB(BetaNatTotalVector ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = beta_family)
+dredge(gm8)
 ```
 
+## Testing specific models
 
-## Model comparison table
 ```{r, warning=FALSE}
-dredge(gm8, extra = c("R^2", F = function(x)
-    summary(x)$fstatistic[[1]]))
+gm8.6 <- glmmTMB(BetaNatTotalVector ~ Dist_edge_std + Dist_trail_std + (1 | ForestID), data = Results2 , family = beta_family)
+summary(gm8.6)
+```
 
-# Returns Values unranked: "(Int) / ESTIMATE(Dst_edg /Dst_trl /Dst_trl_bgn/ Trt) / R^2 /df / logLik  /AICc/ delta/ weight"
-
-#options(na.action = "na.omit")
-
+```{r, warning=FALSE}
+gm8.7 <- glmmTMB(BetaNatTotalVector ~  Dist_trail_std  + (1 | ForestID), data = Results2 , family = beta_family)
+summary(gm8.7)
 ```
 
 
 # Beta Taxonomic - NInd Species
 
-## Generating the models
+
 ```{r, warning=FALSE}
 
-gm9 <- glmer(BetaNIndTotalVector ~ Dist_edge_std + Treatment + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = binomial)
-dredge(gm9,evaluate=FALSE)
+gm9 <- glmmTMB(BetaNIndTotalVector ~ Dist_edge_std +  Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = beta_family)
+dredge(gm9)
 ```
 
-
-## Model comparison table
 ```{r, warning=FALSE}
-dredge(gm9, extra = c("R^2", F = function(x)
-    summary(x)$fstatistic[[1]]))
 
-# Returns Values unranked: "(Int) / ESTIMATE(Dst_edg /Dst_trl /Dst_trl_bgn/ Trt) / R^2 /df / logLik  /AICc/ delta/ weight"
-
-#options(na.action = "na.omit")
-
+gm9.5 <- glmmTMB(BetaNIndTotalVector ~  Dist_trail_beginning_std +  (1 | ForestID), data = Results2 , family = beta_family)
+summary(gm9.5)
 ```
 
 
 
-# Beta Functional - All Species
 
-## Generating the models
+# Beta Functional - All 
+
+
 ```{r, warning=FALSE}
 
-gm10 <- glmer(BetaFuncAllTotalVector ~ Dist_edge_std + Treatment + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = binomial)
-dredge(gm10,evaluate=FALSE)
+gm10 <- glmmTMB(BetaFuncAllTotalVector ~ Dist_edge_std +Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = beta_family)
+dredge(gm10)
+```
+## Exploring best ranked models
+```{r, warning=FALSE}
+
+gm10.5 <- glmmTMB(BetaFuncAllTotalVector ~ Dist_trail_std +  (1 | ForestID), data = Results2 , family = beta_family)
+summary(gm10.5)
 ```
 
 
-## Model comparison table
 ```{r, warning=FALSE}
-dredge(gm10, extra = c("R^2", F = function(x)
-    summary(x)$fstatistic[[1]]))
 
-# Returns Values unranked: "(Int) / ESTIMATE(Dst_edg /Dst_trl /Dst_trl_bgn/ Trt) / R^2 /df / logLik  /AICc/ delta/ weight"
+gm10.6 <- glmmTMB(BetaFuncAllTotalVector ~ Dist_edge_std +Dist_trail_std + (1 | ForestID), data = Results2 , family = beta_family)
+summary(gm10.6)
+```
+# Beta Functional - Nat 
 
-#options(na.action = "na.omit")
 
+```{r, warning=FALSE}
+
+gm11 <- glmmTMB(BetaFuncNatTotalVector ~ Dist_edge_std +  Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = beta_family)
+dredge(gm11)
+```
+
+## Exploring best ranked models
+```{r, warning=FALSE}
+
+gm11.5 <- glmmTMB(BetaFuncNatTotalVector ~  Dist_trail_std + (1 | ForestID), data = Results2 , family = beta_family)
+summary(gm11.5)
+```
+
+```{r, warning=FALSE}
+
+gm11.6 <- glmmTMB(BetaFuncNatTotalVector ~ Dist_edge_std +  Dist_trail_std + (1 | ForestID), data = Results2 , family = beta_family)
+summary(gm11.6)
 ```
 
 
-# Beta Functional - Nat Species
 
-## Generating the models
+
+# Beta Functional - NInd 
+
+
 ```{r, warning=FALSE}
 
-gm11 <- glmer(BetaFuncNatTotalVector ~ Dist_edge_std + Treatment + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = binomial)
-dredge(gm10,evaluate=FALSE)
+gm12 <- glmmTMB(BetaFuncNIndTotalVector ~ Dist_edge_std +  Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = beta_family)
+dredge(gm12)
+```
+
+## Exploring best ranked models
+
+```{r, warning=FALSE}
+
+gm12.6 <- glmmTMB(BetaFuncNIndTotalVector ~ Dist_edge_std +  Dist_trail_std + (1 | ForestID), data = Results2 , family = beta_family)
+summary(gm12.6)
 ```
 
 
-## Model comparison table
-```{r, warning=FALSE}
-dredge(gm11, extra = c("R^2", F = function(x)
-    summary(x)$fstatistic[[1]]))
-
-# Returns Values unranked: "(Int) / ESTIMATE(Dst_edg /Dst_trl /Dst_trl_bgn/ Trt) / R^2 /df / logLik  /AICc/ delta/ weight"
-
-#options(na.action = "na.omit")
-
-```
 
 
-# Beta Functional - NInd Species
-
-## Generating the models
-```{r, warning=FALSE}
-
-gm12 <- glmer(BetaFuncNIndTotalVector ~ Dist_edge_std + Treatment + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = binomial)
-dredge(gm10,evaluate=FALSE)
-```
-
-
-## Model comparison table
-```{r, warning=FALSE}
-dredge(gm12, extra = c("R^2", F = function(x)
-    summary(x)$fstatistic[[1]]))
-
-# Returns Values unranked: "(Int) / ESTIMATE(Dst_edg /Dst_trl /Dst_trl_bgn/ Trt) / R^2 /df / logLik  /AICc/ delta/ weight"
-
-#options(na.action = "na.omit")
-
-```
 
 
 

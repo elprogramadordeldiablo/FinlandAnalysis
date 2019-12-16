@@ -1,9 +1,7 @@
 ---
 title: "GLMM and GLM Analysis"
 author: "Rui Carvalho"
-output: word_document
-  
----
+output: 
   html_document:
     theme: united
     highlight: tango
@@ -31,6 +29,7 @@ library(readr)
 library(FD) 
 library(car)
 library(MASS)
+library(nlme)
 library(lme4)
 library(here)       # to locate files
 library(data.table) # to work with data
@@ -47,6 +46,10 @@ library(bbmle)
 ```{r}
 Results2 <- read.csv2(here("results","RESULTS.csv"), header=TRUE, row.names = 1,  stringsAsFactors = T, sep = ",", dec = ".")
 str(Results2)
+
+fam <- read.csv2(here("results","RESULTS copy.csv"), header=TRUE, row.names = 1,  stringsAsFactors = T, sep = ";", dec = ".")
+fam <- fam[1,]
+
 ```
 
 #Test results and analysis 
@@ -70,8 +73,26 @@ cor(numeric.results.variables)  #isto ontem funcionava, não sei o que se passa
 ```{r}
 
 gm1 <- glmmTMB(TAlphaAll ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = poisson)
-options(na.action = "na.fail")
-dredge(gm1)
+options(na.action = "na.fail")   #na.fail is the one that works
+dredgm1 <- dredge(gm1)
+dredgm1
+
+formula(gm1)
+
+dredge(gm9)
+dredgm9 <- dredge(gm9)
+subsetgm9 <- subset(dredgm9, dredgm9$delta <= 2)
+str(subsetgm9)
+
+subsetgm11 <- filter(dredgm9, dredgm9$delta <= 2)
+str(subsetgm11)
+
+bbbb <- getResponseFormula(gm1)
+bbbb <- data.frame(bbbb)
+write.csv(Results, file = here("results","bbbb.csv"), row.names = TRUE)
+
+
+str(aaaa)
 ```
 
 # Alpha Taxonomic - Native Species
@@ -89,11 +110,14 @@ dredge(gm2)
 ```{r}
 
 gm3 <- glmmTMB(TAlphaNInd ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data = Results2 , family = poisson)
-dredge(gm3)
-
+coeffs(gm3)
+modgm3 <- dredge(gm3)
+str(modgm3)
+coeffs(modgm3)
+write.csv(modgm3, file = here("results","modgm3.csv"), row.names = TRUE)
 ```
 
-
+gm1$
 # Alpha Functional - All Species
 
 

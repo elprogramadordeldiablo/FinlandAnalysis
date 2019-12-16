@@ -124,6 +124,17 @@ Weightsfile <- read.csv2(here("data","Weight_Ratios_Traits.csv"), header = TRUE,
 weights <- Weightsfile[,-c(1:4)]
 weights <- as.vector(weights)
 
+Weightsfile2 <- read.csv2(here("data","Weight_Ratios_Traits.csv"), header = TRUE, dec=".")
+
+
+fam <- read.csv2(here("results","RESULTS copy.csv"), header=TRUE, row.names = 1,  stringsAsFactors = T, sep = ";", dec = ".")
+fam <- fam[1,]
+
+
+fam2 <- read.csv2(here("data","glmm.families.csv"), header=TRUE, row.names = 1,  stringsAsFactors = T, sep = ",", dec = ".")
+fam2
+
+
 # Looking into the datasets -------------------------------
 
 # Ver as estruturas dos dados (garantir os factors e os valores numericos)
@@ -272,63 +283,63 @@ AA1 <- BetaAllTotal[6,c(2:6)]
 BB1 <- BetaAllTotal[11,c(7:11)]
 CC1 <- BetaAllTotal[17,c(12:17)]
 DD1 <- BetaAllTotal[21,c(18:21)]
-BetaAllTotalVector <- c(A01,AA1, BB1,  CC1, DD1)
+all.tax.btotal <- c(A01,AA1, BB1,  CC1, DD1)
 
 A02 <- BetaAllRich[1,1]
 AA2 <- BetaAllRich[6,c(2:6)]
 BB2 <- BetaAllRich[11,c(7:11)]
 CC2 <- BetaAllRich[17,c(12:17)]
 DD2<- BetaAllRich[21,c(18:21)]
-BetaAllRichVector <- c(A02,AA2, BB2,  CC2, DD2)
+all.tax.brich <- c(A02,AA2, BB2,  CC2, DD2)
 
 A03 <- BetaAllRepl[1,1]
 AA3 <- BetaAllRepl[6,c(2:6)]
 BB3 <- BetaAllRepl[11,c(7:11)]
 CC3 <- BetaAllRepl[17,c(12:17)]
 DD3 <- BetaAllRepl[21,c(18:21)]
-BetaAllReplVector <- c(A03,AA3, BB3, CC3, DD3)
+all.tax.brepl <- c(A03,AA3, BB3, CC3, DD3)
 
 A01 <- BetaNatTotal[1,1]
 AA1 <- BetaNatTotal[6,c(2:6)]
 BB1 <- BetaNatTotal[11,c(7:11)]
 CC1 <- BetaNatTotal[17,c(12:17)]
 DD1 <- BetaNatTotal[21,c(18:21)]
-BetaNatTotalVector <- c(A01,AA1, BB1,  CC1, DD1)
+nat.tax.btotal <- c(A01,AA1, BB1,  CC1, DD1)
 
 A02 <- BetaNatRich[1,1]
 AA2 <- BetaNatRich[6,c(2:6)]
 BB2 <- BetaNatRich[11,c(7:11)]
 CC2 <- BetaNatRich[17,c(12:17)]
 DD2<- BetaNatRich[21,c(18:21)]
-BetaNatRichVector <- c(A02,AA2, BB2,  CC2, DD2)
+nat.tax.brich <- c(A02,AA2, BB2,  CC2, DD2)
 
 A03 <- BetaNatRepl[1,1]
 AA3 <- BetaNatRepl[6,c(2:6)]
 BB3 <- BetaNatRepl[11,c(7:11)]
 CC3 <- BetaNatRepl[17,c(12:17)]
 DD3 <- BetaNatRepl[21,c(18:21)]
-BetaNatReplVector <- c(A03,AA3, BB3, CC3, DD3)
+nat.tax.brepl <- c(A03,AA3, BB3, CC3, DD3)
 
 A01 <- BetaNIndTotal[1,1]
 AA1 <- BetaNIndTotal[6,c(2:6)]
 BB1 <- BetaNIndTotal[11,c(7:11)]
 CC1 <- BetaNIndTotal[17,c(12:17)]
 DD1 <- BetaNIndTotal[21,c(18:21)]
-BetaNIndTotalVector <- c(A01,AA1, BB1,  CC1, DD1)
+nind.tax.btotal <- c(A01,AA1, BB1,  CC1, DD1)
 
 A02 <- BetaNIndRich[1,1]
 AA2 <- BetaNIndRich[6,c(2:6)]
 BB2 <- BetaNIndRich[11,c(7:11)]
 CC2 <- BetaNIndRich[17,c(12:17)]
 DD2<- BetaNIndRich[21,c(18:21)]
-BetaNIndRichVector <- c(A02,AA2, BB2,  CC2, DD2)
+nind.tax.brich <- c(A02,AA2, BB2,  CC2, DD2)
 
 A03 <- BetaNIndRepl[1,1]
 AA3 <- BetaNIndRepl[6,c(2:6)]
 BB3 <- BetaNIndRepl[11,c(7:11)]
 CC3 <- BetaNIndRepl[17,c(12:17)]
 DD3 <- BetaNIndRepl[21,c(18:21)]
-BetaNIndReplVector <- c(A03,AA3, BB3, CC3, DD3)
+nind.tax.brepl <- c(A03,AA3, BB3, CC3, DD3)
 
 ## Separating the FUNCTIONAL beta values between the Control 250/Max and the other sampling areas from each trail
 
@@ -338,74 +349,70 @@ AA1 <- BetaFuncAllTotal[6,c(2:6)]
 BB1 <- BetaFuncAllTotal[11,c(7:11)]
 CC1 <- BetaFuncAllTotal[17,c(12:17)]
 DD1 <- BetaFuncAllTotal[21,c(18:21)]
-BetaFuncAllTotalVector <- c(A01,AA1, BB1,  CC1, DD1)
+all.func.btotal <- c(A01,AA1, BB1,  CC1, DD1)
 
 A02 <- BetaFuncAllRich[1,1]
 AA2 <- BetaFuncAllRich[6,c(2:6)]
 BB2 <- BetaFuncAllRich[11,c(7:11)]
 CC2 <- BetaFuncAllRich[17,c(12:17)]
 DD2<- BetaFuncAllRich[21,c(18:21)]
-BetaFuncAllRichVector <- c(A02,AA2, BB2,  CC2, DD2)
+all.func.brich <- c(A02,AA2, BB2,  CC2, DD2)
 
 A03 <- BetaFuncAllRepl[1,1]
 AA3 <- BetaFuncAllRepl[6,c(2:6)]
 BB3 <- BetaFuncAllRepl[11,c(7:11)]
 CC3 <- BetaFuncAllRepl[17,c(12:17)]
 DD3 <- BetaFuncAllRepl[21,c(18:21)]
-BetaFuncAllReplVector <- c(A03,AA3, BB3, CC3, DD3)
+all.func.brepl <- c(A03,AA3, BB3, CC3, DD3)
 
 A01 <- BetaFuncNatTotal[1,1]
 AA1 <- BetaFuncNatTotal[6,c(2:6)]
 BB1 <- BetaFuncNatTotal[11,c(7:11)]
 CC1 <- BetaFuncNatTotal[17,c(12:17)]
 DD1 <- BetaFuncNatTotal[21,c(18:21)]
-BetaFuncNatTotalVector <- c(A01,AA1, BB1,  CC1, DD1)
+nat.func.btotal <- c(A01,AA1, BB1,  CC1, DD1)
 
 A02 <- BetaFuncNatRich[1,1]
 AA2 <- BetaFuncNatRich[6,c(2:6)]
 BB2 <- BetaFuncNatRich[11,c(7:11)]
 CC2 <- BetaFuncNatRich[17,c(12:17)]
 DD2<- BetaFuncNatRich[21,c(18:21)]
-BetaFuncNatRichVector <- c(A02,AA2, BB2,  CC2, DD2)
+nat.func.brich <- c(A02,AA2, BB2,  CC2, DD2)
 
 A03 <- BetaFuncNatRepl[1,1]
 AA3 <- BetaFuncNatRepl[6,c(2:6)]
 BB3 <- BetaFuncNatRepl[11,c(7:11)]
 CC3 <- BetaFuncNatRepl[17,c(12:17)]
 DD3 <- BetaFuncNatRepl[21,c(18:21)]
-BetaFuncNatReplVector <- c(A03,AA3, BB3, CC3, DD3)
+nat.func.brepl <- c(A03,AA3, BB3, CC3, DD3)
 
 A01 <- BetaFuncNIndTotal[1,1]
 AA1 <- BetaFuncNIndTotal[6,c(2:6)]
 BB1 <- BetaFuncNIndTotal[11,c(7:11)]
 CC1 <- BetaFuncNIndTotal[17,c(12:17)]
 DD1 <- BetaFuncNIndTotal[21,c(18:21)]
-BetaFuncNIndTotalVector <- c(A01,AA1, BB1,  CC1, DD1)
+nind.func.btotal <- c(A01,AA1, BB1,  CC1, DD1)
 
 A02 <- BetaFuncNIndRich[1,1]
 AA2 <- BetaFuncNIndRich[6,c(2:6)]
 BB2 <- BetaFuncNIndRich[11,c(7:11)]
 CC2 <- BetaFuncNIndRich[17,c(12:17)]
 DD2<- BetaFuncNIndRich[21,c(18:21)]
-BetaFuncNIndRichVector <- c(A02,AA2, BB2,  CC2, DD2)
+nind.func.brich <- c(A02,AA2, BB2,  CC2, DD2)
 
 A03 <- BetaFuncNIndRepl[1,1]
 AA3 <- BetaFuncNIndRepl[6,c(2:6)]
 BB3 <- BetaFuncNIndRepl[11,c(7:11)]
 CC3 <- BetaFuncNIndRepl[17,c(12:17)]
 DD3 <- BetaFuncNIndRepl[21,c(18:21)]
-BetaFuncNIndReplVector <- c(A03,AA3, BB3, CC3, DD3)
+nind.func.brepl <- c(A03,AA3, BB3, CC3, DD3)
 
 
 #### COMPILING ALL BETA INFORMATION INTO A TABLE, AND EXPORTING IT TO A FILE
 
-Betas <- as.data.frame( t(rbind(
-  BetaAllTotalVector, BetaAllRichVector, BetaAllReplVector, 
-  BetaFuncAllTotalVector, BetaFuncAllRichVector, BetaFuncAllReplVector,
-  BetaNatTotalVector, BetaNatRichVector, BetaNatReplVector, 
-  BetaFuncNatTotalVector, BetaFuncNatRichVector, BetaFuncNatReplVector,
-  BetaNIndTotalVector, BetaNIndRichVector, BetaNIndReplVector,
-  BetaFuncNIndTotalVector, BetaFuncNIndRichVector, BetaFuncNIndReplVector)))
+Betas <- as.data.frame( t(rbind(all.tax.btotal, all.tax.brich, all.tax.brepl, nat.tax.btotal, nat.tax.brich, nat.tax.brepl, nind.tax.btotal, 
+                                nind.tax.brich, nind.tax.brepl, all.func.btotal, all.func.brich, 
+                                all.func.brepl, nat.func.btotal, nat.func.brich, nat.func.brepl, nind.func.btotal, nind.func.brich, nind.func.brepl)))
 
 str(Betas)
 Betas[Betas == 0] <- 0.0001

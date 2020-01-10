@@ -1,3 +1,17 @@
+library(BAT)
+library(readr)
+library(FD) 
+library(car)
+library(MASS)
+library(lme4)
+library(here)       # to locate files
+library(data.table) # to work with data
+library(dplyr)      # to manage data
+library(magrittr)   # to use the pipe operator %>% 
+library(MuMIn)
+library(glmmTMB)
+library(bbmle)
+
 sample1 = c(23, 45, 2, 0, NA, NA)
 sample2 = c(45, 12, 3, 16, 45, 34)
 
@@ -23,6 +37,7 @@ is.numeric(as.data.frame(newData)$V1)
 sample1 = c(23, 45, 2, 0, NA, NA)
 sample2 = c(45, 12, 3, 16, 45, 34)
 
+newData <- list() # este fui eu que acrescentei
 data = rbind(sample1, sample2)
 colnames(data) = c("distance", "plot", "l4m0", "l5m4", "l3m5", "l2m4")
 
@@ -101,7 +116,7 @@ dredge(glmmTMB(TAlphaAll  ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginnin
 gmteste <- colnames(Results2)[8]
 gmteste
 
-
+ 
 ## Making separate datasets for each variable
 
 require(MuMIn)
@@ -135,11 +150,24 @@ for (i in 1:length(idx)){
   glmmTMB(t ~ Results2$Dist_edge_std + Results2$Dist_trail_std + Results2$Dist_trail_beginning_std + (1 | Results2$ForestID), family = gaussian)
   
   
-  
-  
-  
-  
-  
-  
-}
+Models
+str(Models)  
+ Models
+ 
+ Model9 <- Models[[9]]
+ Model9
+ str(Model9)
+ models.df <- data.frame(t(matrix(unlist(Model9), nrow=length(Model9),  byrow=T)),stringsAsFactors = FALSE)
+ 
+ str(models.df)
+ 
+models.df2 <- apply(Models[[9]], 2 , as.numeric)
+models.df2
 
+
+
+ subListExtract(Models, name, simplify = FALSE, keep.names = TRUE)
+ 
+valid.models <- Models[Models$AICc <= 2 ] 
+  
+valid.models

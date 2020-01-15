@@ -35,6 +35,8 @@ library(lme4)
 #library(factoextra) # Useful for PCA analysis
 library(here)
 
+  
+
 
 # Load files --------------------
 
@@ -49,6 +51,10 @@ Variables$Dist_trail_std <- scale(Variables$Dist_trail, center = F)
 Variables$Dist_edge_std <- scale(Variables$Dist_edge, center = F)
 Variables$Dist_trail_beginning_std <- scale(Variables$Dist_trail_beginning, center = F)
 str(Variables)
+
+#Ficheiro com as variável de distâncias com edge, trilhos e etc - para o GLMM
+
+abundances <- read.csv2(here("data","abundances.csv"), row.names=1, header=TRUE,  stringsAsFactors = T, dec = ".")
 
 # Ficheiro com as abundâncias por amostra para os controlos 250/Max.
 Alpha_controls <- read.csv2(here("data","Control250_Fin.csv"), header=TRUE,  stringsAsFactors = T, dec = ".")
@@ -137,7 +143,7 @@ fam2
 
 # Looking into the datasets -------------------------------
 
-# Ver as estruturas dos dados (garantir os factors e os valores numericos)
+# Ver as estruturas dos dados (garantir os factors e os valores numericos) 
 str(Variables)
 str(Alpha_controls)
 str(Traits)
@@ -178,12 +184,14 @@ dev.off()
 #CALC_COMPLETENESS ----
 
 # Quero usar o fichero dos contrlos para calcular os estimadores, e daí obter completeness.
-sitescontr <- Alpha_controls[,1]
-species_contr <- Alpha_controls[,1]
-rownames(Alpha_controls) <-sitescontr
-colnames(Alpha_controls) <- species_contr
-Alpha_controls <- Alpha_controls[,-1]
-alpha.estimate(Alpha_controls)
+# sitescontr <- Alpha_controls[,1]
+# species_contr <- Alpha_controls[,1]
+# rownames(Alpha_controls) <-sitescontr
+# colnames(Alpha_controls) <- species_contr
+# Alpha_controls <- Alpha_controls[,-1]
+# alpha.estimate(Alpha_controls)
+
+
 
 
 
@@ -201,7 +209,6 @@ plot(tree, hang = -1)  ## PQ O HANG= - 1?
 dev.off()
 #plot(as.dendrogram(tree))
 
-# sdfjskdfjhskdjf ----
 # All natives tree and FD Alpha----
 dissimNat <- cluster::daisy(TraitsNat, "gower", weights = weights)  # Calculating distances between species
 treeNat <- hclust(dissimNat, "average")          # building the dendrogrma
@@ -239,13 +246,34 @@ Alphas <- as.data.frame(cbind(Alpha_All, Alpha_Nat, Alpha_NInd, FDalphaAll, FDal
 colnames(Alphas) <- cbind("TAlphaAll", "TAlphaNat", "TAlphaNInd","FAlphaAll", "FAlphaNat", "FAlphaNInd" )
 Alphas # Will be printed along with BETAS in the RESULTS file
 
+
+##Abundances
+Alphas$abund.all=rowSums(SAAll[,1:39])
+Alphas$abund.nat=rowSums(SANat[,1:21])
+Alphas$abund.nind=rowSums(SANInd[,1:18])
+
+## Proportions
+Alphas$prop.Talpha=(Alphas$TAlphaNat / Alphas$TAlphaAll)
+    Alphas$prop.Talpha[Alphas$prop.Talpha == 1] <- 0.9999
+    Alphas$prop.Talpha[Alphas$prop.Talpha == 0] <- 0.0001
+
+Alphas$prop.Falpha=Alphas$FAlphaNat / Alphas$FAlphaAll
+    Alphas$prop.Falpha[Alphas$prop.Falpha == 1] <- 0.9999
+    Alphas$prop.Falpha[Alphas$prop.Falpha == 0] <- 0.0001
+
+Alphas$prop.abund=Alphas$abund.nat / Alphas$abund.all
+    Alphas$prop.abund[Alphas$prop.abund == 1] <- 0.9999
+    Alphas$prop.abund[Alphas$prop.abund == 0] <- 0.0001
+
+
+
 # Calculating Betas for All species, Natives and Non-Indigenous ----
 # Beta results come as a list (class(BetaAll) = list), so we transform them into data frame to export them into csv
 
 # Taxonomical Beta
 BetaAll <- beta(SAAll)
 BetaNat <- beta(SANat)
-BetaNat <- beta(SANInd) 
+BetaNInd <- beta(SANInd) 
 
 #Functional Beta
 BetaFuncAll <- beta(SAAll, tree, abund =  T)
@@ -253,7 +281,7 @@ BetaFuncNat <- beta(SANat, treeNat, abund = T)
 BetaFuncNInd <- beta(SANInd, treeNInd, abund= T)
 
 
-## Separating Total, Richness and Replacement  TAXONOMICAL betas into different data frames
+## Separating Total, Richness and Replacement  TAXONOMICAL betas into different data frames ----
 BetaAllTotal <- data.frame(as.matrix(BetaAll[["Btotal"]]), row.names= sites, sep= "tab")
 colnames(BetaAllTotal) <- sites
 BetaAllRich <- data.frame(as.matrix(BetaAll[["Brich"]]), sep= "tab")
@@ -341,7 +369,7 @@ CC3 <- BetaNIndRepl[17,c(12:17)]
 DD3 <- BetaNIndRepl[21,c(18:21)]
 nind.tax.brepl <- c(A03,AA3, BB3, CC3, DD3)
 
-## Separating the FUNCTIONAL beta values between the Control 250/Max and the other sampling areas from each trail
+###### Separating the FUNCTIONAL beta values between the Control 250/Max and the other sampling areas from each trail ---
 
 
 A01 <- BetaFuncAllTotal[1,1]
@@ -475,4 +503,6 @@ Results2
 
 Results3 <- read.csv(here("results","RESULTS.csv"), header = TRUE, row.names = 1, sep = ",", dec = ".")
 ResultsWithoutControls <- Results3[-c(5,6,10,11,16,17),-c(1:2)]
+
+
 

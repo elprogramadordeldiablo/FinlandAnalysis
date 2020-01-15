@@ -9,6 +9,9 @@
 
 glmm_TAlphaAll_AB<-glmer(TAlphaAll ~ Dist_edge + Dist_trail_beginning + (1 | ForestID), data = Results2 , family = poisson)
 summary(glmm_TAlphaAll_AB)
+r2.a <- performance::r2(glmm_TAlphaAll_AB)
+str(r2.a)
+getAllTerms(glmm_TAlphaAll_AB)
 
 glmmT_AlphaAll_A<-glmer(TAlphaAll ~ Dist_edge + (1 | ForestID), data = Results2, family = poisson)
 summary(glmmT_AlphaAll_A)

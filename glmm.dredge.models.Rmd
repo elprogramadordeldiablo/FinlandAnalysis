@@ -1,0 +1,14 @@
+---
+title: "Models list"
+author: "Rui Carvalho"
+date: "1/13/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+Models
+```

@@ -23,53 +23,8 @@ check_overdispersion(Models.test)
 Models.test$R2.R2m
 model.extract(Models.test)
 
-
-Models.test = dredge(glmmTMB(TAlphaAll ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= Results2, family = poisson), extra =list(R2 = function(x)     {
-  r.squaredGLMM(x, null = nullmodel)["delta ", ]})) 
-Models.test = dredge(glmmTMB(TAlphaNat ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= Results2, family = poisson), extra =list(R2 = function(x)     {
-  r.squaredGLMM(x, null = nullmodel)["delta ", ]})) 
-Models.test = dredge(glmmTMB(TAlphaNInd ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= Results2, family = poisson), extra =list(R2 = function(x)     {
-  r.squaredGLMM(x, null = nullmodel)["delta ", ]})) 
-Models.test = dredge(glmmTMB(FAlphaAll ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= Results2, family = poisson), extra =list(R2 = function(x)     {
-  r.squaredGLMM(x, null = nullmodel)["delta ", ]})) 
-Models.test = dredge(glmmTMB(FAlphaNat ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= Results2, family = poisson), extra =list(R2 = function(x)     {
-  r.squaredGLMM(x, null = nullmodel)["delta ", ]})) 
-Models.test = dredge(glmmTMB(FAlphaNInd ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= Results2, family = poisson), extra =list(R2 = function(x)     {
-  r.squaredGLMM(x, null = nullmodel)["delta ", ]})) 
-Models.test = dredge(glmmTMB(all.tax.btotal ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= Results2, family = poisson), extra =list(R2 = function(x)     {
-  r.squaredGLMM(x, null = nullmodel)["delta ", ]})) 
-Models.test = dredge(glmmTMB(all.tax.btotal ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= Results2, family = poisson), extra =list(R2 = function(x)     {
-  r.squaredGLMM(x, null = nullmodel)["delta ", ]})) 
-Models.test = dredge(glmmTMB(all.tax.btotal ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= Results2, family = poisson), extra =list(R2 = function(x)     {
-  r.squaredGLMM(x, null = nullmodel)["delta ", ]})) 
-Models.test = dredge(glmmTMB(all.tax.btotal ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= Results2, family = poisson), extra =list(R2 = function(x)     {
-  r.squaredGLMM(x, null = nullmodel)["delta ", ]})) 
-Models.test = dredge(glmmTMB(all.tax.btotal ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= Results2, family = poisson), extra =list(R2 = function(x)     {
-  r.squaredGLMM(x, null = nullmodel)["delta ", ]})) 
-Models.test = dredge(glmmTMB(all.tax.btotal ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= Results2, family = poisson), extra =list(R2 = function(x)     {
-  r.squaredGLMM(x, null = nullmodel)["delta ", ]})) 
-Models.test = dredge(glmmTMB(all.tax.btotal ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= Results2, family = poisson), extra =list(R2 = function(x)     {
-  r.squaredGLMM(x, null = nullmodel)["delta ", ]})) 
-Models.test = dredge(glmmTMB(all.tax.btotal ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= Results2, family = poisson), extra =list(R2 = function(x)     {
-  r.squaredGLMM(x, null = nullmodel)["delta ", ]})) 
-Models.test = dredge(glmmTMB(all.tax.btotal ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= Results2, family = poisson), extra =list(R2 = function(x)     {
-  r.squaredGLMM(x, null = nullmodel)["delta ", ]})) 
-Models.test = dredge(glmmTMB(all.tax.btotal ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= Results2, family = poisson), extra =list(R2 = function(x)     {
-  r.squaredGLMM(x, null = nullmodel)["delta ", ]})) 
-Models.test = dredge(glmmTMB(all.tax.btotal ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= Results2, family = poisson), extra =list(R2 = function(x)     {
-  r.squaredGLMM(x, null = nullmodel)["delta ", ]})) 
-Models.test = dredge(glmmTMB(all.tax.btotal ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= Results2, family = poisson), extra =list(R2 = function(x)     {
-  r.squaredGLMM(x, null = nullmodel)["delta ", ]})) 
-Models.test = dredge(glmmTMB(all.tax.btotal ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= Results2, family = poisson), extra =list(R2 = function(x)     {
-  r.squaredGLMM(x, null = nullmodel)["delta ", ]})) 
-Models.test = dredge(glmmTMB(all.tax.btotal ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= Results2, family = poisson), extra =list(R2 = function(x)     {
-  r.squaredGLMM(x, null = nullmodel)["delta ", ]})) 
-Models.test = dredge(glmmTMB(all.tax.btotal ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= Results2, family = poisson), extra =list(R2 = function(x)     {
-  r.squaredGLMM(x, null = nullmodel)["delta ", ]})) 
-Models.test = dredge(glmmTMB(all.tax.btotal ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= Results2, family = poisson), extra =list(R2 = function(x)     {
-  r.squaredGLMM(x, null = nullmodel)["delta ", ]})) 
-Models.test = dredge(glmmTMB(all.tax.btotal ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= Results2, family = poisson), extra =list(R2 = function(x)     {
-  r.squaredGLMM(x, null = nullmodel)["delta ", ]})) 
+Models1 <- dredge(glmmTMB(TAlphaAll ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= Results2, family = "poisson"))
+summary(Models1)
 
 
 
@@ -88,7 +43,7 @@ overdisp_fun <- function(model) {
   c(chisq=Pearson.chisq,ratio=prat,rdf=rdf,p=pval)
 }
 overdisp_fun(model1.test)
-
+p1 <- plot(model1.test,id=0.05,idLabels=~.obs)
 
 str(model1.test)
 model1.test$
@@ -100,12 +55,15 @@ model.extract(model1.test,"weights")
 fam3 <- c(NA, NA, NA, NA,NA, NA,NA, "poisson", "poisson", "poisson", "Gamma", "Gamma", "poisson","poisson", "poisson", "poisson","beta_family", "beta_family","beta_family","beta_family", "beta_family", 
           "beta_family", "beta_family", "beta_family", "beta_family", "beta_family", "beta_family", "beta_family", "beta_family", "beta_family", "beta_family", "beta_family", "beta_family", 
           "beta_family", "beta_family", "beta_family", "beta_family")
+
+
 str(fam3)
 fam3
 
 fam3backup <- c(NA, NA, NA, NA,NA, NA,NA, "poisson", "poisson", "poisson", "Gamma", "Gamma", "poisson", "beta_family", "beta_family", 
                 "beta_family", "beta_family", "beta_family", "beta_family", "beta_family", "beta_family", "beta_family", "beta_family", "beta_family", "beta_family", "beta_family", "beta_family", 
                 "beta_family", "beta_family", "beta_family", "beta_family")
+write.csv(fam3backup, file = here("results","ddistr.families.csv"), row.names = TRUE)
 
 #### Teste de código para obter weights
 
@@ -149,9 +107,9 @@ AICmodels
 str(models.df)
 aic.weights
 
-
-write.csv(models.df, file = here("results","dredge.models2.csv"), row.names = TRUE)
+write.csv(resultspart1, file = here("results","dredge.models2.csv"), row.names = TRUE)
 write.csv(AICmodels, file = here("results","aic.models2.csv"), row.names = TRUE)
+write.csv(aic.weights, file = here("results","aic.weights.csv"), row.names = TRUE)
 
 ###### TESTE PARA OBTER R^2
 
@@ -173,28 +131,22 @@ models.df3
 
 Models
 
-
 ###### Backup di codigo original para criar a tabela
 models.df = data.frame()
 Models = list() 
-R2 = list()
 for(i in 8:37){
   newTable = Results2[,c(i,1,5,6,7)]
   colnames(newTable)[1] = "y"
   Models[[i]] = dredge(glmmTMB(y ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= newTable, family = fam3[i]))
   names(Models)[[i]] = colnames(Results2[i])
-  R2[[i]] = performance::r2(Models[i])
   Models[[i]] = apply(Models[[i]], 2 , as.numeric)
   Models[[i]] = cbind(rep(colnames(Results2)[i], nrow(Models[[i]])), Models[[i]])
   models.df = rbind(models.df, as.data.frame(Models[[i]]))
   for(j in 2:ncol(models.df)){
     models.df[,j] <- as.numeric(models.df[,j])
-              }
-      }
+  }
+}
 
 models.df
 
 resultspart1 <- models.df
-
-Models[9]
-performance::r2(Models[9])

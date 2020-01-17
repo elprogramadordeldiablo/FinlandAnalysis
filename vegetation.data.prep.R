@@ -20,7 +20,34 @@ data <- read.csv2(here("data","veg2.csv"), header=TRUE,  stringsAsFactors = T, d
 # }
 # newData
 
-
+ 
+ 
+ #### test with simpler database: test_veg2.csv
+ 
+ data <- read.csv2(here("data","test_veg2.csv"), header=TRUE,  stringsAsFactors = T, dec = ".")
+ veg.table <- data.frame() 
+ 
+ for(i in 1:nrow(data)){            #
+   basicInfo = data[i, 1:70]
+   for(j in seq(71, 870, 2)){
+     newSp = data[i, c(j, j+1)]
+     if(!any(is.na(newSp)))
+       veg.table = rbind(veg.table,c(basicInfo, colnames(data)[j], newSp))
+   }
+ }
+ veg.table
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+#### original script backup
 data <- read.csv2(here("data","veg2.csv"), header=TRUE,  stringsAsFactors = T, dec = ".")
 veg.table <- data.frame() 
 
@@ -29,7 +56,7 @@ for(i in 1:nrow(data)){            #
   for(j in seq(71, 870, 2)){
     newSp = data[i, c(j, j+1)]
     if(!any(is.na(newSp)))
-      newData = rbind(veg.table,c(basicInfo, colnames(data)[j], newSp))
+      veg.table = rbind(veg.table,c(basicInfo, colnames(data)[j], newSp))
   }
 }
 veg.table

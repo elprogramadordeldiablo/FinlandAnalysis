@@ -1,0 +1,102 @@
+"TAlphaAll.glmm.1 = glmmTMB(TAlphaAll ~    (1 | ForestID), data= Results2,family = ""poisson"") "
+model.output(TAlphaAll.glmm.1) 
+"TAlphaNat.glmm.2 = glmmTMB(TAlphaNat ~    (1 | ForestID), data= Results2,family = ""poisson"") "
+model.output(TAlphaNat.glmm.2) 
+"TAlphaNInd.glmm.3 = glmmTMB(TAlphaNInd ~    (1 | ForestID), data= Results2,family = ""poisson"") "
+model.output(TAlphaNInd.glmm.3) 
+"TAlphaNInd.glmm.4 = glmmTMB(TAlphaNInd ~  Dist_trail_beginning_std + (1 | ForestID), data= Results2,family = ""poisson"") "
+model.output(TAlphaNInd.glmm.4) 
+"TAlphaNInd.glmm.5 = glmmTMB(TAlphaNInd ~   Dist_trail_std +(1 | ForestID), data= Results2,family = ""poisson"") "
+model.output(TAlphaNInd.glmm.5) 
+"TAlphaNInd.glmm.6 = glmmTMB(TAlphaNInd ~ Dist_edge_std +  (1 | ForestID), data= Results2,family = ""poisson"") "
+model.output(TAlphaNInd.glmm.6) 
+"FAlphaAll.glmm.7 = glmmTMB(FAlphaAll ~    (1 | ForestID), data= Results2,family = ""Gamma"") "
+model.output(FAlphaAll.glmm.7) 
+"FAlphaAll.glmm.8 = glmmTMB(FAlphaAll ~  Dist_trail_beginning_std + (1 | ForestID), data= Results2,family = ""Gamma"") "
+model.output(FAlphaAll.glmm.8) 
+"FAlphaNat.glmm.9 = glmmTMB(FAlphaNat ~    (1 | ForestID), data= Results2,family = ""Gamma"") "
+model.output(FAlphaNat.glmm.9) 
+"FAlphaNInd.glmm.10 = glmmTMB(FAlphaNInd ~    (1 | ForestID), data= Results2,family = ""poisson"") "
+model.output(FAlphaNInd.glmm.10) 
+"abund.all.glmm.11 = glmmTMB(abund.all ~ Dist_edge_std +Dist_trail_beginning_std +Dist_trail_std +(1 | ForestID), data= Results2,family = ""poisson"") "
+model.output(abund.all.glmm.11) 
+"abund.nat.glmm.12 = glmmTMB(abund.nat ~ Dist_edge_std +Dist_trail_beginning_std +Dist_trail_std +(1 | ForestID), data= Results2,family = ""poisson"") "
+model.output(abund.nat.glmm.12) 
+"abund.nind.glmm.13 = glmmTMB(abund.nind ~ Dist_edge_std +  (1 | ForestID), data= Results2,family = ""poisson"") "
+model.output(abund.nind.glmm.13) 
+"abund.nind.glmm.14 = glmmTMB(abund.nind ~   Dist_trail_std +(1 | ForestID), data= Results2,family = ""poisson"") "
+model.output(abund.nind.glmm.14) 
+"prop.Talpha.glmm.15 = glmmTMB(prop.Talpha ~    (1 | ForestID), data= Results2,family = ""beta_family"") "
+model.output(prop.Talpha.glmm.15) 
+"prop.Talpha.glmm.16 = glmmTMB(prop.Talpha ~   Dist_trail_std +(1 | ForestID), data= Results2,family = ""beta_family"") "
+model.output(prop.Talpha.glmm.16) 
+"prop.Falpha.glmm.17 = glmmTMB(prop.Falpha ~    (1 | ForestID), data= Results2,family = ""beta_family"") "
+model.output(prop.Falpha.glmm.17) 
+"prop.Falpha.glmm.18 = glmmTMB(prop.Falpha ~  Dist_trail_beginning_std + (1 | ForestID), data= Results2,family = ""beta_family"") "
+model.output(prop.Falpha.glmm.18) 
+"prop.abund.glmm.19 = glmmTMB(prop.abund ~    (1 | ForestID), data= Results2,family = ""beta_family"") "
+model.output(prop.abund.glmm.19) 
+"all.tax.btotal.glmm.20 = glmmTMB(all.tax.btotal ~   Dist_trail_std +(1 | ForestID), data= Results2,family = ""beta_family"") "
+model.output(all.tax.btotal.glmm.20) 
+"all.tax.btotal.glmm.21 = glmmTMB(all.tax.btotal ~ Dist_edge_std + Dist_trail_std +(1 | ForestID), data= Results2,family = ""beta_family"") "
+model.output(all.tax.btotal.glmm.21) 
+"all.tax.brich.glmm.22 = glmmTMB(all.tax.brich ~   Dist_trail_std +(1 | ForestID), data= Results2,family = ""beta_family"") "
+model.output(all.tax.brich.glmm.22) 
+"all.tax.brich.glmm.23 = glmmTMB(all.tax.brich ~ Dist_edge_std + Dist_trail_std +(1 | ForestID), data= Results2,family = ""beta_family"") "
+model.output(all.tax.brich.glmm.23) 
+"all.tax.brepl.glmm.24 = glmmTMB(all.tax.brepl ~   Dist_trail_std +(1 | ForestID), data= Results2,family = ""beta_family"") "
+model.output(all.tax.brepl.glmm.24) 
+"all.tax.brepl.glmm.25 = glmmTMB(all.tax.brepl ~ Dist_edge_std + Dist_trail_std +(1 | ForestID), data= Results2,family = ""beta_family"") "
+model.output(all.tax.brepl.glmm.25) 
+"nat.tax.btotal.glmm.26 = glmmTMB(nat.tax.btotal ~   Dist_trail_std +(1 | ForestID), data= Results2,family = ""beta_family"") "
+model.output(nat.tax.btotal.glmm.26) 
+"nat.tax.btotal.glmm.27 = glmmTMB(nat.tax.btotal ~ Dist_edge_std + Dist_trail_std +(1 | ForestID), data= Results2,family = ""beta_family"") "
+model.output(nat.tax.btotal.glmm.27) 
+"nat.tax.brich.glmm.28 = glmmTMB(nat.tax.brich ~    (1 | ForestID), data= Results2,family = ""beta_family"") "
+model.output(nat.tax.brich.glmm.28) 
+"nat.tax.brepl.glmm.29 = glmmTMB(nat.tax.brepl ~   Dist_trail_std +(1 | ForestID), data= Results2,family = ""beta_family"") "
+model.output(nat.tax.brepl.glmm.29) 
+"nat.tax.brepl.glmm.30 = glmmTMB(nat.tax.brepl ~ Dist_edge_std + Dist_trail_std +(1 | ForestID), data= Results2,family = ""beta_family"") "
+model.output(nat.tax.brepl.glmm.30) 
+"nind.tax.btotal.glmm.31 = glmmTMB(nind.tax.btotal ~ Dist_edge_std + Dist_trail_std +(1 | ForestID), data= Results2,family = ""beta_family"") "
+model.output(nind.tax.btotal.glmm.31) 
+"nind.tax.btotal.glmm.32 = glmmTMB(nind.tax.btotal ~    (1 | ForestID), data= Results2,family = ""beta_family"") "
+model.output(nind.tax.btotal.glmm.32) 
+"nind.tax.btotal.glmm.33 = glmmTMB(nind.tax.btotal ~   Dist_trail_std +(1 | ForestID), data= Results2,family = ""beta_family"") "
+model.output(nind.tax.btotal.glmm.33) 
+"nind.tax.brich.glmm.34 = glmmTMB(nind.tax.brich ~ Dist_edge_std + Dist_trail_std +(1 | ForestID), data= Results2,family = ""beta_family"") "
+model.output(nind.tax.brich.glmm.34) 
+"nind.tax.brepl.glmm.35 = glmmTMB(nind.tax.brepl ~    (1 | ForestID), data= Results2,family = ""beta_family"") "
+model.output(nind.tax.brepl.glmm.35) 
+"nind.tax.brepl.glmm.36 = glmmTMB(nind.tax.brepl ~ Dist_edge_std +  (1 | ForestID), data= Results2,family = ""beta_family"") "
+model.output(nind.tax.brepl.glmm.36) 
+"all.func.btotal.glmm.37 = glmmTMB(all.func.btotal ~   Dist_trail_std +(1 | ForestID), data= Results2,family = ""beta_family"") "
+model.output(all.func.btotal.glmm.37) 
+"all.func.btotal.glmm.38 = glmmTMB(all.func.btotal ~ Dist_edge_std + Dist_trail_std +(1 | ForestID), data= Results2,family = ""beta_family"") "
+model.output(all.func.btotal.glmm.38) 
+"all.func.brich.glmm.39 = glmmTMB(all.func.brich ~   Dist_trail_std +(1 | ForestID), data= Results2,family = ""beta_family"") "
+model.output(all.func.brich.glmm.39) 
+"all.func.brich.glmm.40 = glmmTMB(all.func.brich ~ Dist_edge_std + Dist_trail_std +(1 | ForestID), data= Results2,family = ""beta_family"") "
+model.output(all.func.brich.glmm.40) 
+"all.func.brepl.glmm.41 = glmmTMB(all.func.brepl ~   Dist_trail_std +(1 | ForestID), data= Results2,family = ""beta_family"") "
+model.output(all.func.brepl.glmm.41) 
+"all.func.brepl.glmm.42 = glmmTMB(all.func.brepl ~ Dist_edge_std + Dist_trail_std +(1 | ForestID), data= Results2,family = ""beta_family"") "
+model.output(all.func.brepl.glmm.42) 
+"nat.func.btotal.glmm.43 = glmmTMB(nat.func.btotal ~   Dist_trail_std +(1 | ForestID), data= Results2,family = ""beta_family"") "
+model.output(nat.func.btotal.glmm.43) 
+"nat.func.btotal.glmm.44 = glmmTMB(nat.func.btotal ~ Dist_edge_std + Dist_trail_std +(1 | ForestID), data= Results2,family = ""beta_family"") "
+model.output(nat.func.btotal.glmm.44) 
+"nat.func.brich.glmm.45 = glmmTMB(nat.func.brich ~   Dist_trail_std +(1 | ForestID), data= Results2,family = ""beta_family"") "
+model.output(nat.func.brich.glmm.45) 
+"nat.func.brich.glmm.46 = glmmTMB(nat.func.brich ~ Dist_edge_std + Dist_trail_std +(1 | ForestID), data= Results2,family = ""beta_family"") "
+model.output(nat.func.brich.glmm.46) 
+"nat.func.brepl.glmm.47 = glmmTMB(nat.func.brepl ~   Dist_trail_std +(1 | ForestID), data= Results2,family = ""beta_family"") "
+model.output(nat.func.brepl.glmm.47) 
+"nind.func.btotal.glmm.48 = glmmTMB(nind.func.btotal ~ Dist_edge_std + Dist_trail_std +(1 | ForestID), data= Results2,family = ""beta_family"") "
+model.output(nind.func.btotal.glmm.48) 
+"nind.func.brich.glmm.49 = glmmTMB(nind.func.brich ~ Dist_edge_std + Dist_trail_std +(1 | ForestID), data= Results2,family = ""beta_family"") "
+model.output(nind.func.brich.glmm.49) 
+"nind.func.brepl.glmm.50 = glmmTMB(nind.func.brepl ~    (1 | ForestID), data= Results2,family = ""beta_family"") "
+model.output(nind.func.brepl.glmm.50) 
+"nind.func.brepl.glmm.51 = glmmTMB(nind.func.brepl ~ Dist_edge_std +  (1 | ForestID), data= Results2,family = ""beta_family"") "
+model.output(nind.func.brepl.glmm.51) 

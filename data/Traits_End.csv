@@ -1,0 +1,13 @@
+MF;SPECIES;FAMILY;FAMILY;N/E/I;IND/NONNAIND;HABITATNALeaves, branches, flowers, seeds, fruits (surface);HABITATNAinside stems, roots, fruits, pods, fungi;HABITATNAGround;HABITATNAUnder stones, bark, twigs;HABITATNADecaying matter;HABITATNASubterranean;Female min;Female max;Female Avg;Male min;Male max;Male Avg;Dispersal;Verticality;Nocturnality;Capture web;Sensing web;No web;Tube web;Sheet web;Space web;Orb web ;Ambush hunter;Active hunter;Stenophagous / Not Euryphagous
+5;Rugathodes_acoreensis;Wunderlich    ;Theridiidae;E ;IND;1;0;0;0;0;0;1.07;2.01;1.09;1.05;2;0.09375;O;0.58;0.0423611111111111;1;0;0;0;0;1;0;0;0;0
+17;Pardosa_acorensis;Simon    ;Lycosidae;E ;IND;1;0;1;0;1;0;5.06;8.05;7.05;4.06;6.04;5.05;O;0;1;0;0;1;0;0;0;0;0;1;0
+39;Pisaura_acoreensis;Wunderlich    ;Pisauridae;E ;IND;1;0;1;0;0;0;7.03;12.01;9.07;8.05;10.03;9.04;R;0.25;1;0;0;1;0;0;0;0;0;1;0
+50;Canariphantes_acoreensis;(Wunderlich)    ;Linyphiidae;E ;IND;1;0;0;0;1;0;2.05;3.06;3.05;1.07;2.04;2.05;F;0.15;1;1;0;0;0;1;1;0;0;0;0
+134;Gibbaranea_occidentalis;Wunderlich    ;Araneidae;E ;IND;1;0;0;0;0;0;5.03;8.05;6.09;3.02;5.05;4.35;F;0.05;0.0520833333333333;1;0;0;0;0;0;1;0;0;0
+179;Sancus_acoreensis;(Wunderlich)    ;Tetragnathidae;E ;IND;1;0;0;0;0;0;3.04;4.03;0.184027777777778;2.05;3.02;0.142361111111111;O;0.0458333333333333;0.0458333333333333;1;0;0;0;0;0;1;0;0;0
+181;Savigniorrhipis_acoreensis;Wunderlich    ;Linyphiidae;E ;IND;1;0;0;0;1;0;1.06;2;1.08;1.05;0.09375;0.475694444444444;F;0.0666666666666667;0.57;0;0;1;0;0;0;0;0;1;0
+208;Lasaeola_oceanica;Simon    ;Theridiidae;E ;IND;1;0;0;0;0;0;1.06;1.09;0.09375;1.01;1.07;1.04;O;0.0465277777777778;0.0465277777777778;0;0;1;0;0;0;0;0;1;1
+312;Acorigone_acoreensis;(Wunderlich)    ;Linyphiidae;E ;IND;1;0;0;0;0;0;1.02;1.03;1.25;1.02;1.03;1.25;F;0.09;0.36;0;0;1;0;0;0;0;0;1;0
+421;Walckenaeria_grandis;(Wunderlich)    ;Linyphiidae;E ;IND;1;0;0;0;1;0;2.03;2.05;2.04;1.07;2.01;1.09;F;0.01;1;0;0;1;0;0;0;0;0;1;0
+442;Minicia_floresensis;Wunderlich    ;Linyphiidae;E ;IND;1;0;0;0;1;0;1.05;2.02;0.100694444444444;1.06;1.08;1.07;F;0.38;0.59;0;0;1;0;0;0;0;0;1;0
+526;Neon_acoreensis;Wunderlich    ;Salticidae;E ;IND;1;0;0;0;1;0;1.08;2.02;2;1.05;1.05;1.05;O;1;0;0;0;1;0;0;0;0;0;1;0

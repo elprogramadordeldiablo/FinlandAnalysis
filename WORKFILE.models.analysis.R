@@ -1,4 +1,5 @@
 library(see)
+library(pscl)
 
 # Loading the excel file with the formulas
 
@@ -34,6 +35,8 @@ model.output <- function(model) {
   print(" ")
   print("TESTING FOR OVERDISPERSION - P-VALUES < 0.05 meand overdispersion")
   print(" ")
+  #print(check_overdispersion(model))
+  print(" ")
   print(overdisp_fun(model))
   print(" ")
   print("STANDARD R2")
@@ -58,7 +61,44 @@ model.output <- function(model) {
   
 }
 
-
+model.output.poisson <- function(model) {
+  
+  print(" ")
+  print("CHECKING COLINEARITY")
+  print(" ")
+  #print(check_conversion(model))
+  print(" ")
+  print("CHECKING COLINEARITY")
+  print(" ")
+  print(check_collinearity(model))
+  print(" ")
+  print("TESTING FOR OVERDISPERSION - P-VALUES < 0.05 meand overdispersion")
+  print(" ")
+  print(check_overdispersion(model))
+  print(" ")
+  print(overdisp_fun(model))
+  print(" ")
+  print("STANDARD R2")
+  print(" ")
+  print(performance::r2(model))
+  print(" ")
+  print("NAKAGAWA R2")
+  print(" ")
+  print(performance::r2_nakagawa(model))
+  print(" ")
+  print("MODEL SUMMARY")
+  print(" ")
+  print(summary(model))
+  print(" ")
+  print("CHECKING MODEL GRAPHICALLY")
+  print(" ")
+  print(check_model(model))
+  print(" ")
+  print("CHECKING MODEL GRAPHICALLY")
+  print(" ")
+  print(check_model(model))
+  
+}
 return(model.output(TAlphaAll.glmm))
 ## Applying the extraction formula to all models
 
@@ -73,7 +113,7 @@ str(model.results)
 
 
 
-
+check_convergence(abund.nat.glmm.12)
 
 
 # for(i in unique(Alpha_controls[,"Trail_Sampling.Area"])){
@@ -112,29 +152,45 @@ lalala <- c(lalala, aa ,bb)
 TAlphaAll.glmm.1 = glmmTMB(TAlphaAll ~    (1 | ForestID), data= Results2,family = "poisson") 
 model.output(TAlphaAll.glmm.1) 
 
-TAlphaNat.glmm.2 = glmmTMB(TAlphaNat ~    (1 | ForestID), data= Results2,family = "poisson") 
+TAlphaNat.glmm.2 = glmmTMB(TAlphaNat ~    (1 | ForestID), data= Results2,family = poisson(link="log")) 
 model.output(TAlphaNat.glmm.2) 
-
-TAlphaNInd.glmm.3 = glmmTMB(TAlphaNInd ~    (1 | ForestID), data= Results2,family = "poisson") 
+check_model(TAlphaNat.glmm.2)
+TAlphaNInd.glmm.3 = glmmTMB(TAlphaNInd ~    (1 | ForestID), data= Results2,family = "binomial") 
 model.output(TAlphaNInd.glmm.3) 
 
 TAlphaNInd.glmm.4 = glmmTMB(TAlphaNInd ~  Dist_trail_beginning_std + (1 | ForestID), data= Results2,family = "poisson") 
 TAlphaNInd.glmm.5 = glmmTMB(TAlphaNInd ~   Dist_trail_std +(1 | ForestID), data= Results2,family = "poisson") 
 TAlphaNInd.glmm.6 = glmmTMB(TAlphaNInd ~ Dist_edge_std +  (1 | ForestID), data= Results2,family = "poisson") 
-FAlphaAll.glmm.7 = glmmTMB(FAlphaAll ~    (1 | ForestID), data= Results2,family = "Gamma") 
+FAlphaAll.glmm.7 = glmmTMB(FAlphaAll ~    (1 | ForestID), data= Results2,family = "poisson") 
 FAlphaAll.glmm.8 = glmmTMB(FAlphaAll ~  Dist_trail_beginning_std + (1 | ForestID), data= Results2,family = Gamma(link="log")) 
 
 FAlphaNat.glmm.9 = glmmTMB(FAlphaNat ~    (1 | ForestID), data= Results2,family = "Gamma") 
-FAlphaNInd.glmm.10 = glmmTMB(FAlphaNInd ~    (1 | ForestID), data= Results2,family = "poisson") 
+FAlphaNInd.glmm.10 = glmmTMB(FAlphaNInd ~    (1 | ForestID), data= Results2,family = "Gamma") 
 
 
-abund.all.glmm.11 = glmmTMB(abund.all ~ Dist_edge_std +Dist_trail_beginning_std +Dist_trail_std +(1 | ForestID), data= Results2,family = "poisson") 
+abund.all.glmm.11 = glmmTMB(abund.all ~ Dist_edge_std +Dist_trail_beginning_std +Dist_trail_std +(1 | ForestID), data= Results2,family = nbinom2(link = "log")) 
 model.output(abund.all.glmm.11) 
 check_model(abund.all.glmm.11)
 performance::check_conversion(abund.all.glmm.11)
 performance::check_convergence(abund.all.glmm.11)
 check_distribution(abund.all.glmm.11)
 plot(check_distribution(abund.all.glmm.11))
+
+
+## testing different distr families
+abund.all.glmm.11.nb2 = glmmTMB(abund.all ~ Dist_edge_std +Dist_trail_beginning_std + Dist_trail_std + (1 | ForestID), data= Results2,family = nbinom2(link = "log")) 
+model.output(abund.all.glmm.11) 
+
+
+abund.all.glmm.11.nb1 = glmmTMB(abund.all ~ Dist_edge_std +Dist_trail_beginning_std + Dist_trail_std + (1 | ForestID), data= Results2,family = nbinom1) 
+model.output(abund.all.glmm.11) 
+
+
+abund.all.glmm.11.poiss = glmmTMB(abund.all ~ Dist_edge_std +Dist_trail_beginning_std + Dist_trail_std + (1 | ForestID), data= Results2,family = "poisson") 
+model.output(abund.all.glmm.11) 
+
+odTest(abund.all.glmm.11)
+
 
 check_overdispersion(abund.all.glmm.11)
 ######testing another function for glmm
@@ -150,8 +206,8 @@ performance::r2(FAlphaAll.glmm.8)
 R.squared.GLMM(abund.all.glmer2.11)
 performance::r2(abund.all.glmer2.11)
 
-abund.nat.glmm.12 = glmmTMB(abund.nat ~ Dist_edge_std +Dist_trail_beginning_std +Dist_trail_std +(1 | ForestID), data= Results2,family = "poisson") 
-abund.nind.glmm.13 = glmmTMB(abund.nind ~ Dist_edge_std +  (1 | ForestID), data= Results2,family = "poisson") 
+abund.nat.glmm.12 = glmmTMB(abund.nat ~ Dist_edge_std +Dist_trail_beginning_std +Dist_trail_std +(1 | ForestID), data= Results2,family = nbinom1) 
+abund.nind.glmm.13 = glmmTMB(abund.nind ~ Dist_edge_std +  (1 | ForestID), data= Results2,family = nbinom1) 
 abund.nind.glmm.14 = glmmTMB(abund.nind ~   Dist_trail_std +(1 | ForestID), data= Results2,family = "poisson") 
 prop.Talpha.glmm.15 = glmmTMB(prop.Talpha ~    (1 | ForestID), data= Results2,family = "beta_family") 
 prop.Talpha.glmm.16 = glmmTMB(prop.Talpha ~   Dist_trail_std +(1 | ForestID), data= Results2,family = "beta_family") 
@@ -195,17 +251,17 @@ nind.func.brepl.glmer.51 = glmer(nind.func.brepl ~ Dist_edge_std +  (1 | ForestI
 nat.func.brich.glmer.45 = glmer(nat.func.brich ~   Dist_trail_std +(1 | ForestID), data= Results2,family = "beta_family") 
 
 pdf('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA.pdf')
-model.output(TAlphaAll.glmm.1) 
-model.output(TAlphaNat.glmm.2) 
-model.output(TAlphaNInd.glmm.3) 
-model.output(TAlphaNInd.glmm.4) 
-model.output(TAlphaNInd.glmm.5) 
-model.output(TAlphaNInd.glmm.6) 
+model.output.poisson(TAlphaAll.glmm.1) 
+model.output.poisson(TAlphaNat.glmm.2) 
+model.output.poisson(TAlphaNInd.glmm.3) 
+model.output.poisson(TAlphaNInd.glmm.4) 
+model.output.poisson(TAlphaNInd.glmm.5) 
+model.output.poisson(TAlphaNInd.glmm.6) 
 model.output(FAlphaAll.glmm.7) 
 model.output(FAlphaAll.glmm.8) 
 model.output(FAlphaNat.glmm.9) 
 model.output(FAlphaNInd.glmm.10) 
-model.output(abund.all.glmm.11) 
+model.output.poisson(abund.all.glmm.11) 
 model.output(abund.nat.glmm.12) 
 model.output(abund.nind.glmm.13) 
 model.output(abund.nind.glmm.14) 
@@ -247,3 +303,8 @@ model.output(nind.func.brich.glmm.49)
 model.output(nind.func.brepl.glmm.50) 
 model.output(nind.func.brepl.glmm.51) 
 dev.off()
+
+
+
+###https://www.r-bloggers.com/generalized-linear-models-understanding-the-link-function/
+### está apresnetado algum código para a funç\ao predict

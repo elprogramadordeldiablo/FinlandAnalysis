@@ -96,7 +96,7 @@ sites
 #SAAll <- decostand(SAAll, "hellinger") 
 #SAAll
 
-# Ficheiro com as abundâncias por área de amostragem, para as espécies indígenas
+# Ficheiro com as abundâncias por área de amostragem, para as espécies ind�???genas
 
 SANat <- read.csv2(here("data","Nat_Fin.csv"),row.names=1, header = TRUE)
 
@@ -106,7 +106,7 @@ colnames(SANat) <- speciesNat
 #SANat
 
 
-# Ficheiro com as abundâncias por área de amostragem, para as espécies não-indígenas
+# Ficheiro com as abundâncias por área de amostragem, para as espécies não-ind�???genas
 SANInd <- read.csv2(here("data","NInd_Fin.csv"),row.names=1, header = TRUE)
 colnames(SANInd) <- SpeciesNInd
 
@@ -183,7 +183,7 @@ dev.off()
 
 #CALC_COMPLETENESS ----
 
-# Quero usar o fichero dos contrlos para calcular os estimadores, e daí obter completeness.
+# Quero usar o fichero dos contrlos para calcular os estimadores, e da�??? obter completeness.
 # sitescontr <- Alpha_controls[,1]
 # species_contr <- Alpha_controls[,1]
 # rownames(Alpha_controls) <-sitescontr
@@ -247,6 +247,10 @@ colnames(Alphas) <- cbind("TAlphaAll", "TAlphaNat", "TAlphaNInd","FAlphaAll", "F
 Alphas # Will be printed along with BETAS in the RESULTS file
 
 
+#Removing absolute zeros from functional results
+
+Alphas$FAlphaNInd[Alphas$FAlphaNInd == 0] <- 0.0001
+
 ##Abundances
 Alphas$abund.all=rowSums(SAAll[,1:39])
 Alphas$abund.nat=rowSums(SANat[,1:21])
@@ -265,7 +269,7 @@ Alphas$prop.abund=Alphas$abund.nat / Alphas$abund.all
     Alphas$prop.abund[Alphas$prop.abund == 1] <- 0.9999
     Alphas$prop.abund[Alphas$prop.abund == 0] <- 0.0001
 
-
+Alphas
 
 # Calculating Betas for All species, Natives and Non-Indigenous ----
 # Beta results come as a list (class(BetaAll) = list), so we transform them into data frame to export them into csv
@@ -503,6 +507,8 @@ Results2
 
 Results3 <- read.csv(here("results","RESULTS.csv"), header = TRUE, row.names = 1, sep = ",", dec = ".")
 ResultsWithoutControls <- Results3[-c(5,6,10,11,16,17),-c(1:2)]
+
+
 
 
 

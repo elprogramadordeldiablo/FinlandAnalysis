@@ -26,7 +26,9 @@ model.extract(Models.test)
 Models1 <- dredge(glmmTMB(TAlphaAll ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= Results2, family = "poisson"))
 summary(Models1)
 
-
+TalphaAll.test <- dredge(glmmTMB(TAlphaAll ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std +    (1 | ForestID), data= Results2,family = "poisson") )
+str(TalphaAll.test)
+model.output(TalphaAll.test)
 
 
 model1.test <- glmmTMB(abund.all ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= Results2, family = poisson)
@@ -52,7 +54,7 @@ model.extract(model1.test,"weights")
 # all.func.brepl, nat.func.btotal, nat.func.brich, nat.func.brepl, nind.func.btotal, nind.func.brich, nind.func.brepl)
 
 
-fam3 <- c(NA, NA, NA, NA,NA, NA,NA, "poisson", "poisson", "poisson", "Gamma", "Gamma", "poisson","poisson", "poisson", "poisson","beta_family", "beta_family","beta_family","beta_family", "beta_family", 
+fam3 <- c(NA, NA, NA, NA,NA, NA,NA, "poisson", "poisson", "poisson", "Gamma", "Gamma", "Gamma","nbinom1", "nbinom1", "nbinom1","beta_family", "beta_family","beta_family","beta_family", "beta_family", 
           "beta_family", "beta_family", "beta_family", "beta_family", "beta_family", "beta_family", "beta_family", "beta_family", "beta_family", "beta_family", "beta_family", "beta_family", 
           "beta_family", "beta_family", "beta_family", "beta_family")
 
@@ -60,7 +62,7 @@ fam3 <- c(NA, NA, NA, NA,NA, NA,NA, "poisson", "poisson", "poisson", "Gamma", "G
 str(fam3)
 fam3
 
-fam3backup <- c(NA, NA, NA, NA,NA, NA,NA, "poisson", "poisson", "poisson", "Gamma", "Gamma", "poisson", "beta_family", "beta_family", 
+fam3backup <- c(NA, NA, NA, NA,NA, NA,NA, "poisson", "poisson", "poisson", "Gamma", "Gamma", "Gamma", "beta_family", "beta_family", 
                 "beta_family", "beta_family", "beta_family", "beta_family", "beta_family", "beta_family", "beta_family", "beta_family", "beta_family", "beta_family", "beta_family", "beta_family", 
                 "beta_family", "beta_family", "beta_family", "beta_family")
 write.csv(fam3backup, file = here("results","ddistr.families.csv"), row.names = TRUE)
@@ -95,7 +97,7 @@ for(i in 8:37){
 }
 colnames(aic.weights) = colnames(models.df)[3:5]
 rownames(aic.weights) = unique(models.df[,1])
-
+models.df2
 aic.weights
 
 #selecting delta <2
@@ -147,6 +149,10 @@ for(i in 8:37){
   }
 }
 
+Models
 models.df
 
 resultspart1 <- models.df
+unlisted.models <- unlist(Models)
+str(unlisted.models)
+unlisted.models <- data.frame(unlisted.models)

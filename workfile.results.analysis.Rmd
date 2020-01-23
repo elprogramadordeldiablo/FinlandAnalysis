@@ -1,0 +1,126 @@
+---
+title: "workfile.results.analysis"
+author: "Rui Carvalho"
+date: "1/22/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r }
+
+prop.Talpha.glmm.16 = glmmTMB(prop.Talpha ~ Dist_edge_std +  Dist_trail_beginning_std +(1 | ForestID), data= Results2,family = "beta_family") 
+model.output(prop.Talpha.glmm.16) 
+
+
+```
+```{r }
+
+prop.Talpha.glmm.16 = glmmTMB(prop.Talpha ~ Dist_edge_std +  Dist_trail +(1 | ForestID), data= Results2,family = "beta_family") 
+model.output(prop.Talpha.glmm.16) 
+
+
+```
+
+
+
+
+##Variável Abind Nind
+
+```{r }
+
+abund.nind.glmm.14 = glmmTMB(abund.nind ~  Dist_trail_std +(1 | ForestID), data= Results2,family = "nbinom1") 
+model.output(abund.nind.glmm.14)  
+
+
+```
+
+dddddd
+
+
+
+```{r }
+
+abund.nind.glmm.13 = glmmTMB(abund.nind ~ Dist_edge_std +  (1 | ForestID), data= Results2,family = "nbinom1") 
+model.output(abund.nind.glmm.13)  
+
+
+```
+
+
+FAlphaNat.glmm.9 = glmmTMB(FAlphaNat ~    (1 | ForestID), data= Results2,family = "Gamma") 
+
+
+
+
+
+
+
+
+
+
+
+```{r }
+
+abund.nind.glmm.14 = glmmTMB(abund.nind ~  Dist_trail_std +(1 | ForestID), data= Results2,family = "nbinom1") 
+model.output(abund.nind.glmm.14)  
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+```{r }
+
+abund.nind.glmm.14 = glmmTMB(abund.nind ~  Dist_trail_beginning_std + Dist_edge_std + (1 | ForestID), data= Results2,family = "nbinom1") 
+model.output(abund.nind.glmm.14)  
+
+
+```
+
+
+
+```{r }
+
+FAlphaNat.glmm.9 = glmmTMB(FAlphaNat ~  Dist_trail_std  (1 | ForestID), data= Results2,family = "Gamma") 
+model.output(FAlphaNat.glmm.9)  
+
+
+```
+
+
+
+### Beta Diversity analysis
+
+```{r }
+
+all.tax.btotal.glmm.20 = glmmTMB(all.tax.btotal ~   Dist_trail_std +(1 | ForestID), data= Results2,family = "beta_family") 
+model.output(all.tax.btotal.glmm.20)   
+
+
+simul.all.tax.btotal.glmm.20 <- simulateResiduals(fittedModel = all.tax.btotal.glmm.20, n=250)
+plot(simul.all.tax.btotal.glmm.20,quantreg = TRUE) 
+testResiduals(simul.all.tax.btotal.glmm.20)
+```
+
+
+
+
+Burrow_FS_1 <- glmmTMB(Burrowing_T ~ Treatment*Weight_C + DailySeen_C + (1|Colony) +(1|AnimalID), data = CS_FS_Burrow , family=beta_family())
+
+I simulate the residuals and run the diagnostic plot
+
+Simul_FS_Burrow <- simulateResiduals(fittedModel = Burrow_FS_1, n = 250) 
+plot(Simul_FS_Burrow,quantreg = TRUE) testResiduals(Simul_FS_Burrow)
+

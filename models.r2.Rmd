@@ -1,0 +1,161 @@
+---
+title: "models.r2"
+author: "Rui Carvalho"
+date: "1/29/2020"
+output: html_document
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(alphahull)
+library(hypervolume)
+library(car)
+library(MASS)
+library(lme4)
+#source(file = "HighstatLibV10.R") #cool tools to support
+#library(factoextra) # Useful for PCA analysis
+library(here)
+library(data.table) # to work with data
+library(dplyr)      # to manage data
+library(magrittr)   # to use the pipe operator %>% 
+library(MuMIn)
+library(glmmTMB)
+library(bbmle)
+library(performance)
+library(see)
+library(pscl)
+
+Results2 <- read.csv2(here("results","RESULTS.CSV"), header=TRUE, row.names = 1,  stringsAsFactors = T,sep = ",", dec = ".")
+Results2
+
+withoutcontrols <- Results2[-c(1,6,11,17,21),]
+withoutcontrols
+
+## Obtaining the several R2 values
+###############
+###CRUDE SOLUTION FOR CALCULATING R 
+##################3
+
+version1 <- function(m) {
+  lmfit <-  lm(model.response(model.frame(m)) ~ fitted(m))
+  summary(lmfit)$r.squared
+  
+}
+
+## Ω20 (Xu 2003), which is almost the same, is based on comparing the residual variance of the full model against the 
+##residual variance of a (fixed) intercept-only null model:
+
+version2 <- function(m){
+  
+  1-var(residuals(m))/var(model.response(model.frame(m)))
+  
+}
+
+## Another possibility is the squared correlation between the response variable and the predicted values:
+version3 <- function(m){
+  cor(model.response(model.frame(m)),predict(m,type="response"))^2
+}
+
+
+r2 <- function(model){
+  
+  print(" ")
+  print("STANDARD R2")
+  print(" ")
+  print(performance::r2(model))
+  print(" ")
+  print(" ")
+  print("NAKAGAWA")
+  print(" ")
+  print(performance::r2_nakagawa(model))
+  print(" ")
+  print("VERSION1")
+  print(" ")
+  print(version1(model))
+  print(" ")
+  print(" ")
+  print("VERSION2")
+  print(" ")
+  print(version2(model))
+  print(" ")
+  print("VERSION3")
+  print(" ")
+  print(version3(model))
+  
+  } 
+  
+```
+
+
+```{r}
+
+################
+###CHECKING R2
+#################
+
+TAlphaNInd.glmm.5 = glmmTMB(TAlphaNInd ~   Dist_trail_beginning_std +(1 | ForestID), data= Results2,family = "poisson") 
+r2(  TAlphaNInd.glmm.5   )
+
+TAlphaNInd.glmm.6 = glmmTMB(TAlphaNInd ~ Dist_edge_std +  (1 | ForestID), data= Results2,family = "poisson") 
+r2(  TAlphaNInd.glmm.6   )
+
+FAlphaAll.glmm.9 = glmmTMB(FAlphaAll ~  Dist_trail_beginning_std + (1 | ForestID), data= Results2,family = "Gamma") 
+r2(  FAlphaAll.glmm.9   )
+
+abund.all.glmm.14 = glmmTMB(abund.all ~   Dist_trail_std +(1 | ForestID), data= Results2,family = "nbinom1") 
+r2(   abund.all.glmm.14  )
+
+prop.Talpha.glmm.19 = glmmTMB(prop.Talpha ~   Dist_trail_std +(1 | ForestID), data= Results2,family = "beta_family") 
+r2(  prop.Talpha.glmm.19   )
+
+prop.Falpha.glmm.21 = glmmTMB(prop.Falpha ~   Dist_trail_std + (1 | ForestID), data= Results2,family = "beta_family") 
+r2(  prop.Falpha.glmm.21   )
+
+dredge.24 = dredge(glmmTMB(all.tax.btotal ~ Dist_trail_beginning_std + Dist_trail_std + Dist_edge_std +  (1 | ForestID), data= withoutcontrols,family = "beta_family"))
+dredge.24
+
+all.tax.btotal.glmm.24 = glmmTMB(all.tax.btotal ~    (1 | ForestID), data= withoutcontrols,family = "beta_family") 
+
+all.tax.brich.glmm.25 = glmmTMB(all.tax.btotal ~   Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
+r2(  all.tax.brich.glmm.25  )
+
+all.tax.brich.glmm.25a = glmmTMB(all.tax.btotal  ~ Dist_edge_std + Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
+r2(  all.tax.brich.glmm.25a   )
+
+
+
+nind.tax.btotal.glmm.31 = glmmTMB(nind.tax.btotal ~ Dist_edge_std +  (1 | ForestID), data= withoutcontrols,family = "beta_family") 
+r2(  nind.tax.btotal.glmm.31   )
+
+nind.tax.brich.glmm.32 = glmmTMB(nind.tax.brich ~ Dist_edge_std +  (1 | ForestID), data= withoutcontrols,family = "beta_family") 
+r2(  nind.tax.brich.glmm.32   )
+
+end.tax.btotal.glmm.35 = glmmTMB(end.tax.btotal ~   Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
+r2(   end.tax.btotal.glmm.35  )
+
+all.func.btotal.glmm.39 = glmmTMB(all.func.btotal ~ Dist_edge_std +  (1 | ForestID), data= withoutcontrols,family = "beta_family") 
+r2(   all.func.btotal.glmm.39  )
+
+nat.func.btotal.glmm.43 = glmmTMB(nat.func.btotal ~  Dist_trail_beginning_std + (1 | ForestID), data= withoutcontrols,family = "beta_family") 
+r2(  nat.func.btotal.glmm.43   )
+
+nind.func.btotal.glmm.46 = glmmTMB(nind.func.btotal ~ Dist_edge_std +  (1 | ForestID), data= withoutcontrols,family = "beta_family") 
+r2(   nind.func.btotal.glmm.46  )
+
+nind.func.brich.glmm.48 = glmmTMB(nind.func.brich ~ Dist_edge_std +  (1 | ForestID), data= withoutcontrols,family = "beta_family") 
+r2(   nind.func.brich.glmm.48  )
+
+end.func.btotal.glmm.50 = glmmTMB(end.func.btotal ~  Dist_trail_beginning_std + (1 | ForestID), data= withoutcontrols,family = "beta_family") 
+r2(   end.func.btotal.glmm.50  )
+
+end.func.brich.glmm.52 = glmmTMB(end.func.brich ~  Dist_trail_beginning_std + (1 | ForestID), data= withoutcontrols,family = "beta_family") 
+r2(   end.func.brich.glmm.52  )
+
+end.func.brepl.glmm.54 = glmmTMB(end.func.brepl ~ Dist_edge_std +  (1 | ForestID), data= withoutcontrols,family = "beta_family") 
+r2(  end.func.brepl.glmm.54   )
+```

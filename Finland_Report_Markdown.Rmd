@@ -26,7 +26,7 @@ Habitat loss is a complex processes with many variables to consider: isolation, 
 Native forest fragments in the Azores are characterized by hard edges, with abrupt changes from native habitats to anthropogenic habitats (Borges et al, 2006, 2008; Matthews et al. 2019). As  such,  it is  likely  to  expect a constant  arrival  of  non-native  species  into  the  native forest, via a source-sink effect (Matthews et al., 2019). However, the establishment of an exotic species implies overcoming several barriers: first, the successful arrival to the new territory (Diez et al, 2012) and then being able to reproduce and to disperse from that point. Invasion is considered successful when a species establishes a self-sustaining population, who can expand to new areas (Blackburn et al, 2011).
 Regarding Arthropod dispersal movements between native forest patches and the surrounding habitats in the Azores, two main types of arthropod dispersal trends were described: i) endemic and native species are dispersing from native habitats to human-altered habitats; and ii) many exotic species are dispersing to the native forest (Borges et al., 2008). In our study, we aim to understand and quantify the entry of exotic species into the Azorean native forest. The study of beta-diversity patterns, interpreted as the extent of change in a community composition (Whittaker, 1960), is a crucial tool for such task, since it aims to understand the processes that originate community variation (Carvalho et al., 2013). This variation can be originated in species composition (species being replaced by others), species richness (one community has more species than the other), or both. A considerable number of approaches have been proposed to study beta-diversity patterns, and recently it was proposed to partition the components that originate from underlying processes (Baselga, 2010, Carvalho et al., 2012). Carvalho and colleagues defended that beta values should be disentangled into algebraically comparable fractions, reflecting the replacement and richness-difference components in an ecologically meaningful way, which was also supported by Legende (2015). (
 Initially, the analysis of such processes were mostly based on the number of taxa and distribution of abundances – Taxonomic Diversity (TD). However, this measure ignores the ecological functions provided by each species in an ecosystem and consequently the role of Functional Diversity (FD). For example, several species in an ecosystem can exhibit a small variation of traits, while few species may perform a large variation of those (Villéger et al., 2012, 2013). Functional diversity (FD) quantifies the components of biodiversity that influence how an ecosystem operates or functions (Tilman et al., 2001).   (Desenvolver mais este tema)Both TD and FD, together with Philogenetic Diversity (PD), have been unified under a methodological and statistical framework for the study of spatial and temporal heterogeneity including its phylogenetic and functional components (Cardoso et al., 2014) along with a statistical package incorporating these innovations (Cardoso et al., 2015).
-Adding to the relatively well-documented ecological disturbance processes above described, the increasing rate of visitation of protected areas raises concerns as to whether recreation and tourism activities in protected areas can be sustainably managed (Monz et al., 2009). Several studies even suggest that perceived impacts by users can degrade the quality of visitor’s experience (Leung et al., 2013). In response to these concerns, a specialized field of study – recreation ecology – has emerged. Recreation ecology began in the early 1960s (Leung et al., 2013) and is commonly defined as the study of the impacts of outdoor recreation and nature-based tourism activities in natural or semi-natural environments. Modelling the relationship between use and ecological change stood as one of the most sought generalizations in this field. It is often generalized as a curvilinear, asymptotic relationship (Hammitt et al., 1987), largely due to research that focused on easily observable ecological responses and a limited set of variables, such as changes in vegetation cover (Queiroz et al, 2014(1)(2)). Despite recognition that species’ responses to perturbations are not random and that different species may be more or less sensitive to particular disturbance depending on their life-history traits. It is increasingly recognized that functional traits (i.e. components of an organism’s phenotype that influence ecosystem level processes) better predict the effects of human-disturbance ecosystem functioning than taxonomic species identity alone (Swenson, 2011). 
+Adding to the relatively well-documented ecological disturbance processes above described, the increasing rate of visitation of protected areas raises concerns as to whether recreation and tourism activities in protected areas can be sustainably managed (Monz et al., 2009). Several studies even suggest that perceived impacts by users can degrade the quality of visitor’s experience (Leung et al., 2013). In response to these concerns, a specialized field of study – recreation ecology – has emerged. Recreation ecology began in the early 1960s (Leung et al., 2013) and is commonly defined as the study of the impacts of outdoor recreation and nature-based tourism activities in natural or semi-natural environments. Modelling the relationship between use and ecological change stood as one of the most sought generalizations in this field. It is often generalized as a curvilinear, asymptotic relationship (Hammitt et al., 1987), largely due to research that focused on easily observable ecological responses and a limited set of variables, such as changes in vegetation cover (Queiroz et al, 2014(1)(2)). Despite recognition that species� responses to perturbations are not random and that different species may be more or less sensitive to particular disturbance depending on their life-history traits. It is increasingly recognized that functional traits (i.e. components of an organism’s phenotype that influence ecosystem level processes) better predict the effects of human-disturbance ecosystem functioning than taxonomic species identity alone (Swenson, 2011). 
 
 Intensity of use is the variable most commonly studied in the past for obvious reasons, as it should be both directly related with impact and easily measurable. Yet, other variables of interest should be quantified for better-informed decisions. Recent proposals for modelling the relationship between use and impacts (Monz et al., 2009) are based on long-term studies and suggest that ecological change may be more dynamic and spatially diffuse than these generalizations imply (Kim, 2012). Consequently, future research could more directly model the use–response relationship through more sensitive methods of measurement and improved experimental designs focused on long term monitoring. 
 Studies focusing on measurement of dispersal on seeds directly by humans demonstrated that they differ from wind dispersion, confirming that human-associated dispersal allows for seeds to spread to longer distances than the wind. The pattern of propagation is logarithmic, largely decreasing the amount of seeds as distance from the beginning of the trail increases (Whichmann et al., 2009). In the Azores, habitat and plant variables have a significant effect in the richness of arthropod endemic species (Florencio et al, 2016), which in turn are a surrogate group for the arthropod community in these forests (Procurar referência – já li isto). The source-sink process also explains the presence of non-indigenous species, by means of proximity of a certain point of the forest to its edge (Mathews et al., 2019). 
@@ -51,685 +51,63 @@ Spiders were sampled using plots of 50x50m. Sampling followed the COBRA Monitori
 Sorting was made between December 2017 and October 2018 with the aid of an expert taxonomist. The resulting database was then completed with the functional data known to each spider species in the Azores.
 
 ## Data Analyses
-We analysed the data in three subsets: all species, Indigenous and Non-Indigenous. All analyses were repeated for each subset.
-We considered the distance from each sampling point to the trail as a factor, since we expect that the controls will have less non-indigenous species, for not having the edge effects caused by trail infrastructure and the impacts from human use. Distance to edge was elected as a covariate, since the source-sink effect magnitude is dependant on the souce distance. The distance to the beginning of the trail was selected to represent the treatments, since it converts them to a continuous variable and defines precisely the distance of the “Max” sampling area. 
-We considered as dependent variables the three components of beta-diversity – Total, Richness and Relapcement, for taxonomic and functional traits separately.
+We analysed the data in three subsets: all species, Natives (Includes endemics, natives and Indigenous), Non-Indigenous (includes introduced and invesives). All analyses were repeated for each subset.
+We considered the distance from each sampling point to the trail as a factor, since we expect that the controls will have less non-indigenous species, for not having the edge effects caused by trail infrastructure and the impacts from human use. Distance to edge was elected as a covariate, since the source-sink effect magnitude is dependant on the souce distance. The distance to the beginning of the trail was selected to represent the treatments, since it converts them to a continuous variable and defines precisely the distance of the Max sampling area. 
+We considered as dependent variables the three components of beta-diversity sdf Total, Richness and Relapcement, for taxonomic and functional traits separately.
 These variables were regressed against the three considered variables in a GLMM, including trail identitiy as a random factor, in order to exclude the location effect from the treatments. The GLMM were implemented in R using Lm4 package. We checked for outliers and correlations between the covariates. 
 
 # Results
+(table with: sampled areas used as control, S, n, Chao1, chao2, jacknife 1, jacknife 2, and completeness)
 
-## Setting up the file
+A total for 16602 spiders representing 13 families were collected in 194 samples, of these 3428 were adults. We used the estimators Chao1, Chao2, Jacknife and Jacknife 2 to assess the expected richness for each sampling site, and calculated completeness based on it. The completeness obtained made possible to confirm that the monitoring protocols were viable for interpretation in terms of community studies. 
 
-```{r}
-library(BAT)
-library(readr)
-library(FD) 
-library(alphahull)
-library(hypervolume)
-library(car)
-library(MASS)
-library(lme4)
-library(vegan)
-#source(file = "HighstatLibV10.R") #cool tools to support
-#library(factoextra) # Useful for PCA analysis
-library(here)
+(table with sampled areas, total abundance, natives abundance, non-indigenous abundance, endemics abundance, proportion of non-indigenous, functional values (all, nat, NIND), )
 
-```
+##Effects of beginning of trail, distance to trail and distance to edge
+(Apresentar tabela com vari�veis em estudo, modelos seleccionado, coeficiente da(s) vari�vel(eis), R2c, R2m, e pesos AIC)
 
+ (TABLE X - ) Among the models selected, we selected the ones that have more explanatory variables, if increased visibly the capacity of the model to explain the variation of the variables at study when compared to a single predictor model. Condititional R2 served as criteria to assess the relevance of each model, allowing to select which models were most relevant. 
+The possible models for the richness of non-indigenous species were explained by distance to the trail beginning as single predictor, or distance to the trail beginning together with the distance to the edge as predictors.  Since the two-predictor model didn't add a relevant explanatory value (R2c = 0.675; R2m = 0.066), the simplest model (R2c = 0.653; R2m = 0.06) was selected as the best fit. 
+Functional Alpha diversity of Non-Indigenous species was best explained with distance to the beginning of the trail as predictor (R2c = 0.57; R2m = 0.04). 
+The proportion of non-natives intended to reveal the importance the non-natives in termos of the total community in a given sampling area. Our hypothesis states that the closer to the beginning of the trail and to the edge, the higher this proportion will be. The only elegible model shows an influence of distance to the trail. The model (R2c= 0.058; R2m= 0.15) explains 58% of the variation of the proportion of non-natives, and the distance to the trail alone explains 15% of it. 
+The proportion of functional diversity associated with natives (Fnatives / Fall) is based on the assumption that in a pristine environment, the natives function fullfill all the requerements of the ecossystem. As a sampling area shift to a more disturbed state and more non-native species are present, some of the functions fullfilled by the native s will be now fullfilled by these. However, we assume that when a netive species is replaced by a non-native there is a loss of functions, due to the complexity and intricacy that   that ecological interactions underlie. Therefore, even though it is useful to analyse direct functional replacement, as done in (references), this more conservative approach might unmask negative consequences that the loss of cuntions being delievered by native species has on the ecological network functioning. The selected model, who has trail distance as single factor, has a conditional, obtained an R2 higher than 1, and therefore was excluded from analysis. 
+All beta-related variables that were calculated returned impossible or unreliable R2 values, and therefore were excluded from analysis. 
+The conditional R values, who describe the variation explained by the fixed and random factors, varied between 0,657 and 0,653. The marginal R values, who describe the variation assoviated with the fixed effects, varied between 0,06 and 0,15. This demonstrates that the trails identity was the major source of variation between these systems. 
 
+##Discussion
 
-## Spider abundance data
-Three Site/Species matrixes with species abundance were created, for All species, Native Species and Non-Indigenous species
+The Azores were until quite recently (2015) a reasonably unknow touristic destination. Having won several awards for best touristic destination from that year on, together with the opning of the airline market to low-cost companies, resulted in a visible expansion of the touristic activities in the archipelago (references). The trail infrastructures and environment are therefore exposed to a higher number of visitirs for about two years, at the time of sampling for this study. When compared to Madeira, a Macaronesian island with similar habitats who has X years of high volume tourism (references), The azores Islands are still very much protected from the long term impacts caused by constant visitation.This study was intended to establish a control standard for future monitoring, so that there is information about the status os the spider communities who are in contact with the trail. Future monitoring actions may now elaborate a pairwise temporal and spatial study for alpha ens beta diversity studies, witha nearly-before disturbance reference point for comparison. 
+Our results demonstrate that the distance to the beginning of the trail is the best predictor for both the occurrence of non-native species inside the forest, and also for the presence of functional traits associated with non-native species. In termos of the latter, there was no relation between the proportion of Fnon-ind/Fall, and therefore we conclude that this shift hasn+t still affected the functional functioning of the spider community.
 
-```{r}
-# Ficheiro com as abundâncias por Área de amostragem, para todas as amostras
-SAAll <- read.csv2(here("data", "All_Fin.csv"))
-sites <- SAAll[,1]
-SAAll <- SAAll[,-1] 
 
-species <- SAAll[1,]
-rownames(SAAll) <- sites  
-species <- colnames(SAAll) 
-species
 
-#rownames(SAAll) <- sites    ##Estava assim originalmente, mas parece-me trocado
-#colnames(SAAll) <- species   ##Estava assim originalmente, mas parece-me trocado
-sites <- rownames(SAAll)    
-species <- colnames(SAAll) 
 
 
-
-# HEllinger transformation
-SAAll <- decostand(SAAll, "hellinger") 
-SAAll
-
-# Ficheiro com as abundâncias por área de amostragem, para as espécies indígenas
-
-SANat <- read.csv2(here("Nat_Fin.csv"))
-sites <- SANat[,1]
-SANat <- SANat[,-1] 
-rownames(SANat) <- sites
-species_nat <- colnames(SANat)  
-species_nat <- colnames(SANat)
-# HEllinger transformation
-SANat <- decostand(SANat, "hellinger") 
-SANat
-
-# Ficheiro com as abundâncias por área de amostragem, para as espécies não-indígenas
-SANInd <- read.csv2(here("NInd_Fin.csv"))
-sites <- SANInd[,1]
-SANInd <- SANInd[,-1] 
-rownames(SANInd) <- sites
-species_nind <- colnames(SANInd) 
-
-# HEllinger transformation
-SANInd <- decostand(SANInd, "hellinger") 
-SANInd
-```
-
-## Traits data upload
-
-Species_X_ Matrixes adjusted to All species, Native Species and Non-Indigenous species
-
-```{r}
-# Matrix with species (rows)x traits (cols) for all species in all plots
-
-
-Traits  <- read.csv2(here("Traits_All_Fin.csv"), row.names=1, header=TRUE,  stringsAsFactors = T, dec = ".")
-Traits <- Traits[,-c(1:3)] 
-str(Traits)
-
-
-# Matrix with species (rows)x traits (cols) for all natives species in all plots
-
-TraitsNat  <- read.csv2(here("Traits_Nat_Fin.csv"), row.names=1, header=TRUE,  stringsAsFactors = T, dec = ".")
-TraitsNat <- TraitsNat[,-c(1:3)] 
-str(TraitsNat)
-
-# Matrix with species (rows)x traits (cols) for all Non-Indigenous species in all plots
-
-TraitsNInd  <- read.csv2(here("Traits_NInd_Fin.csv"), row.names=1, header=TRUE,  stringsAsFactors = T, dec = ".")
-TraitsNInd <- TraitsNInd[,-c(1:3)] 
-str(TraitsNInd)
-```
-
-## Independent Variables upload
-
-```{r}
-Variables <- read.csv2(here("GLMM_Variables.csv"), row.names=1, header=TRUE,  stringsAsFactors = T, dec = ".")
-Variables$Dist_trail <- as.numeric(Variables$Dist_trail)
-Variables$Dist_edge <- as.numeric(Variables$Dist_edge)
-Variables$Dist_trail_beginning <- as.numeric(Variables$Dist_trail_beginning)
-str(Variables)
-```
-
-## Inventory protocol complete abundances
-
-```{r}
-Alpha_controls <- read.csv2(here("Control250_Fin.csv"), header=TRUE,  stringsAsFactors = T, dec = ".")
-str(Alpha_controls)
-```
-
-## Inspecting data structure
-
-```{r}
-str(Variables)
-str(Alpha_controls)
-str(Traits)
-str(TraitsNat)
-str(TraitsNInd)
-str(SAAll)
-str(SANat)
-str(SANInd)
-str(weights)
-```
-
-##  Calculating SAC
-
-```{r, results='hide'}
-Alpha_controls <- read.csv2("Control250_Fin.csv", header = TRUE)
-
-alphaaccumlist <-list()
-alphaaccumlist
-plotlist <- list()
-par(mfrow=c(2,3))
-for(i in unique(Alpha_controls[,"Trail_Sampling.Area"])){
-  Alpha_controlsMatrix <- Alpha_controls[Alpha_controls[,"Trail_Sampling.Area"]== i, -1]  #definir a matriz a analisar
-  alphaaccumlist[[i]] <- (alpha.accum(Alpha_controlsMatrix))
-  alphaaccumlist[[i]]
-  
-  #plot(alphaaccumlist[[i]][,1], alphaaccumlist[[i]][,2], xlab="Samples", ylab="Individuals", )
-  plot(alphaaccumlist[[i]][,1], alphaaccumlist[[i]][,3], xlab="Samples", ylab="Individuals", 
-       ylim=c(0,50), main = i, col="blue", type = "p")
-  
-  lines(alphaaccumlist[[i]][,1], alphaaccumlist[[i]][,4])
-  lines(alphaaccumlist[[i]][,1], alphaaccumlist[[i]][,5], col="yellow")
-  lines(alphaaccumlist[[i]][,1], alphaaccumlist[[i]][,8], col="red")
-  lines(alphaaccumlist[[i]][,1], alphaaccumlist[[i]][,13], col="red", type = "p")
-  lines(alphaaccumlist[[i]][,1], alphaaccumlist[[i]][,17], col="green")
-  lines(alphaaccumlist[[i]][,1], alphaaccumlist[[i]][,19], col="green", type = "p")
-}
-
-```
-
-Black   - Singletons
-Yellow  - Doubletons
-Red     - Jack1 
-Purple  - Jack2 AbP
-Green   - Chao 1P
-Pink    - Chao 2P
-
-## Calculating functional elements
-
-```{r}
-dissimAll <- cluster::daisy(Traits, "gower", weights = weights)  # Calculating distances between species
-#      https://www.rdocumentation.org/packages/cluster/versions/2.0.7-1/topics/daisy
-
-
-tree <- hclust(dissimAll, "average")     
-par(mfrow=c(1,1))
-plot(tree, hang = -1)  ## PQ O HANG= - 1?
-
-# All natives tree and FD Alpha----
-dissimNat <- cluster::daisy(TraitsNat, "gower", weights = weights)  # Calculating distances between species
-treeNat <- hclust(dissimNat, "average")  # building the dendrogram
-cor(dissimNat, cophenetic(treeNat))
-
-par(mfrow=c(1,1))
-plot(treeNat, hang = -1)  ## PQ O HANG= - 1?
-#  plot(as.dendrogram(treeNat))
-str(TraitsNInd)
-
-# All Non-Ind tree and FD Alpha ----
-dissimNInd <- cluster::daisy(TraitsNInd, "gower", weights = weights)  # Calculating distances between species
-treeNInd <- hclust(dissimNInd, "average")          # building the 
-par(mfrow=c(1,1))
-plot(treeNInd, hang = -1)  ## PQ O HANG= - 1?
-```
-
-## Calculating taxonomical and Functional Alphas 
-
-```{r}
-#Taxonomical Alpha
-Alpha_All <- alpha(SAAll)
-Alpha_Nat<- alpha(SANat)
-Alpha_NInd<- alpha(SANInd)
-
-#Functional Alpha
-FDalphaAll <- alpha(SAAll, tree)
-FDalphaNat <- alpha(SANat, treeNat)
-FDalphaNInd <- alpha(SANInd, treeNInd)
-
-Alphas <- as.data.frame(cbind(Alpha_All, Alpha_Nat, Alpha_NInd, FDalphaAll, FDalphaNat, FDalphaNInd))
-colnames(Alphas) <- cbind("TAlphaAll", "TAlphaNat", "TAlphaNInd","FAlphaAll", "FAlphaNat", "FAlphaNInd" )
-Alphas # Will be printed along with BETAS in the RESULTS file
-
-```
-
-
-
-```{r}
-## Calculating taxonomical and Functional Alphas 
-# Taxonomical Beta
-BetaAll <- beta(SAAll)
-BetaNat <- beta(SANat)
-BetaNat <- beta(SANInd) 
-
-#Functional Beta
-BetaFuncAll <- beta(SAAll, tree,  abund =  T)
-BetaFuncNat <- beta(SANat, treeNat, abund = T) 
-BetaFuncNInd <- beta(SANInd, treeNInd, abund= T)
-
-
-```
-
-## Separating Beta components
-
-```{r}
-## Separating Total, Richness and Replacement  TAXONOMICAL betas into different data frames
-BetaAllTotal <- data.frame(as.matrix(BetaAll[["Btotal"]]), sep= "tab")
-BetaAllRich <- data.frame(as.matrix(BetaAll[["Brich"]]), sep= "tab")
-BetaAllRepl <- data.frame(as.matrix(BetaAll[["Brepl"]]), sep= "tab")
-BetaNatTotal <- data.frame(as.matrix(BetaNat[["Btotal"]]), sep= "tab")
-BetaNatRich <- data.frame(as.matrix(BetaNat[["Brich"]]), sep= "tab")
-BetaNatRepl <- data.frame(as.matrix(BetaNat[["Brepl"]]), sep= "tab")
-BetaNIndTotal <- data.frame(as.matrix(BetaNat[["Btotal"]]), sep= "tab")
-BetaNIndRich <- data.frame(as.matrix(BetaNat[["Brich"]]), sep= "tab")
-BetaNIndRepl <- data.frame(as.matrix(BetaNat[["Brepl"]]), sep= "tab")
-
-## Separating Total, Richness and Replacement  FUNCTIONAL betas into different data frames
-BetaFuncAllTotal <- data.frame(as.matrix(BetaFuncAll[["Btotal"]]), sep= "tab")
-BetaFuncAllRich <- data.frame(as.matrix(BetaFuncAll[["Brich"]]), sep= "tab")
-BetaFuncAllRepl <- data.frame(as.matrix(BetaFuncAll[["Brepl"]]), sep= "tab")
-BetaFuncNatTotal <- data.frame(as.matrix(BetaFuncNat[["Btotal"]]), sep= "tab")
-BetaFuncNatRich <- data.frame(as.matrix(BetaFuncNat[["Brich"]]), sep= "tab")
-BetaFuncNatRepl <- data.frame(as.matrix(BetaFuncNat[["Brepl"]]), sep= "tab")
-BetaFuncNIndTotal <- data.frame(as.matrix(BetaFuncNat[["Btotal"]]), sep= "tab")
-BetaFuncNIndRich <- data.frame(as.matrix(BetaFuncNat[["Brich"]]), sep= "tab")
-BetaFuncNIndRepl <- as.data.frame(as.matrix(BetaFuncNat[["Brepl"]]), sep= "tab")
-```
-
-## Separating comparisons with Controls
-
-```{r}
-A01 <- BetaAllTotal[1,1]
-AA1 <- BetaAllTotal[6,c(2:6)]
-BB1 <- BetaAllTotal[12,c(7:12)]
-CC1 <- BetaAllTotal[18,c(13:18)]
-DD1 <- BetaAllTotal[22,c(19:22)]
-BetaAllTotalVector <- c(A01,AA1, BB1,  CC1, DD1)
-
-A02 <- BetaAllRich[1,1]
-AA2 <- BetaAllRich[6,c(2:6)]
-BB2 <- BetaAllRich[12,c(7:12)]
-CC2 <- BetaAllRich[18,c(13:18)]
-DD2<- BetaAllRich[22,c(19:22)]
-BetaAllRichVector <- c(A02,AA2, BB2,  CC2, DD2)
-
-A03 <- BetaAllRepl[1,1]
-AA3 <- BetaAllRepl[6,c(2:6)]
-BB3 <- BetaAllRepl[12,c(7:12)]
-CC3 <- BetaAllRepl[18,c(13:18)]
-DD3 <- BetaAllRepl[22,c(19:22)]
-BetaAllReplVector <- c(A03,AA3, BB3, CC3, DD3)
-
-A01 <- BetaNatTotal[1,1]
-AA1 <- BetaNatTotal[6,c(2:6)]
-BB1 <- BetaNatTotal[12,c(7:12)]
-CC1 <- BetaNatTotal[18,c(13:18)]
-DD1 <- BetaNatTotal[22,c(19:22)]
-BetaNatTotalVector <- c(A01,AA1, BB1,  CC1, DD1)
-
-A02 <- BetaNatRich[1,1]
-AA2 <- BetaNatRich[6,c(2:6)]
-BB2 <- BetaNatRich[12,c(7:12)]
-CC2 <- BetaNatRich[18,c(13:18)]
-DD2<- BetaNatRich[22,c(19:22)]
-BetaNatRichVector <- c(A02,AA2, BB2,  CC2, DD2)
-
-A03 <- BetaNatRepl[1,1]
-AA3 <- BetaNatRepl[6,c(2:6)]
-BB3 <- BetaNatRepl[12,c(7:12)]
-CC3 <- BetaNatRepl[18,c(13:18)]
-DD3 <- BetaNatRepl[22,c(19:22)]
-BetaNatReplVector <- c(A03,AA3, BB3, CC3, DD3)
-
-A01 <- BetaNIndTotal[1,1]
-AA1 <- BetaNIndTotal[6,c(2:6)]
-BB1 <- BetaNIndTotal[12,c(7:12)]
-CC1 <- BetaNIndTotal[18,c(13:18)]
-DD1 <- BetaNIndTotal[22,c(19:22)]
-BetaNIndTotalVector <- c(A01,AA1, BB1,  CC1, DD1)
-
-A02 <- BetaNIndRich[1,1]
-AA2 <- BetaNIndRich[6,c(2:6)]
-BB2 <- BetaNIndRich[12,c(7:12)]
-CC2 <- BetaNIndRich[18,c(13:18)]
-DD2<- BetaNIndRich[22,c(19:22)]
-BetaNIndRichVector <- c(A02,AA2, BB2,  CC2, DD2)
-
-A03 <- BetaNIndRepl[1,1]
-AA3 <- BetaNIndRepl[6,c(2:6)]
-BB3 <- BetaNIndRepl[12,c(7:12)]
-CC3 <- BetaNIndRepl[18,c(13:18)]
-DD3 <- BetaNIndRepl[22,c(19:22)]
-BetaNIndReplVector <- c(A03,AA3, BB3, CC3, DD3)
-
-## Separating the FUNCTIONAL beta values between the Control 250/Max and the other sampling areas from each trail
-
-
-A01 <- BetaFuncAllTotal[1,1]
-AA1 <- BetaFuncAllTotal[6,c(2:6)]
-BB1 <- BetaFuncAllTotal[12,c(7:12)]
-CC1 <- BetaFuncAllTotal[18,c(13:18)]
-DD1 <- BetaFuncAllTotal[22,c(19:22)]
-BetaFuncAllTotalVector <- c(A01,AA1, BB1,  CC1, DD1)
-
-A02 <- BetaFuncAllRich[1,1]
-AA2 <- BetaFuncAllRich[6,c(2:6)]
-BB2 <- BetaFuncAllRich[12,c(7:12)]
-CC2 <- BetaFuncAllRich[18,c(13:18)]
-DD2<- BetaFuncAllRich[22,c(19:22)]
-BetaFuncAllRichVector <- c(A02,AA2, BB2,  CC2, DD2)
-
-A03 <- BetaFuncAllRepl[1,1]
-AA3 <- BetaFuncAllRepl[6,c(2:6)]
-BB3 <- BetaFuncAllRepl[12,c(7:12)]
-CC3 <- BetaFuncAllRepl[18,c(13:18)]
-DD3 <- BetaFuncAllRepl[22,c(19:22)]
-BetaFuncAllReplVector <- c(A03,AA3, BB3, CC3, DD3)
-
-A01 <- BetaFuncNatTotal[1,1]
-AA1 <- BetaFuncNatTotal[6,c(2:6)]
-BB1 <- BetaFuncNatTotal[12,c(7:12)]
-CC1 <- BetaFuncNatTotal[18,c(13:18)]
-DD1 <- BetaFuncNatTotal[22,c(19:22)]
-BetaFuncNatTotalVector <- c(A01,AA1, BB1,  CC1, DD1)
-
-A02 <- BetaFuncNatRich[1,1]
-AA2 <- BetaFuncNatRich[6,c(2:6)]
-BB2 <- BetaFuncNatRich[12,c(7:12)]
-CC2 <- BetaFuncNatRich[18,c(13:18)]
-DD2<- BetaFuncNatRich[22,c(19:22)]
-BetaFuncNatRichVector <- c(A02,AA2, BB2,  CC2, DD2)
-
-A03 <- BetaFuncNatRepl[1,1]
-AA3 <- BetaFuncNatRepl[6,c(2:6)]
-BB3 <- BetaFuncNatRepl[12,c(7:12)]
-CC3 <- BetaFuncNatRepl[18,c(13:18)]
-DD3 <- BetaFuncNatRepl[22,c(19:22)]
-BetaFuncNatReplVector <- c(A03,AA3, BB3, CC3, DD3)
-
-A01 <- BetaFuncNIndTotal[1,1]
-AA1 <- BetaFuncNIndTotal[6,c(2:6)]
-BB1 <- BetaFuncNIndTotal[12,c(7:12)]
-CC1 <- BetaFuncNIndTotal[18,c(13:18)]
-DD1 <- BetaFuncNIndTotal[22,c(19:22)]
-BetaFuncNIndTotalVector <- c(A01,AA1, BB1,  CC1, DD1)
-
-A02 <- BetaFuncNIndRich[1,1]
-AA2 <- BetaFuncNIndRich[6,c(2:6)]
-BB2 <- BetaFuncNIndRich[12,c(7:12)]
-CC2 <- BetaFuncNIndRich[18,c(13:18)]
-DD2<- BetaFuncNIndRich[22,c(19:22)]
-BetaFuncNIndRichVector <- c(A02,AA2, BB2,  CC2, DD2)
-
-A03 <- BetaFuncNIndRepl[1,1]
-AA3 <- BetaFuncNIndRepl[6,c(2:6)]
-BB3 <- BetaFuncNIndRepl[12,c(7:12)]
-CC3 <- BetaFuncNIndRepl[18,c(13:18)]
-DD3 <- BetaFuncNIndRepl[22,c(19:22)]
-BetaFuncNIndReplVector <- c(A03,AA3, BB3, CC3, DD3)
-```
-
-## Calculating betas
-
-```{r}
-Betas <- as.data.frame( t(rbind(
-  BetaAllTotalVector, BetaAllRichVector, BetaAllReplVector, 
-  BetaFuncAllTotalVector, BetaFuncAllRichVector, BetaFuncAllReplVector,
-  BetaNatTotalVector, BetaNatRichVector, BetaNatReplVector, 
-  BetaFuncNatTotalVector, BetaFuncNatRichVector, BetaFuncNatReplVector,
-  BetaNIndTotalVector, BetaNIndRichVector, BetaNIndReplVector,
-  BetaFuncNIndTotalVector, BetaFuncNIndRichVector, BetaFuncNIndReplVector)))
-
-str(Betas)
-```
-
-## Exporting results
-
-```{r}
-write.csv(BetaAllTotal,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaResults/BetaAllTotal.csv")
-write.csv(BetaAllRich,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaResults/BetaAllRich.csv")
-write.csv(BetaAllRepl,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaResults/BetaAllRepl.csv")
-write.csv(BetaNatTotal,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaResults/BetaNatTotal.csv")
-write.csv(BetaNatRich,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaResults/BetaNatRich.csv")
-write.csv(BetaNatRepl,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaResults/BetaNatRepl.csv")
-write.csv(BetaNIndTotal,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaResults/BetaNIndTotal.csv")
-write.csv(BetaNIndRich,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaResults/BetaNIndRich.csv")
-write.csv(BetaNIndRepl,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaResults/BetaNIndRepl.csv")
-
-## Exporting FUNCTIONAL beta results to .csv (for the record - it won't be usedin analysis, as the RESULTS 
-#       file compiles all the  useable results )
-
-write.csv(BetaFuncAllTotal,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaFuncResults/BetaFuncAllTotal.csv")
-write.csv(BetaFuncAllRich,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaFuncResults/BetaFuncAllRich.csv")
-write.csv(BetaFuncAllRepl,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaFuncResults/BetaFuncAllRepl.csv")
-write.csv(BetaFuncNatTotal,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaFuncResults/BetaFuncNatTotal.csv")
-write.csv(BetaFuncNatRich,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaFuncResults/BetaFuncNatRich.csv")
-write.csv(BetaFuncNatRepl,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaFuncResults/BetaFuncNatRepl.csv")
-write.csv(BetaFuncNIndTotal,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaFuncResults/BetaFuncNIndTotal.csv")
-write.csv(BetaFuncNIndRich,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaFuncResults/BetaFuncNIndRich.csv")
-write.csv(BetaFuncNIndRepl,file = "C:/ArthropodsArticle/2.0 _Finland_Analysis/BetaFuncResults/BetaFuncNIndRepl.csv")
-
-```
-
-### Results export
-
-```{r}
-Results <- cbind.data.frame(Variables, Alphas, Betas)
-str(Results)
-
-#MAKING THE RESULTS EXPORTABLE INTO CSV
-Results <- apply(Results, 2 , as.character)
-
-#NAMING THE TRAIL SEGMENTS
-rownames(Results) <- rownames(Alphas)
-
-#PASSING RESULTS TO FILE
-write.csv(Results, file = ("C:/ArthropodsArticle/FinlandAnalysis/RESULTS.csv"), row.names = TRUE)
-
-Results2 <- read.csv2(here("RESULTS.CSV"), header=TRUE, row.names = 1,  stringsAsFactors = T,sep = ",", dec = ".")
-Results2
-
-Results3 <- read.csv("RESULTS.csv", header = TRUE, row.names = 1, sep = ",", dec = ".")
-ResultsWithoutControls <- Results3[-c(5,6,11,12,17,18),-c(1:2)]
-```
-
-## MDS
-
-```{r}
-
-MDSfile <- read.csv2(here("MDS_vectors.csv"))
-trail <- MDSfile[,1]
-trail
-trail <- as.vector(trail)
-treatment <- MDSfile[,2]
-str(treatment)
-treatment <- as.vector(treatment)
-str(treatment)
-
-# Vector with weight ratios for trails - used in cluster::daisy to compensate decomposition of one variable by
-# multiple columns
-Weightsfile <- read.csv2("Weight_Ratios_Traits.csv", header = TRUE, dec=".")
-weights <- Weightsfile[,-c(1:4)]
-weights <- as.vector(weights)
-
-par(mfrow=c(1,1))
-
-#£metaMDS(Results3, distance = "bray", k = 2, try = 20, trymax = 20)
-
-#ordiellipse(mds, groups  = as.factor(treatment), label = T)
-mds1 <- metaMDS(BetaAll$Btotal, k=2, trymax = 100)
-plot(mds1)
-ordiellipse(mds1, groups  = as.factor(trail), label = T)
-ordiellipse(mds1, groups  = as.factor(treatment), label = T)
-
-mds2 <- metaMDS(BetaAll$Brepl, k=3, trymax = 100)
-plot(mds2)
-ordiellipse(mds2, groups  = as.factor(trail), label = T)
-ordiellipse(mds2, groups  = as.factor(treatment), label = T)
-
-mds3 <- metaMDS(BetaNat$Btotal, k=3, trymax = 100)
-plot(mds3)
-ordiellipse(mds3, groups  = as.factor(trail), label = T)
-ordiellipse(mds3, groups  = as.factor(treatment), label = T)
-
-mds4 <- metaMDS(BetaNat$Brepl, k=3, trymax = 100)
-plot(mds4)
-ordiellipse(mds4, groups  = as.factor(trail), label = T)
-ordiellipse(mds4, groups  = as.factor(treatment), label = T)
-
-mds5 <- metaMDS(BetaFuncAll$Btotal, k=3, trymax = 100)
-plot(mds5)
-ordiellipse(mds5, groups  = as.factor(trail), label = T)
-ordiellipse(mds5, groups  = as.factor(treatment), label = T)
-
-mds6 <- metaMDS(BetaFuncAll$Brepl, k=3, trymax = 100)
-plot(mds6)
-ordiellipse(mds6, groups  = as.factor(trail), label = T)
-ordiellipse(mds6, groups  = as.factor(treatment), label = T)
-
-mds7 <- metaMDS(BetaFuncNat$Btotal, k=3, trymax = 100)
-plot(mds7)
-ordiellipse(mds7, groups  = as.factor(trail), label = T)
-ordiellipse(mds7, groups  = as.factor(treatment), label = T)
-
-mds8 <- metaMDS(BetaFuncNat$Brepl, k=3, trymax = 100)
-plot(mds8)
-ordiellipse(mds8, groups  = as.factor(trail), label = T)
-ordiellipse(mds8, groups  = as.factor(treatment), label = T)
-```
-
-## GLMM - Alphas
-
-
-
-### Is taxonomical alpha explained by EdgeDist and DistTrailBeginning?
-
-
-
-```{r}
-glmm_TAlphaAll_AB<-glmer(TAlphaAll ~ Dist_edge + Dist_trail_beginning + (1 | ForestID), data = Results2 , family = poisson)
-summary(glmm_TAlphaAll_AB)
-```
-
-
-
-
-
-```{r}
-#TAlphaAll
-
-glmmT_AlphaAll_A<-glmer(TAlphaAll ~ Dist_edge + (1 | ForestID), data = Results2, family = poisson)
-summary(glmmT_AlphaAll_A)
-
-glmm_TAlphaAll_B<-glmer(TAlphaAll ~  Dist_trail_beginning + (1 | ForestID), data = Results2 , family = poisson)
-summary(glmm_TAlphaAll_B)
-
-glmm_TAlphaAll_C<-glmer(TAlphaAll ~  treatment + Dist_edge + (1 | ForestID), data = Results2 , family = poisson)
-summary(glmm_TAlphaAll_C)
-
-#FAlphaAll
-
-glmm_FAlphaAll_AB <- glmer(FAlphaAll ~ Dist_edge + Dist_trail_beginning + (1 | ForestID), data = Results2 , family = gaussian)
-summary(glmm_FAlphaAll_AB)
-
-glmmT_AlphaAll_A<-glmer(FAlphaAll ~ Dist_edge + (1 | ForestID), data = Results2, family = gaussian)
-summary(glmmT_AlphaAll_A)
 
-glmm_FAlphaAll_B<-glmer(FAlphaAll ~  Dist_trail_beginning + (1 | ForestID), data = Results2 , family = gaussian)
-summary(glmm_FAlphaAll_B)
 
-glmm_FAlphaAll_C<-glmer(FAlphaAll ~  treatment+ (1 | ForestID), data = Results2 , family = gaussian)
-summary(glmm_FAlphaAll_C)
 
 
-##### Natives ####
 
-#TAlphaAll
 
-glmm_TAlphaNat_AB<-glmer(TAlphaNat ~ Dist_edge + Dist_trail_beginning + (1 | ForestID), data = Results2 , family = poisson)
-summary(glmm_TAlphaNat_AB)
 
-glmmT_AlphaNat_A<-glmer(TAlphaNat ~ Dist_edge + (1 | ForestID), data = Results2, family = poisson)
-summary(glmmT_AlphaNat_A)
 
-glmm_TAlphaNat_B<-glmer(TAlphaNat ~  Dist_trail_beginning + (1 | ForestID), data = Results2 , family = poisson)
-summary(glmm_TAlphaNat_B)
 
-glmm_TAlphaNat_c<-glmer(TAlphaNat ~  Dist_edge + treatment + (1 | ForestID), data = Results2 , family = poisson)
-summary(glmm_TAlphaNat_c)
 
-#FAlphaNat
 
-glmm_FAlphaNat_AB <- glmer(FAlphaNat ~ Dist_edge + Dist_trail_beginning + (1 | ForestID), data = Results2 , family = gaussian)
-summary(glmm_FAlphaNat_AB)
 
-glmmT_AlphaNat_A<-glmer(FAlphaNat ~ Dist_edge + (1 | ForestID), data = Results2, family = gaussian)
-summary(glmmT_AlphaNat_A)
 
-glmm_FAlphaNat_B<-glmer(FAlphaNat ~  Dist_trail_beginning + (1 | ForestID), data = Results2 , family = gaussian)
-summary(glmm_FAlphaNat_B)
 
-glmm_FAlphaNat_C<-glmer(FAlphaNat ~  treatment + (1 | ForestID), data = Results2 , family = gaussian)
-summary(glmm_FAlphaNat_C)
 
-##### Non-Natives ################
 
-#TAlphaAll
 
-glmm_TAlphaNInd_AB<-glmer(TAlphaNInd ~ Dist_edge + Dist_trail_beginning + (1 | ForestID), data = Results2 , family = poisson)
-summary(glmm_TAlphaNInd_AB)
 
-glmmT_AlphaNInd_A<-glmer(TAlphaNInd ~ Dist_edge + (1 | ForestID), data = Results2, family = poisson)
-summary(glmmT_AlphaNInd_A)
 
 
 
-glmm_TAlphaNInd_B<-glmer(TAlphaNInd ~  Dist_trail_beginning + (1 | ForestID), data = Results2 , family = poisson)
-summary(glmm_TAlphaNInd_B)
 
+# Test results
 
-# O TC250 dá interação significativa
-glmm_TAlphaNInd_C<-glmer(TAlphaNInd ~  treatment + (1 | ForestID), data = Results2 , family = poisson)
-summary(glmm_TAlphaNInd_C)
 
 
-#FAlphaNInd
 
-glmm_FAlphaNInd_AB <- glmer(FAlphaNInd ~ Dist_edge + Dist_trail_beginning + (1 | ForestID), data = Results2 , family = gaussian)
-summary(glmm_FAlphaNInd_AB)
-
-glmmT_AlphaNInd_A<-glmer(FAlphaNInd ~ Dist_edge + (1 | ForestID), data = Results2, family = gaussian)
-summary(glmmT_AlphaNInd_)A
-
-glmm_FAlphaNInd_B<-glmer(FAlphaNInd ~  Dist_trail_beginning + (1 | ForestID), data = Results2 , family = gaussian)
-summary(glmm_FAlphaNInd_B)
-```
-
-# GLMM Betas
-
-```{r}
-glmm_BetaAllTotalVector_AB<-glmer(BetaAllTotalVector ~  treatment + (1 | ForestID), data = Results2 , family = binomial)
-summary(glmm_BetaAllTotalVector_AB)
-
-glmmT_BetaAllTotalVector_A<-glmer(BetaAllTotalVector ~ Dist_edge + (1 | ForestID), data = Results2, family = binomial)
-summary(glmmT_BetaAllTotalVector_A)
-
-glmm_BetaAllTotalVector_B<-glmer(BetaAllTotalVector ~  Dist_trail_beginning + (1 | ForestID), data = Results2 , family = binomial)
-summary(glmm_BetaAllTotalVector_B)
-
-glmm_BetaAllTotalVector_C<-glmer(BetaAllTotalVector ~  treatment + (1 | ForestID), data = Results2 , family = binomial)
-summary(glmm_BetaAllTotalVector_C)
-
-#FBetaAll
-
-glmm_FBetaAll_AB <- glmer(BetaFuncAllTotalVector~ Dist_edge + treatment + (1 | ForestID), data = Results2 , family = binomial)
-summary(glmm_FBetaAll_AB)
-
-glmm_FBetaAll_A<-glmer(BetaFuncAllTotalVector ~ treatment + (1 | ForestID), data = Results2, family = binomial)
-summary(glmm_FBetaAll_A)
-
-glmm_FBetaAll_B <- glmer(BetaFuncAllTotalVector ~ Dist_edge + (1 | ForestID), data = Results2 , family = binomial)
-summary(glmm_FBetaAll_B)
-
-##### natives################
-
-
-#TBetaAll
-
-glmm_BetaNatTotalVector_AB<-glmer(BetaNatTotalVector ~  treatment + (1 | ForestID), data = Results2 , family = binomial)
-summary(glmm_BetaNatTotalVector_AB)
-
-glmmT_BetaNatTotalVector_A<-glmer(BetaNatTotalVector ~ Dist_edge + (1 | ForestID), data = Results2, family = binomial)
-summary(glmmT_BetaNatTotalVector_A)
-
-glmm_BetaNatTotalVector_B<-glmer(BetaNatTotalVector ~  Dist_trail_beginning + (1 | ForestID), data = Results2 , family = binomial)
-summary(glmm_BetaNatTotalVector_B)
-
-glmm_BetaNatTotalVector_C<-glmer(BetaNatTotalVector ~  treatment + (1 | ForestID), data = Results2 , family = binomial)
-summary(glmm_BetaNatTotalVector_C)
-
-#FAlphaNat
-
-glmm_FBetaNat_AB <- glmer(BetaFuncNatTotalVector ~ Dist_edge + treatment + (1 | ForestID), data = Results2 , family = binomial)
-summary(glmm_FBetaNat_AB)
-
-glmmT_BetaNat_A<-glmer(BetaFuncNatTotalVector ~ treatment + (1 | ForestID), data = Results2, family = binomial)
-summary(glmmT_AlphaNat_A)
-
-glmm_FBetaNat_B <- glmer(BetaFuncNatTotalVector ~ Dist_edge + (1 | ForestID), data = Results2 , family = binomial)
-summary(glmm_FBetaNat_B)
-```
 

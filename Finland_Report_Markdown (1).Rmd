@@ -1,7 +1,15 @@
 ---
 title: "Arthropod Article Report"
 author: "Rui Carvalho"
-output: word_document
+output:
+  html_document:
+    theme: united
+    highlight: tango
+    toc: yes
+    toc_depth: 3
+    toc_float:
+      collapsed: no
+      smooth_scroll: no
 ---
 
 
@@ -54,7 +62,7 @@ All possible models were then compared using the corrected Akaike information cr
 
 A total for 16602 spiders representing 13 families were collected in 194 samples, of these 3428 were adults. We used the estimators Chao1, Chao2, Jacknife and Jacknife 2 to assess the expected richness for each sampling site, and calculated completeness based on it. The completeness obtained made possible to confirm that the monitoring protocols were viable for interpretation in terms of community studies. 
 
-(table with sampled areas, total abundance, natives abundance, non-indigenous abundance, endemics abundance, proportion of non-indigenous, functional values (all, nat, NIND, end))
+(table with sampled areas, total abundance, natives abundance, non-indigenous abundance, endemics abundance, proportion of non-indigenous, functional values (all, nat, NIND), )
 
 ##Effects of beginning of trail, distance to trail and distance to edge
 (Apresentar tabela com variáveis em estudo, modelos seleccionado, coeficiente da(s) variável(eis), R2c, R2m, e pesos AIC)
@@ -74,7 +82,7 @@ The selected models point
 The distance to the beginning of the trail is the best predictor for the richness of Non-Indigenous species. That effect was not observed for their respective abundance, where the selected model had no fixed variable. This meets the results of several studies about the arthrpod dinamics in the native forests, where areas of native forest exposed to edges, being more exposed to the source of non-indigenous species, are more prone to receive these species. However, these struggle to maintain their presence there, and their abundances are kept lower than expected by the time tyey are reported as present. The present dinamics is more of a constant flux of new visitors rather than an established population. Moreover, the only model available for predicting the the proportion of Functions provided by non-indigenous species among all the functions of a given sampling site is only explained by the random variable, which indicates that there isn't a ecological shift caused by the substitution of natives ny the non-indigenous when it comes to performing ecological funcions. 
 This implicates that the results identifies the trail insfrastructure as marginal, but contributing factor to explain the entry of non-native species, effect that is already established for plants(references), but less for athropods (reference). This can be explained by the low to moderate visiting rates they experienced for the last years. since not only the presence of the infrastructure but the visitation rate are relevant to the rate of the source effect (reference), with the observed increase in visitation we can expect the amplification of these effects.  
 Beta diversity results indicate that in order to understand the changes in the different sampled communities, one must take into account the distance to the beginning of the trail. The results go towards confirming  expected output of trail disturbance, and 
-All the results obtained go towards confirming the initial hypothesis, without however being significant enough to establish a causation. This can be understood given the moderate exposure there has been up so far to recreational impacts, since the Azores visitation rates we low until little before the beginning of this study. 
+All the results obtained go towards confirming the initial hypothesis, without however being significant enough to establish a causation. This can be understood given the moderate exposition there has been up so far to recreational impacts, since the Azores visitation rates we low until little before the beginning of this study. 
 
 
 

@@ -123,7 +123,7 @@ colnames(SANat) <- speciesNat
 
 # Ficheiro com as abundâncias por área de amostragem, para as espécies não-ind�???genas
 SANInd <- read.csv2(here("data","NInd_Fin.csv"),row.names=1, header = TRUE)
-colnames(SANInd) <- SpeciesNInd
+#colnames(SANInd) <- SpeciesNInd
 
 # HEllinger transformation
 #SANInd <- decostand(SANInd, "hellinger") 
@@ -131,7 +131,7 @@ colnames(SANInd) <- SpeciesNInd
 
 # Ficheiro com as abundâncias por área de amostragem, para as espécies endemicas
 SAEnd <- read.csv2(here("data","End_Fin.csv"),row.names=1, header = TRUE)
-colnames(SAEnd) <- SpeciesEnd
+#colnames(SAEnd) <- SpeciesEnd
 
 
 
@@ -178,15 +178,6 @@ weights <- Weightsfile[,-c(1:4)]
 weights <- as.vector(weights)
 
 Weightsfile2 <- read.csv2(here("data","Weight_Ratios_Traits.csv"), header = TRUE, dec=".")
-
-
-fam <- read.csv2(here("results","RESULTS copy.csv"), header=TRUE, row.names = 1,  stringsAsFactors = T, sep = ";", dec = ".")
-fam <- fam[1,]
-
-
-fam2 <- read.csv2(here("data","glmm.families.csv"), header=TRUE, row.names = 1,  stringsAsFactors = T, sep = ",", dec = ".")
-fam2
-
 
 # Looking into the datasets -------------------------------
 
@@ -244,12 +235,6 @@ accum <- rbind (accum.lagoinha, accum.malhadas, accum.mneg, accum.stabarb )
 
 write.csv(accum, file = here("results","estimators.csv"), row.names = TRUE)
 
-Results2 <- read.csv2(here("results","RESULTS.CSV"), header=TRUE, row.names = 1,  stringsAsFactors = T,sep = ",", dec = ".")
-Results2
-
-
-
-write_csv2(alphaaccumlist, here("results", "Table1.csv"))
 
 #CALC_COMPLETENESS ----
 
@@ -339,7 +324,7 @@ Alphas$FAlphaNInd[Alphas$FAlphaNInd == 0] <- 0.0001
 ##Abundances
 Alphas$abund.all=rowSums(SAAll[,1:39])
 Alphas$abund.nat=rowSums(SANat[,1:21])
-Alphas$abund.nind=rowSums(SANInd[,1:18])
+Alphas$abund.nind=rowSums(SANInd[,1:17])
 Alphas$abund.end=rowSums(SAEnd[,1:12])
 
 
@@ -757,7 +742,7 @@ str(dredge.models)
 ###For Alphas 
 
 aic.weights1 = c() 
-models.df2 = data.frame()
+models.df3 = data.frame()
 Models = list() 
 for(i in 8:23){
   newTable = Results2[,c(i,1,5,6,7)]
@@ -835,80 +820,78 @@ modelTMB = list()
 modelTMB[[1]] = glmmTMB(TAlphaAll ~    (1 | ForestID), data= Results2,family = "poisson") 
 modelTMB[[2]] = glmmTMB(TAlphaNat ~    (1 | ForestID), data= Results2,family = "poisson") 
 modelTMB[[3]] = glmmTMB(TAlphaNInd ~    (1 | ForestID), data= Results2,family = "poisson") 
-modelTMB[[4]] = glmmTMB(TAlphaNInd ~  Dist_trail_beginning_std + (1 | ForestID), data= Results2,family = "poisson") 
-modelTMB[[5]] = glmmTMB(TAlphaEnd ~    (1 | ForestID), data= Results2,family = "poisson") 
-modelTMB[[6]] = glmmTMB(FAlphaAll ~    (1 | ForestID), data= Results2,family = "Gamma") 
-modelTMB[[7]] = glmmTMB(FAlphaNat ~    (1 | ForestID), data= Results2,family = "Gamma") 
-modelTMB[[8]] = glmmTMB(FAlphaNInd ~    (1 | ForestID), data= Results2,family = "Gamma") 
-modelTMB[[9]] = glmmTMB(FAlphaEnd ~    (1 | ForestID), data= Results2,family = "Gamma") 
-modelTMB[[10]] = glmmTMB(FAlphaEnd ~ Dist_edge_std +  (1 | ForestID), data= Results2,family = "Gamma") 
-modelTMB[[11]] = glmmTMB(abund.all ~    (1 | ForestID), data= Results2,family = "nbinom1") 
+modelTMB[[4]] = glmmTMB(TAlphaEnd ~    (1 | ForestID), data= Results2,family = "poisson") 
+modelTMB[[5]] = glmmTMB(FAlphaAll ~    (1 | ForestID), data= Results2,family = "poisson") 
+modelTMB[[6]] = glmmTMB(FAlphaNat ~    (1 | ForestID), data= Results2,family = "Gamma") 
+modelTMB[[7]] = glmmTMB(FAlphaNInd ~    (1 | ForestID), data= Results2,family = "Gamma") 
+modelTMB[[8]] = glmmTMB(FAlphaEnd ~    (1 | ForestID), data= Results2,family = "Gamma") 
+modelTMB[[9]] = glmmTMB(FAlphaEnd ~ Dist_edge_std +  (1 | ForestID), data= Results2,family = "Gamma") 
+modelTMB[[10]] = glmmTMB(abund.all ~    (1 | ForestID), data= Results2,family = "Gamma") 
+modelTMB[[11]] = glmmTMB(abund.all ~  Dist_trail_beginning_std + (1 | ForestID), data= Results2,family = "nbinom1") 
 modelTMB[[12]] = glmmTMB(abund.all ~   Dist_trail_std +(1 | ForestID), data= Results2,family = "nbinom1") 
-modelTMB[[13]] = glmmTMB(abund.all ~  Dist_trail_beginning_std + (1 | ForestID), data= Results2,family = "nbinom1") 
+modelTMB[[13]] = glmmTMB(abund.all ~ Dist_edge_std +  (1 | ForestID), data= Results2,family = "nbinom1") 
 modelTMB[[14]] = glmmTMB(abund.nat ~    (1 | ForestID), data= Results2,family = "poisson") 
-modelTMB[[15]] = glmmTMB(abund.nind ~    (1 | ForestID), data= Results2,family = "poisson") 
-modelTMB[[16]] = glmmTMB(abund.end ~    (1 | ForestID), data= Results2,family = "poisson") 
+modelTMB[[15]] = glmmTMB(abund.end ~    (1 | ForestID), data= Results2,family = "poisson") 
+modelTMB[[16]] = glmmTMB(abund.nind ~    (1 | ForestID), data= Results2,family = "poisson") 
 modelTMB[[17]] = glmmTMB(prop.Talpha ~    (1 | ForestID), data= Results2,family = "beta_family") 
 modelTMB[[18]] = glmmTMB(prop.Falpha ~    (1 | ForestID), data= Results2,family = "beta_family") 
 modelTMB[[19]] = glmmTMB(prop.abund ~    (1 | ForestID), data= Results2,family = "beta_family") 
 modelTMB[[20]] = glmmTMB(prop.end ~    (1 | ForestID), data= Results2,family = "beta_family") 
 modelTMB[[21]] = glmmTMB(all.tax.btotal ~   Dist_trail_std +(1 | ForestID), data= Results2,family = "beta_family") 
 modelTMB[[22]] = glmmTMB(all.tax.brich ~   Dist_trail_std +(1 | ForestID), data= Results2,family = "beta_family") 
-modelTMB[[23]] = glmmTMB(all.tax.brich ~ Dist_edge_std + Dist_trail_std +(1 | ForestID), data= Results2,family = "beta_family") 
-modelTMB[[24]] = glmmTMB(all.tax.brepl ~   Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
+modelTMB[[23]] = glmmTMB(all.tax.brepl ~   Dist_trail_std +(1 | ForestID), data= Results2,family = "beta_family") 
+modelTMB[[24]] = glmmTMB(all.tax.brepl ~    (1 | ForestID), data= withoutcontrols,family = "beta_family") 
 modelTMB[[25]] = glmmTMB(nat.tax.btotal ~   Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
-modelTMB[[26]] = glmmTMB(nat.tax.brich ~    (1 | ForestID), data= withoutcontrols,family = "beta_family") 
-modelTMB[[27]] = glmmTMB(nat.tax.brepl ~   Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
-modelTMB[[28]] = glmmTMB(nind.tax.btotal ~ Dist_edge_std + Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
-modelTMB[[29]] = glmmTMB(nind.tax.btotal ~   Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
-modelTMB[[30]] = glmmTMB(nind.tax.btotal ~    (1 | ForestID), data= withoutcontrols,family = "beta_family") 
-modelTMB[[31]] = glmmTMB(nind.tax.brich ~    (1 | ForestID), data= withoutcontrols,family = "beta_family") 
-modelTMB[[32]] = glmmTMB(nind.tax.brich ~ Dist_edge_std + Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
-modelTMB[[33]] = glmmTMB(nind.tax.brich ~ Dist_edge_std +Dist_trail_beginning_std +Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
-modelTMB[[34]] = glmmTMB(nind.tax.brich ~   Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
-modelTMB[[35]] = glmmTMB(nind.tax.brepl ~    (1 | ForestID), data= withoutcontrols,family = "beta_family") 
-modelTMB[[36]] = glmmTMB(nind.tax.brepl ~ Dist_edge_std +  (1 | ForestID), data= withoutcontrols,family = "beta_family") 
-modelTMB[[37]] = glmmTMB(end.tax.btotal ~   Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
-modelTMB[[38]] = glmmTMB(end.tax.brich ~   Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
-modelTMB[[39]] = glmmTMB(end.tax.brepl ~    (1 | ForestID), data= withoutcontrols,family = "beta_family") 
-modelTMB[[40]] = glmmTMB(all.func.btotal ~   Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
-modelTMB[[41]] = glmmTMB(all.func.brich ~   Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
-modelTMB[[42]] = glmmTMB(all.func.brich ~    (1 | ForestID), data= withoutcontrols,family = "beta_family") 
-modelTMB[[43]] = glmmTMB(all.func.brepl ~   Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
-modelTMB[[44]] = glmmTMB(nat.func.btotal ~   Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
+modelTMB[[26]] = glmmTMB(nat.tax.btotal ~ Dist_edge_std + Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
+modelTMB[[27]] = glmmTMB(nat.tax.brich ~    (1 | ForestID), data= withoutcontrols,family = "beta_family") 
+modelTMB[[28]] = glmmTMB(nat.tax.brepl ~   Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
+modelTMB[[29]] = glmmTMB(nat.tax.brepl ~    (1 | ForestID), data= withoutcontrols,family = "beta_family") 
+modelTMB[[30]] = glmmTMB(nat.tax.brepl ~ Dist_edge_std + Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
+modelTMB[[31]] = glmmTMB(nind.tax.btotal ~    (1 | ForestID), data= withoutcontrols,family = "beta_family") 
+modelTMB[[32]] = glmmTMB(nind.tax.btotal ~   Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
+modelTMB[[33]] = glmmTMB(nind.tax.brich ~ Dist_edge_std + Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
+modelTMB[[34]] = glmmTMB(nind.tax.brepl ~    (1 | ForestID), data= withoutcontrols,family = "beta_family") 
+modelTMB[[35]] = glmmTMB(end.tax.btotal ~   Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
+modelTMB[[36]] = glmmTMB(end.tax.brich ~   Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
+modelTMB[[37]] = glmmTMB(end.tax.brepl ~    (1 | ForestID), data= withoutcontrols,family = "beta_family") 
+modelTMB[[38]] = glmmTMB(all.func.btotal ~   Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
+modelTMB[[39]] = glmmTMB(all.func.btotal ~ Dist_edge_std + Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
+modelTMB[[40]] = glmmTMB(all.func.brich ~   Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
+modelTMB[[41]] = glmmTMB(all.func.brich ~ Dist_edge_std + Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
+modelTMB[[42]] = glmmTMB(all.func.brepl ~   Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
+modelTMB[[43]] = glmmTMB(nat.func.btotal ~   Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
+modelTMB[[44]] = glmmTMB(nat.func.btotal ~ Dist_edge_std + Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
 modelTMB[[45]] = glmmTMB(nat.func.brich ~   Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
 modelTMB[[46]] = glmmTMB(nat.func.brich ~    (1 | ForestID), data= withoutcontrols,family = "beta_family") 
-modelTMB[[47]] = glmmTMB(nat.func.brich ~  Dist_trail_beginning_std + (1 | ForestID), data= withoutcontrols,family = "beta_family") 
+modelTMB[[47]] = glmmTMB(nat.func.brich ~ Dist_edge_std + Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
 modelTMB[[48]] = glmmTMB(nat.func.brepl ~   Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
-modelTMB[[49]] = glmmTMB(nind.func.btotal ~   Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
+modelTMB[[49]] = glmmTMB(nind.func.btotal ~    (1 | ForestID), data= withoutcontrols,family = "beta_family") 
 modelTMB[[50]] = glmmTMB(nind.func.btotal ~ Dist_edge_std + Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
-modelTMB[[51]] = glmmTMB(nind.func.btotal ~    (1 | ForestID), data= withoutcontrols,family = "beta_family") 
+modelTMB[[51]] = glmmTMB(nind.func.btotal ~   Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
 modelTMB[[52]] = glmmTMB(nind.func.brich ~ Dist_edge_std + Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
-modelTMB[[53]] = glmmTMB(nind.func.brich ~   Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
-modelTMB[[54]] = glmmTMB(nind.func.brich ~    (1 | ForestID), data= withoutcontrols,family = "beta_family") 
-modelTMB[[55]] = glmmTMB(nind.func.brepl ~    (1 | ForestID), data= withoutcontrols,family = "beta_family") 
-modelTMB[[56]] = glmmTMB(nind.func.brepl ~ Dist_edge_std +  (1 | ForestID), data= withoutcontrols,family = "beta_family") 
-modelTMB[[57]] = glmmTMB(end.func.btotal ~   Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
-modelTMB[[58]] = glmmTMB(end.func.brich ~   Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
-modelTMB[[59]] = glmmTMB(end.func.brich ~  Dist_trail_beginning_std + (1 | ForestID), data= withoutcontrols,family = "beta_family") 
-modelTMB[[60]] = glmmTMB(end.func.brich ~    (1 | ForestID), data= withoutcontrols,family = "beta_family") 
-modelTMB[[61]] = glmmTMB(end.func.brepl ~   Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
+modelTMB[[53]] = glmmTMB(nind.func.brich ~    (1 | ForestID), data= withoutcontrols,family = "beta_family") 
+modelTMB[[54]] = glmmTMB(nind.func.brepl ~    (1 | ForestID), data= withoutcontrols,family = "beta_family") 
+modelTMB[[55]] = glmmTMB(end.func.btotal ~   Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
+modelTMB[[56]] = glmmTMB(end.func.btotal ~ Dist_edge_std + Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
+modelTMB[[57]] = glmmTMB(end.func.brich ~   Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
+modelTMB[[58]] = glmmTMB(end.func.brich ~    (1 | ForestID), data= withoutcontrols,family = "beta_family") 
+modelTMB[[59]] = glmmTMB(end.func.brepl ~   Dist_trail_std +(1 | ForestID), data= withoutcontrols,family = "beta_family") 
 
 
-aaa <- version1(modelTMB[[61]])
-aaa
-tabler2s = matrix(NA, nrow = 61, ncol = 2)
+aic.min2 <- read.csv2(here("data", "aic.min2.csv"))
+aic.min2 <- aic.min2[,1]
+tabler2s = matrix(NA, nrow = 59, ncol = 2)
 str(tabler2s)
-row.names(tabler2) = aic.min2[1]
+row.names(tabler2s) = aic.min2
 str(aic.min2)
-for(i in 1:nrow(tabler2)){
+for(i in 1:nrow(tabler2s)){
   tabler2s[i,1] = version1(modelTMB[[i]])
   tabler2s[i,2] = version2(modelTMB[[i]])
 }
 
 str(tabler2s)
 str(aic.min2)
-
+str(AICmodels)
 appendixtable <- cbind(AICmodels, tabler2s)
 write.csv(appendixtable, file = here("results","appendixtable.csv"), row.names = TRUE)
 

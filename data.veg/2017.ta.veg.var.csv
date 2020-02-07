@@ -1,0 +1,15 @@
+Trail,ForestID,Dist_trail,Dist_edge,Dist_trail_beginning,Dist_trail_std,Dist_edge_std,Dist_trail_beginning_std
+2017.guil.moniz.0,Guilherme_moniz,0,0,0,0,0,0
+2017.serreta.0,Lagoinha,0,0,50,0,0,0.09482271
+2017.serreta.50,Lagoinha,0,0,250,0,0,0.47411353
+2017.serreta.250,Lagoinha,0,0,250,0,0,0.47411353
+2017.serreta.Control 50,Lagoinha,50,293,250,0.31227898,0.96318857,0.47411353
+2017.mist.negros.0,Mistérios_Negros,0,0,0,0,0,0
+2017.mist.negros.50,Mistérios_Negros,0,-25,50,0,-0.084198633,0.177656529
+2017.mist.negros.250,Mistérios_Negros,0,0,200,0,0,0.37929082
+2017.mist.negros.max,Mistérios_Negros,0,25,960,0,0.08218333,1.82059594
+2017.mist.negros.control50,Mistérios_Negros,50,50,200,0.31227898,0.16436665,0.37929082
+2017.malhadas.0,Pico_Vara,0,0,0,0,0,0
+2017.malhadas.50,Pico_Vara,0,0,50,0,0,0.09482271
+2017.malhadas.250,Pico_Vara,0,0,250,0,0,0.47411353
+Malhadas_Max,Pico_Vara,0,0,400,0,0,0.75858164

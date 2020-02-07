@@ -50,7 +50,28 @@ class(basicInfo)
       class(colnames(data) )
             class(newSp)
  
-
+            #### test with the real database
+            
+            real.data <- read.csv2(here("data","veg2.csv"), header=TRUE,  stringsAsFactors = T, dec = ".")
+            str(real.data)
+            veg.table.real <- data.frame() 
+          
+            for(i in 1:nrow(real.data)){            #
+              basicInfo2 = real.data[i, 1:71]
+              for(j in seq(72, 870, 2)){
+                newSp.real = real.data[i, c(j, j+1)]
+                if(!any(is.na(newSp.real))){
+                  abcd <- data.frame(basicInfo2, colnames(real.data)[j], newSp.real)
+                  colnames(abcd)[72:74] = " lala"
+                  veg.table.real = rbind(veg.table.real,abcd)
+                }
+              }
+            }
+            veg.table.real
+            
+            write.csv(veg.table.real, file = here("results","veg.table.real.csv"), row.names = TRUE)
+            
+        
  
  
 #### original script backup

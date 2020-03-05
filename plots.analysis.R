@@ -34,7 +34,12 @@ library(sjPlot)
 
 # Load files -----------
 
-#Ficheiro com as variável de distâncias com edge, trilhos e etc - para o GLMM
+plot.all <- read.csv2(here("data.veg","plots.alpha.csv"), row.names=1, header=TRUE,  stringsAsFactors = T, dec = ".", sep = ",")
+plot.inv <- read.csv2(here("data.veg","plots.alphainv.csv"), row.names=1, header=TRUE,  stringsAsFactors = T, dec = ".", sep = ",")
+
+
+
+
 
 plot1vars <- read.csv2(here("data.veg","plot1vars.csv"), row.names=1, header=TRUE,  stringsAsFactors = T, dec = ".", sep = ",")
 str(plot1vars)
@@ -46,7 +51,25 @@ plot1vars$Dist_trail_std <- scale(plot1vars$Dist_trail, center = F)
 plot1vars$Dist_edge_std <- scale(plot1vars$Dist_edge, center = F)
 plot1vars$Dist_trail_beginning_std <- scale(plot1vars$Dist_trail_beginning, center = F)
 
-plot1vars
+plot2vars <- read.csv2(here("data.veg","plot2vars.csv"), row.names=1, header=TRUE,  stringsAsFactors = T, dec = ".", sep = ",")
+plot2vars$Dist_trail <- as.numeric(plot2vars$Dist_trail)
+plot2vars$Dist_edge <- as.numeric(plot2vars$Dist_edge)
+plot2vars$Dist_trail_beginning <- as.numeric(plot2vars$Dist_trail_beginning)
+
+plot2vars$Dist_trail_std <- scale(plot2vars$Dist_trail, center = F)
+plot2vars$Dist_edge_std <- scale(plot2vars$Dist_edge, center = F)
+plot2vars$Dist_trail_beginning_std <- scale(plot2vars$Dist_trail_beginning, center = F)
+
+plot3vars <- read.csv2(here("data.veg","plot3vars.csv"), row.names=1, header=TRUE,  stringsAsFactors = T, dec = ".", sep = ",")
+str(plot3vars)
+plot3vars$Dist_trail <- as.numeric(plot3vars$Dist_trail)
+plot3vars$Dist_edge <- as.numeric(plot3vars$Dist_edge)
+plot3vars$Dist_trail_beginning <- as.numeric(plot3vars$Dist_trail_beginning)
+
+plot3vars$Dist_trail_std <- scale(plot3vars$Dist_trail, center = F)
+plot3vars$Dist_edge_std <- scale(plot3vars$Dist_edge, center = F)
+plot3vars$Dist_trail_beginning_std <- scale(plot3vars$Dist_trail_beginning, center = F)
+
 
 
 #---- Ficheiro com as abundâncias por area de amostragem, para todas as amostras
@@ -77,6 +100,19 @@ str(plot3.inv)
 
 
 #Taxonomical Alpha
+
+
+
+Alpha.all.2017 <- alpha(plot.all[1:39,])
+Alpha.all.2019 <- alpha(plot.all[40:65,])
+Alpha.inv.2017 <- alpha(plot.inv[1:39,])
+Alpha.inv.2019 <- alpha(plot.inv[40:65,])
+
+Alphas.plots  <- cbind (Alpha.all.2017, Alpha.all.2019, Alpha.inv.2017, Alpha.inv.2019, fill=NA)
+write.csv(Alphas.plots, file = here("results","Alphas.plots.csv"), row.names = TRUE)
+
+
+
 alpha.plot1.all <- alpha(plot1.all)
 colnames(alpha.plot1.all) = "alpha.plot1.all" 
 alpha.plot2.all <- alpha(plot2.all)
@@ -94,7 +130,12 @@ colnames(alpha.plot3.inv) = "alpha.plot3.inv"
 alphas.plot1 <- cbind(alpha.plot1.all,  alpha.plot1.inv )
 alphas.plot2 <- cbind( alpha.plot2.all,  alpha.plot2.inv)
 alphas.plot3 <- cbind(alpha.plot3.all, alpha.plot3.inv )
-###### Taxonomical Beta
+
+
+
+
+
+###### Taxonomical Beta ----
 
 beta.plot1.all <- beta(plot1.all, abund=TRUE)
 beta.plot2.all <- beta(plot2.all, abund=TRUE)
@@ -315,10 +356,28 @@ AA1c <- betarepl.plot3.inv[16,16]
 BB1c <- betarepl.plot3.inv[20,c(17:20)]
 CC1c <- betarepl.plot3.inv[25,c(21:25)]
 plot3.inv.brepl <- c(AA1v, BB1v,  CC1, DD1v, AA1c, BB1c, CC1c)
+
+
+## BETA TEMPORAL ############
+
+guilmon <- betatotal.plot1.all[1,16]
+ser0 <- betatotal.plot1.all[2,17]
+ser50 <- betatotal.plot1.all[3,18]
+ser250 <- betatotal.plot1.all[4,19]
+sercon <- betatotal.plot1.all[5,20]
+mn0 <- betatotal.plot1.all[6,21]
+mn50 <- betatotal.plot1.all[7,22]
+mn250 <- betatotal.plot1.all[8,23]
+mnmax <- betatotal.plot1.all[9,24]
+mncon <- betatotal.plot1.all[10,25]
+
+beta.temp <- rbind (guilmon, ser0, ser50, ser250, sercon, mn0, mn50, mn250, mnmax, mncon )
+rownames(beta.temp) = rbind ("guilmon", "ser0", "ser50", "ser250", "sercon", "mn0", "mn50", "mn250", "mnmax", "mncon" )
+
 #
 #### COMPILING ALL BETA INFORMATION INTO A TABLE, AND EXPORTING IT TO A FILE ----
 
-betas.plot1 <- as.data.frame(t(rbind(plot1.all.btotal, plot1.all.brich, plot1.all.brepl,plot1.inv.btotal, plot1.inv.brich, plot1.inv.brepl,plot2.inv.btotal)))
+betas.plot1 <- as.data.frame(t(rbind(plot1.all.btotal, plot1.all.brich, plot1.all.brepl,plot1.inv.btotal, plot1.inv.brich, plot1.inv.brepl)))
 rownames(betas.plot1) = sites.veg
 betas.plot2 <- as.data.frame(t(rbind(plot2.all.btotal, plot2.all.brich, plot2.all.brepl,plot2.inv.btotal, plot2.inv.brich, plot2.inv.brepl )))
 rownames(betas.plot2) = sites.veg
@@ -337,44 +396,55 @@ str(sites.veg)
 #                               RESULTS                                ####
 ###########################################################################
 
-Results.plot1 <- cbind.data.frame(plot1vars, Alphas, betas.plot1)
+Results.plot1 <- cbind.data.frame(plot1vars, alphas.plot1 , betas.plot1)
 
-Results.plot2 <- cbind.data.frame(plot2vars, Alphas, betas.plot2)
+Results.plot2 <- cbind.data.frame(plot2vars, alphas.plot2, betas.plot2)
 
-Results.plot3 <- cbind.data.frame(plot3vars, Alphas, betas.plot3)
+Results.plot3 <- cbind.data.frame(plot3vars, alphas.plot3, betas.plot3)
 
 
 
 
 #MAKING THE RESULTS EXPORTABLE INTO CSV
 Results.plot1 <- apply(Results.plot1, 2 , as.character, header=TRUE)
+Results.plot2 <- apply(Results.plot2, 2 , as.character, header=TRUE)
+Results.plot3 <- apply(Results.plot3, 2 , as.character, header=TRUE)
 
 #NAMING THE TRAIL SEGMENTS
 rownames(Results.plot1) <- rownames(betas.veg)
-Results.veg <- Results.veg[-1,]
-
+rownames(Results.plot2) <- rownames(betas.veg)
+rownames(Results.plot3) <- rownames(betas.veg)
 #PASSING RESULTS TO FILE
 write.csv(Results.plot1, file = here("results","RESULTS.PLOT1.csv"), row.names = TRUE)
+write.csv(Results.plot2, file = here("results","RESULTS.PLOT2.csv"), row.names = TRUE)
+write.csv(Results.plot3, file = here("results","RESULTS.PLOT3.csv"), row.names = TRUE)
 
-Results.veg.import <- read.csv2(here("results","RESULTS.VEG.CSV"), header=TRUE, row.names = 1,  stringsAsFactors = T,sep = ",", dec = ".")
-Results.veg.import
+
+
+Results.plot1.import <- read.csv2(here("results","RESULTS.PLOT1.CSV"), header=TRUE, row.names = 1,  stringsAsFactors = T,sep = ",", dec = ".")
+Results.plot2.import <- read.csv2(here("results","RESULTS.PLOT2.CSV"), header=TRUE, row.names = 1,  stringsAsFactors = T,sep = ",", dec = ".")
+Results.plot3.import <- read.csv2(here("results","RESULTS.PLOT3.CSV"), header=TRUE, row.names = 1,  stringsAsFactors = T,sep = ",", dec = ".")
+
 
 ###########################################################################
-#                           Generating models                          ####
+#                           Generating models                           ###
 ###########################################################################
 
-fam.veg <- c(NA, NA, NA, NA,NA, NA,NA, "poisson","beta_family","beta_family", "beta_family", "beta_family","beta_family", "beta_family")
+fam.veg <- c(NA, NA, NA, NA,NA, NA,NA, "poisson", "poisson","beta_family","beta_family", "beta_family", "beta_family","beta_family", "beta_family")
 
-## Alpha, abundances and proportions
+## GENERATING MODELS FOR PLOT 1
 
-dredge.alpha <- dredge(glmmTMB(Alpha_ll ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data=Results.veg.import , family = "poisson"))
-dredge.alpha <- data.frame(dredge.alpha)
-write.csv(dredge.alpha, file = here("results","test.alpha.VEG.csv"), row.names = TRUE)
+# Alpha
 
+dredge.alpha.plot1 <- dredge(glmmTMB(alpha.plot1.all ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= Results.plot1.import , family = "poisson"))
+dredge.alpha.plot2 <- dredge(glmmTMB(alpha.plot2.all ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= Results.plot2.import , family = "poisson"))
+dredge.alpha.plot3 <- dredge(glmmTMB(alpha.plot3.all ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= Results.plot3.import , family = "poisson"))
+dredge.alpha.plot1.inv <- dredge(glmmTMB(alpha.plot1.inv ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= Results.plot1.import , family = "poisson"))
+dredge.alpha.plot2.inv <- dredge(glmmTMB(alpha.plot2.inv ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= Results.plot2.import , family = "poisson"))
+dredge.alpha.plot3.inv <- dredge(glmmTMB(alpha.plot3.inv ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= Results.plot3.import , family = "poisson"))
 
-dredge.alpha.inv <- dredge(glmmTMB(Alpha_inv ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data=Results.veg.import , family = "poisson"))
-dredge.alpha.inv <- data.frame(dredge.alpha.inv)
-write.csv(dredge.alpha.inv, file = here("results","test.alpha.inv.csv"), row.names = TRUE)
+#dredge.alpha.inv <- data.frame(dredge.alpha.inv)
+#write.csv(dredge.alpha.inv, file = here("results","test.alpha.inv.csv"), row.names = TRUE)
 
 ## Betas
 withoutcontrols.veg <- Results.veg.import[-c(1,4,19,13),]

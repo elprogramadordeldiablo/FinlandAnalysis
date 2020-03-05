@@ -1,26 +1,66 @@
-,ForestID,Dist_trail,Dist_edge,Dist_trail_beginning,Dist_trail_std,Dist_edge_std,Dist_trail_beginning_std
-2017.guil.moniz.0,Guilherme_moniz,0,0,0,0,0,0
-2017.serreta.0,Lagoinha,0,0,0,0,0,0.09482271
-2017.serreta.50,Lagoinha,0,50,50,0,0,0.47411353
-2017.serreta.250,Lagoinha,0,250,250,0,0,0.47411353
-2017.serreta.control50,Lagoinha,70,293,300,0.31227898,0.96318857,0.47411353
-2017.mist.negros.0,Mistérios_Negros,0,0,0,0,0,0
-2017.mist.negros.50,Mistérios_Negros,0,-25,50,0,-0.084198633,0.177656529
-2017.mist.negros.250,Mistérios_Negros,0,0,250,0,0,0.37929082
-2017.mist.negros.max,Mistérios_Negros,0,25,960,0,0.08218333,1.82059594
-2017.mist.negros.control50,Mistérios_Negros,70,70,200,0.31227898,0.16436665,0.37929082
-2017.malhadas.0,Pico_Vara,0,0,0,0,0,0
-2017.malhadas.50,Pico_Vara,0,14,50,0,0,0.09482271
-2017.malhadas.250,Pico_Vara,0,0,250,0,0,0.47411353
-2017.malhadas.max,Pico_Vara,0,80,400,0,0,0.75858164
-2017.malhadas.control50,Pico_Vara,70,124,50,,,
-2019.guil.moniz.0,Guilherme_moniz,0,0,0,,,
-2019.serreta.0,Lagoinha,0,0,0,,,
-2019.serreta.50,Lagoinha,0,50,50,,,
-2019.serreta.250,Lagoinha,0,200,250,,,
-2019.serreta.control 50,Lagoinha,70,293,300,,,
-2019.mist.negros.0,Mistérios_Negros,0,0,0,,,
-2019.mist.negros.50,Mistérios_Negros,0,-25,50,,,
-2019.mist.negros.250,Mistérios_Negros,0,0,250,,,
-2019.mist.negros.max,Mistérios_Negros,0,25,960,,,
-2019.mist.negros.control50,Mistérios_Negros,70,70,200,,,
+Row Labels,ForestID,Dist_trail,Dist_edge,Dist_trail_beginning
+2017.guil.moniz.0.1,Guilherme_moniz,0,0,0
+2017.guil.moniz.0.2,Guilherme_moniz,2,2,0
+2017.guil.moniz.0.3,Guilherme_moniz,12,12,0
+2017.serreta .0.1,Lagoinha,0,0,0
+2017.serreta .0.2,Lagoinha,2,2,0
+2017.serreta .0.3,Lagoinha,12,12,0
+2017.serreta .50.1,Lagoinha,0,50,50
+2017.serreta .50.2,Lagoinha,2,50,50
+2017.serreta .50.3,Lagoinha,12,50,50
+2017.serreta .250.1,Lagoinha,0,250,250
+2017.serreta .250.2,Lagoinha,2,250,250
+2017.serreta .250.3,Lagoinha,12,250,250
+2017.serreta .Control 50.2,Lagoinha,70,293,300
+2017.mist.negros.0.1,Mistérios_Negros,0,0,0
+2017.mist.negros.0.2,Mistérios_Negros,2,2,0
+2017.mist.negros.0.3,Mistérios_Negros,12,12,0
+2017.mist.negros.50.1,Mistérios_Negros,0,-25,50
+2017.mist.negros.50.2,Mistérios_Negros,2,-25,50
+2017.mist.negros.50.3,Mistérios_Negros,12,-25,50
+2017.mist.negros.250.1,Mistérios_Negros,0,0,250
+2017.mist.negros.250.2,Mistérios_Negros,2,2,250
+2017.mist.negros.250.3,Mistérios_Negros,12,12,250
+2017.mist.negros.max.1,Mistérios_Negros,0,25,960
+2017.mist.negros.max.2,Mistérios_Negros,2,25,960
+2017.mist.negros.max.3,Mistérios_Negros,12,25,960
+2017.mist.negros.control50.2,Mistérios_Negros,70,70,200
+2017.malhadas.0.1,Pico_Vara,0,0,0
+2017.malhadas.0.2,Pico_Vara,2,2,0
+2017.malhadas.0.3,Pico_Vara,12,12,0
+2017.malhadas.50.1.,Pico_Vara,0,14,50
+2017.malhadas.50.2,Pico_Vara,2,12,50
+2017.malhadas.50.3,Pico_Vara,12,2,50
+2017.malhadas.250.1,Pico_Vara,0,0,250
+2017.malhadas.250.2,Pico_Vara,2,2,250
+2017.malhadas.250.3,Pico_Vara,12,12,250
+2017.malhadas.max.1,Pico_Vara,0,80,400
+2017.malhadas.max.2,Pico_Vara,2,78,400
+2017.malhadas.max.3,Pico_Vara,12,68,400
+2017.malhadas.control50.2,Pico_Vara,70,124,50
+2019.guil.moniz.0.1,Guilherme_moniz,0,0,0
+2019.guil.moniz.0.2,Guilherme_moniz,2,0,0
+2019.guil.moniz.0.3,Guilherme_moniz,12,0,0
+2019.serreta .0.1,Lagoinha,0,0,0
+2019.serreta .0.2,Lagoinha,2,2,0
+2019.serreta .0.3,Lagoinha,12,12,0
+2019.serreta .50.1,Lagoinha,0,0,0
+2019.serreta .50.2,Lagoinha,2,2,0
+2019.serreta .50.3,Lagoinha,12,12,0
+2019.serreta .250.1,Lagoinha,0,50,50
+2019.serreta .250.2,Lagoinha,2,50,50
+2019.serreta .250.3,Lagoinha,12,50,50
+2019.serreta .Control 50.2,Lagoinha,0,250,250
+2019.mist.negros.0.1,Mistérios_Negros,2,250,250
+2019.mist.negros.0.2,Mistérios_Negros,12,250,250
+2019.mist.negros.0.3,Mistérios_Negros,70,293,300
+2019.mist.negros.50.1,Mistérios_Negros,0,-25,50
+2019.mist.negros.50.2,Mistérios_Negros,2,-25,50
+2019.mist.negros.50.3,Mistérios_Negros,12,-25,50
+2019.mist.negros.250.1,Mistérios_Negros,0,0,250
+2019.mist.negros.250.2,Mistérios_Negros,2,2,250
+2019.mist.negros.250.3,Mistérios_Negros,12,12,250
+2019.mist.negros.max.1,Mistérios_Negros,0,25,960
+2019.mist.negros.max.2,Mistérios_Negros,2,25,960
+2019.mist.negros.max.3,Mistérios_Negros,12,25,960
+2019.mist.negros.control50.2,Mistérios_Negros,70,70,200

@@ -473,22 +473,34 @@ alpha.all1 <- glmer(alpha.all ~ Dist_edge_std + Dist_trail_std + Dist_trail_begi
 summary (alpha.all1)
 version3(alpha.all1)
 performance::r2(alpha.all1)
-alpha.inv <- dredge(glmmTMB(alpha.inv ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test1veg , family = "poisson"))
+
+alpha.inv<- (glmmTMB(alpha.inv ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test1veg , family = "poisson"))
+alpha.inv
+alpha.inv1<- glmmTMB(alpha.inv ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test1veg , family = "poisson")
+summary(alpha.inv1)
+performance::r2(alpha.inv1)
+
 
 percent.alfa <- dredge(glmmTMB(percent.alfa ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test1veg , family = "beta_family"))
+
 abund.all <- dredge(glmmTMB(abund.all ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test1veg , family = "poisson"))
+abund.all
 
 abund.all1 <- glmmTMB(abund.all ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test1veg , family = "poisson")
 summary(abund.all1 )
 performance::r2(alpha.all1)
 
-abund.all2 <- glmmTMB(abund.all ~ Dist_trail_std  + (1 | ForestID), data= test1veg , family = "poisson")
-summary(abund.all2 )
-performance::r2(alpha.all2)
-
-
+abund.all3 <- glmmTMB(abund.all ~  Dist_trail_std + (1 | ForestID), data= test1veg , family = "poisson")
+summary(abund.all3 )
+performance::r2(alpha.all3)
 
 abund.inv <- dredge(glmmTMB(abund.inv ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test1veg , family = "poisson"))
+abund.inv
+abund.inv1 <- glmmTMB(abund.inv ~ Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test1veg , family = "poisson")
+summary(abund.inv1)
+performance::r2(abund.inv1)
+
+
 percent.abund <- dredge(glmmTMB(percent.abund ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test1veg , family = "beta_family"))
 
 #R2

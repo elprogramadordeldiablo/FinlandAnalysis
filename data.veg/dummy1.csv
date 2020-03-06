@@ -1,0 +1,13 @@
+,ID,dist_begin,dist_trail,resp
+contr1.1,A,0,0,1
+contr1.2,A,1,0,1
+contr1.3,A,2,0,1
+contr1.4,A,3,0,1
+contr1.5,A,2,2,1
+contr1.6,A,3,2,1
+contr2.1,B,0,0,2
+contr2.2,B,1,0,2
+contr2.3,B,2,0,3
+contr2.4,B,3,0,2
+contr2.5,B,2,2,2
+contr2.6,B,3,2,2

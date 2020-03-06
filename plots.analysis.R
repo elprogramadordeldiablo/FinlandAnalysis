@@ -30,16 +30,10 @@ library(DHARMa)
 library(rlang)
 library(sjPlot)
 
-
-
 # Load files -----------
 
 plot.all <- read.csv2(here("data.veg","plots.alpha.csv"), row.names=1, header=TRUE,  stringsAsFactors = T, dec = ".", sep = ",")
 plot.inv <- read.csv2(here("data.veg","plots.alphainv.csv"), row.names=1, header=TRUE,  stringsAsFactors = T, dec = ".", sep = ",")
-
-
-
-
 
 plot1vars <- read.csv2(here("data.veg","plot1vars.csv"), row.names=1, header=TRUE,  stringsAsFactors = T, dec = ".", sep = ",")
 str(plot1vars)
@@ -50,6 +44,8 @@ plot1vars$Dist_trail_beginning <- as.numeric(plot1vars$Dist_trail_beginning)
 plot1vars$Dist_trail_std <- scale(plot1vars$Dist_trail, center = F)
 plot1vars$Dist_edge_std <- scale(plot1vars$Dist_edge, center = F)
 plot1vars$Dist_trail_beginning_std <- scale(plot1vars$Dist_trail_beginning, center = F)
+
+write.csv(plot1vars, file = here("data.veg","plot.vars.csv"), row.names = TRUE)
 
 plot2vars <- read.csv2(here("data.veg","plot2vars.csv"), row.names=1, header=TRUE,  stringsAsFactors = T, dec = ".", sep = ",")
 plot2vars$Dist_trail <- as.numeric(plot2vars$Dist_trail)
@@ -103,7 +99,7 @@ str(plot3.inv)
 
 
 
-Alpha.all.2017 <- alpha(plot.all[1:39,])
+Alpha.all.2017 <- alpha(plot.all, abund=TRUE)
 Alpha.all.2019 <- alpha(plot.all[40:65,])
 Alpha.inv.2017 <- alpha(plot.inv[1:39,])
 Alpha.inv.2019 <- alpha(plot.inv[40:65,])
@@ -429,6 +425,97 @@ Results.plot3.import <- read.csv2(here("results","RESULTS.PLOT3.CSV"), header=TR
 ###########################################################################
 #                           Generating models                           ###
 ###########################################################################
+
+## Fake database
+
+dummy1 <- read.csv2(here("data.veg","dummy3.csv"), header=TRUE, row.names = 1,  stringsAsFactors = T,sep = ",", dec = ".")
+
+alpha.all <- dredge(glmmTMB(resp ~ dist_begin + dist_trail + (1 | ID), data= dummy1 , family = "poisson"))
+alpha.all
+alpha.all1 <- glmmTMB(resp ~ dist_begin + dist_trail + (1 | ID), data= dummy1 , family = "poisson")
+summary(alpha.all1)
+performance::r2(alpha.all1)
+version2(alpha.all1)
+
+
+alpha.all2 <- glm(resp ~ dist_begin , data= dummy1 , family = "poisson")
+summary(alpha.all2)
+version3(alpha.all2)
+performance::r2(alpha.all2)
+
+alpha.all3 <- glmmTMB(resp ~  dist_trail + (1 | ID), data= dummy , family = "poisson")
+summary(alpha.all3)
+performance::r2(alpha.all3)
+version3(alpha.all3)
+
+alpha.all4 <- glmmTMB(resp ~  dist_begin + (1 | ID), data= dummy , family = "poisson")
+summary(alpha.all4)
+performance::r2(alpha.all4)
+version3(alpha.all4)
+
+
+
+
+
+
+## Uploading results for vegetation
+
+test1veg <- read.csv2(here("data.veg","test1veg.CSV"), header=TRUE, row.names = 1,  stringsAsFactors = T,sep = ",", dec = ".")
+test1veg$percent.alfa[test1veg$percent.alfa == 0] <- 0.001
+test1veg$percent.alfa[test1veg$percent.alfa == 1] <- 0.999
+test1veg$percent.abund[test1veg$percent.abund == 0] <- 0.001
+test1veg$percent.abund[test1veg$percent.abund == 1] <- 0.999
+
+
+alpha.all <- dredge(glmmTMB(alpha.all ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test1veg , family = "poisson"))
+alpha.all
+alpha.all1 <- glmer(alpha.all ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std  + (1 | ForestID), data= test1veg , family = "poisson")
+summary (alpha.all1)
+version3(alpha.all1)
+performance::r2(alpha.all1)
+alpha.inv <- dredge(glmmTMB(alpha.inv ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test1veg , family = "poisson"))
+
+percent.alfa <- dredge(glmmTMB(percent.alfa ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test1veg , family = "beta_family"))
+abund.all <- dredge(glmmTMB(abund.all ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test1veg , family = "poisson"))
+
+abund.all1 <- glmmTMB(abund.all ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test1veg , family = "poisson")
+summary(abund.all1 )
+performance::r2(alpha.all1)
+
+abund.all2 <- glmmTMB(abund.all ~ Dist_trail_std  + (1 | ForestID), data= test1veg , family = "poisson")
+summary(abund.all2 )
+performance::r2(alpha.all2)
+
+
+
+abund.inv <- dredge(glmmTMB(abund.inv ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test1veg , family = "poisson"))
+percent.abund <- dredge(glmmTMB(percent.abund ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test1veg , family = "beta_family"))
+
+#R2
+Ralpha.all <- performance::r2(glmmTMB(alpha.all ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test1veg , family = "poisson"))
+Ralpha.inv <- version2(glmmTMB(alpha.inv ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test1veg , family = "poisson"))
+#Rpercent.alfa <- version2(glmmTMB(percent.alfa ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test1veg , family = "beta_family"))
+Rabund.all <- version2(glmmTMB(abund.all ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test1veg , family = "poisson"))
+Rabund.inv <- version2(glmmTMB(abund.inv ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test1veg , family = "poisson"))
+#Rpercent.abund <- version2(glmmTMB(percent.abund ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test1veg , family = "beta_family"))
+
+
+test2veg <- read.csv2(here("data.veg","test2veg.CSV"), header=TRUE, row.names = 1,  stringsAsFactors = T,sep = ",", dec = ".")
+
+test2veg$delta.percent.alpha[test2veg$delta.percent.alpha == 0] <- 0.001
+test2veg$delta.percent.alpha[test2veg$delta.percent.alpha == 1] <- 0.999
+test2veg$delta.percent.abund[test2veg$delta.percent.abund == 0] <- 0.001
+test2veg$delta.percent.abund[test2veg$delta.percent.abund == 1] <- 0.999
+
+delta.alpha <- dredge(glmmTMB(delta.alpha ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test2veg , family = "gaussian"))
+delta.abund <- dredge(glmmTMB(delta.abund ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test2veg , family = "gaussian"))
+delta.percent.alpha <- dredge(glmmTMB(delta.percent.alpha ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test2veg , family = "gaussian"))
+delta.percent.abund <- dredge(glmmTMB(delta.percent.abund ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test2veg , family = "gaussian"))
+
+#Rdelta.alpha <- version2(glmmTMB(delta.alpha ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test2veg , family = "gaussian"))
+#Rdelta.abund <- version2(glmmTMB(delta.abund ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test2veg , family = "gaussian"))
+Rdelta.percent.alpha <- version2(glmmTMB(delta.percent.alpha ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test2veg , family = "gaussian"))
+#Rdelta.percent.abund <- version2(glmmTMB(delta.percent.abund ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test2veg , family = "gaussian"))
 
 fam.veg <- c(NA, NA, NA, NA,NA, NA,NA, "poisson", "poisson","beta_family","beta_family", "beta_family", "beta_family","beta_family", "beta_family")
 

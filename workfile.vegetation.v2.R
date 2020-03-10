@@ -402,3 +402,4 @@ r2 <- function(model){
   # print(" ")
   # print(version3(model))
 } 
+

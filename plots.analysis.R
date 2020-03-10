@@ -483,6 +483,24 @@ performance::r2(alpha.inv1)
 
 percent.alfa <- dredge(glmmTMB(percent.alfa ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test1veg , family = "beta_family"))
 
+
+percent.alfa1 <- glmmTMB(percent.alfa ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test1veg , family = "beta_family")
+summary(percent.alfa1)
+performance::r2(percent.alfa1)
+
+percent.alfa2 <- glmmTMB(percent.alfa ~ Dist_trail_beginning_std + (1 | ForestID), data= test1veg , family = "beta_family")
+summary(percent.alfa2)
+performance::r2_nakagawa(percent.alfa2)
+performance::r2(percent.alfa2)
+
+percent.alfa3 <- glmmTMB(percent.alfa ~ Dist_edge_std  + (1 | ForestID), data= test1veg , family = "beta_family")
+summary(percent.alfa3)
+performance::r2_nakagawa(percent.alfa3)
+performance::r2(percent.alfa3)
+
+
+
+
 abund.all <- dredge(glmmTMB(abund.all ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test1veg , family = "poisson"))
 abund.all
 
@@ -494,19 +512,39 @@ abund.all3 <- glmmTMB(abund.all ~  Dist_trail_std + (1 | ForestID), data= test1v
 summary(abund.all3 )
 performance::r2(alpha.all3)
 
+
+
 abund.inv <- dredge(glmmTMB(abund.inv ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test1veg , family = "poisson"))
 abund.inv
-abund.inv1 <- glmmTMB(abund.inv ~ Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test1veg , family = "poisson")
+
+abund.inv1 <- glmmTMB(abund.inv ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test1veg , family = "poisson")
 summary(abund.inv1)
 performance::r2(abund.inv1)
 
+abund.inv2 <- glmmTMB(abund.inv ~ Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test1veg , family = "poisson")
+summary(abund.inv2)
+performance::r2(abund.inv2)
 
 percent.abund <- dredge(glmmTMB(percent.abund ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test1veg , family = "beta_family"))
+percent.abund
+
+percent.abund1 <- glmmTMB(percent.abund ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test1veg , family = "beta_family")
+summary(percent.abund1)
+performance::r2(percent.abund1)
+
+percent.abund2 <- glmmTMB(percent.abund ~  Dist_trail_std  + (1 | ForestID), data= test1veg , family = "beta_family")
+summary(percent.abund2)
+performance::r2(percent.abund2)
+
+percent.abund3 <- glmmTMB(percent.abund ~ Dist_edge_std +  (1 | ForestID), data= test1veg , family = "beta_family")
+summary(percent.abund3)
+performance::r2(percent.abund3)
+
 
 #R2
 Ralpha.all <- performance::r2(glmmTMB(alpha.all ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test1veg , family = "poisson"))
 Ralpha.inv <- version2(glmmTMB(alpha.inv ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test1veg , family = "poisson"))
-#Rpercent.alfa <- version2(glmmTMB(percent.alfa ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test1veg , family = "beta_family"))
+Rpercent.alfa <- version2(glmmTMB(percent.alfa ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test1veg , family = "beta_family"))
 Rabund.all <- version2(glmmTMB(abund.all ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test1veg , family = "poisson"))
 Rabund.inv <- version2(glmmTMB(abund.inv ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test1veg , family = "poisson"))
 #Rpercent.abund <- version2(glmmTMB(percent.abund ~ Dist_edge_std + Dist_trail_std + Dist_trail_beginning_std + (1 | ForestID), data= test1veg , family = "beta_family"))
